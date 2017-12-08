@@ -13,14 +13,14 @@
       "launchBrowser": true,
       "launchUrl": "https://localhost:44387/",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCOREENVIRONMENT": "Development"
       }
     },
     "ShredMates.Web": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCOREENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:1123/"
     }

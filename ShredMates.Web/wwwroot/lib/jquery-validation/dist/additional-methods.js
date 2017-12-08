@@ -20,7 +20,7 @@
 		// remove html tags and space chars
 		return value.replace(/<.[^<>]*?>/g, " ").replace(/&nbsp;|&#160;/gi, " ")
 		// remove punctuation
-		.replace(/[.(),;:!?%#$'\"_+=\/\-“”’]*/g, "");
+		.replace(/[.(),;:!?%#$'\"+=\/\-“”’]*/g, "");
 	}
 
 	$.validator.addMethod("maxWords", function(value, element, params) {
@@ -128,7 +128,7 @@ $.validator.addMethod("bic", function(value, element) {
 
 /*
  * Código de identificación fiscal ( CIF ) is the tax identification code for Spanish legal entities
- * Further rules can be found in Spanish on http://es.wikipedia.org/wiki/C%C3%B3digo_de_identificaci%C3%B3n_fiscal
+ * Further rules can be found in Spanish on http://es.wikipedia.org/wiki/C%C3%B3digodeidentificaci%C3%B3nfiscal
  */
 $.validator.addMethod( "cifES", function( value ) {
 	"use strict";
@@ -194,7 +194,7 @@ $.validator.addMethod( "cifES", function( value ) {
  */
 $.validator.addMethod("cpfBR", function(value) {
 	// Removing special characters from value
-	value = value.replace(/([~!@#$%^&*()_+=`{}\[\]\-|\\:;'<>,.\/? ])+/g, "");
+	value = value.replace(/([~!@#$%^&*()+=`{}\[\]\-|\\:;'<>,.\/? ])+/g, "");
 
 	// Checking value to have 11 digits only
 	if (value.length !== 11) {
@@ -572,12 +572,12 @@ $.validator.addMethod("mobileNL", function(value, element) {
  * Extract $1 and set $prefix to '+44<space>' if $1 is '44', otherwise set $prefix to '0'
  * Extract $2 and remove hyphens, spaces and parentheses. Phone number is combined $prefix and $2.
  * A number of very detailed GB telephone number RegEx patterns can also be found at:
- * http://www.aa-asterisk.org.uk/index.php/Regular_Expressions_for_Validating_and_Formatting_GB_Telephone_Numbers
+ * http://www.aa-asterisk.org.uk/index.php/RegularExpressionsforValidatingandFormattingGBTelephoneNumbers
  */
-$.validator.addMethod("mobileUK", function(phone_number, element) {
-	phone_number = phone_number.replace(/\(|\)|\s+|-/g, "");
-	return this.optional(element) || phone_number.length > 9 &&
-		phone_number.match(/^(?:(?:(?:00\s?|\+)44\s?|0)7(?:[1345789]\d{2}|624)\s?\d{3}\s?\d{3})$/);
+$.validator.addMethod("mobileUK", function(phonenumber, element) {
+	phonenumber = phonenumber.replace(/\(|\)|\s+|-/g, "");
+	return this.optional(element) || phonenumber.length > 9 &&
+		phonenumber.match(/^(?:(?:(?:00\s?|\+)44\s?|0)7(?:[1345789]\d{2}|624)\s?\d{3}\s?\d{3})$/);
 }, "Please specify a valid mobile number");
 
 /*
@@ -685,12 +685,12 @@ $.validator.addMethod("phoneNL", function(value, element) {
  * Extract $1 and set $prefix to '+44<space>' if $1 is '44', otherwise set $prefix to '0'
  * Extract $2 and remove hyphens, spaces and parentheses. Phone number is combined $prefix and $2.
  * A number of very detailed GB telephone number RegEx patterns can also be found at:
- * http://www.aa-asterisk.org.uk/index.php/Regular_Expressions_for_Validating_and_Formatting_GB_Telephone_Numbers
+ * http://www.aa-asterisk.org.uk/index.php/RegularExpressionsforValidatingandFormattingGBTelephoneNumbers
  */
-$.validator.addMethod("phoneUK", function(phone_number, element) {
-	phone_number = phone_number.replace(/\(|\)|\s+|-/g, "");
-	return this.optional(element) || phone_number.length > 9 &&
-		phone_number.match(/^(?:(?:(?:00\s?|\+)44\s?)|(?:\(?0))(?:\d{2}\)?\s?\d{4}\s?\d{4}|\d{3}\)?\s?\d{3}\s?\d{3,4}|\d{4}\)?\s?(?:\d{5}|\d{3}\s?\d{3})|\d{5}\)?\s?\d{4,5})$/);
+$.validator.addMethod("phoneUK", function(phonenumber, element) {
+	phonenumber = phonenumber.replace(/\(|\)|\s+|-/g, "");
+	return this.optional(element) || phonenumber.length > 9 &&
+		phonenumber.match(/^(?:(?:(?:00\s?|\+)44\s?)|(?:\(?0))(?:\d{2}\)?\s?\d{4}\s?\d{4}|\d{3}\)?\s?\d{3}\s?\d{3,4}|\d{4}\)?\s?(?:\d{5}|\d{3}\s?\d{3})|\d{5}\)?\s?\d{4,5})$/);
 }, "Please specify a valid phone number");
 
 /**
@@ -709,10 +709,10 @@ $.validator.addMethod("phoneUK", function(phone_number, element) {
  * and not
  * 212 123 4567
  */
-$.validator.addMethod("phoneUS", function(phone_number, element) {
-	phone_number = phone_number.replace(/\s+/g, "");
-	return this.optional(element) || phone_number.length > 9 &&
-		phone_number.match(/^(\+?1-?)?(\([2-9]([02-9]\d|1[02-9])\)|[2-9]([02-9]\d|1[02-9]))-?[2-9]([02-9]\d|1[02-9])-?\d{4}$/);
+$.validator.addMethod("phoneUS", function(phonenumber, element) {
+	phonenumber = phonenumber.replace(/\s+/g, "");
+	return this.optional(element) || phonenumber.length > 9 &&
+		phonenumber.match(/^(\+?1-?)?(\([2-9]([02-9]\d|1[02-9])\)|[2-9]([02-9]\d|1[02-9]))-?[2-9]([02-9]\d|1[02-9])-?\d{4}$/);
 }, "Please specify a valid phone number");
 
 /* For UK phone functions, do the following server side processing:
@@ -721,13 +721,13 @@ $.validator.addMethod("phoneUS", function(phone_number, element) {
  * Extract $1 and set $prefix to '+44<space>' if $1 is '44', otherwise set $prefix to '0'
  * Extract $2 and remove hyphens, spaces and parentheses. Phone number is combined $prefix and $2.
  * A number of very detailed GB telephone number RegEx patterns can also be found at:
- * http://www.aa-asterisk.org.uk/index.php/Regular_Expressions_for_Validating_and_Formatting_GB_Telephone_Numbers
+ * http://www.aa-asterisk.org.uk/index.php/RegularExpressionsforValidatingandFormattingGBTelephoneNumbers
  */
 //Matches UK landline + mobile, accepting only 01-3 for landline or 07 for mobile to exclude many premium numbers
-$.validator.addMethod("phonesUK", function(phone_number, element) {
-	phone_number = phone_number.replace(/\(|\)|\s+|-/g, "");
-	return this.optional(element) || phone_number.length > 9 &&
-		phone_number.match(/^(?:(?:(?:00\s?|\+)44\s?|0)(?:1\d{8,9}|[23]\d{9}|7(?:[1345789]\d{8}|624\d{6})))$/);
+$.validator.addMethod("phonesUK", function(phonenumber, element) {
+	phonenumber = phonenumber.replace(/\(|\)|\s+|-/g, "");
+	return this.optional(element) || phonenumber.length > 9 &&
+		phonenumber.match(/^(?:(?:(?:00\s?|\+)44\s?|0)(?:1\d{8,9}|[23]\d{9}|7(?:[1345789]\d{8}|624\d{6})))$/);
 }, "Please specify a valid uk phone number");
 
 /**
@@ -755,8 +755,8 @@ $.validator.addMethod( "postalCodeCA", function( value, element ) {
 * 99.999-999
 * 99999999
 */
-$.validator.addMethod("postalcodeBR", function(cep_value, element) {
-	return this.optional(element) || /^\d{2}.\d{3}-\d{3}?$|^\d{5}-?\d{3}?$/.test( cep_value );
+$.validator.addMethod("postalcodeBR", function(cepvalue, element) {
+	return this.optional(element) || /^\d{2}.\d{3}-\d{3}?$|^\d{5}-?\d{3}?$/.test( cepvalue );
 }, "Informe um CEP válido.");
 
 /* Matches Italian postcode (CAP) */
@@ -783,30 +783,30 @@ $.validator.addMethod("postcodeUK", function(value, element) {
  *
  *	...will validate unless at least one of them is filled.
  *
- * partnumber:	{require_from_group: [1,".productinfo"]},
- * description: {require_from_group: [1,".productinfo"]}
+ * partnumber:	{requirefromgroup: [1,".productinfo"]},
+ * description: {requirefromgroup: [1,".productinfo"]}
  *
  * options[0]: number of fields that must be filled in the group
  * options[1]: CSS selector that defines the group of conditionally required fields
  */
-$.validator.addMethod("require_from_group", function(value, element, options) {
+$.validator.addMethod("requirefromgroup", function(value, element, options) {
 	var $fields = $(options[1], element.form),
 		$fieldsFirst = $fields.eq(0),
-		validator = $fieldsFirst.data("valid_req_grp") ? $fieldsFirst.data("valid_req_grp") : $.extend({}, this),
+		validator = $fieldsFirst.data("validreqgrp") ? $fieldsFirst.data("validreqgrp") : $.extend({}, this),
 		isValid = $fields.filter(function() {
 			return validator.elementValue(this);
 		}).length >= options[0];
 
 	// Store the cloned validator for future validation
-	$fieldsFirst.data("valid_req_grp", validator);
+	$fieldsFirst.data("validreqgrp", validator);
 
-	// If element isn't being validated, run each require_from_group field's validation rules
-	if (!$(element).data("being_validated")) {
-		$fields.data("being_validated", true);
+	// If element isn't being validated, run each requirefromgroup field's validation rules
+	if (!$(element).data("beingvalidated")) {
+		$fields.data("beingvalidated", true);
 		$fields.each(function() {
 			validator.element(this);
 		});
-		$fields.data("being_validated", false);
+		$fields.data("beingvalidated", false);
 	}
 	return isValid;
 }, $.validator.format("Please fill at least {0} of these fields."));
@@ -824,33 +824,33 @@ $.validator.addMethod("require_from_group", function(value, element, options) {
  *	...will validate unless either at least two of them are filled,
  *	OR none of them are.
  *
- * partnumber:	{skip_or_fill_minimum: [2,".productinfo"]},
- * description: {skip_or_fill_minimum: [2,".productinfo"]},
- * color:		{skip_or_fill_minimum: [2,".productinfo"]}
+ * partnumber:	{skiporfillminimum: [2,".productinfo"]},
+ * description: {skiporfillminimum: [2,".productinfo"]},
+ * color:		{skiporfillminimum: [2,".productinfo"]}
  *
  * options[0]: number of fields that must be filled in the group
  * options[1]: CSS selector that defines the group of conditionally required fields
  *
  */
-$.validator.addMethod("skip_or_fill_minimum", function(value, element, options) {
+$.validator.addMethod("skiporfillminimum", function(value, element, options) {
 	var $fields = $(options[1], element.form),
 		$fieldsFirst = $fields.eq(0),
-		validator = $fieldsFirst.data("valid_skip") ? $fieldsFirst.data("valid_skip") : $.extend({}, this),
+		validator = $fieldsFirst.data("validskip") ? $fieldsFirst.data("validskip") : $.extend({}, this),
 		numberFilled = $fields.filter(function() {
 			return validator.elementValue(this);
 		}).length,
 		isValid = numberFilled === 0 || numberFilled >= options[0];
 
 	// Store the cloned validator for future validation
-	$fieldsFirst.data("valid_skip", validator);
+	$fieldsFirst.data("validskip", validator);
 
-	// If element isn't being validated, run each skip_or_fill_minimum field's validation rules
-	if (!$(element).data("being_validated")) {
-		$fields.data("being_validated", true);
+	// If element isn't being validated, run each skiporfillminimum field's validation rules
+	if (!$(element).data("beingvalidated")) {
+		$fields.data("beingvalidated", true);
 		$fields.each(function() {
 			validator.element(this);
 		});
-		$fields.data("being_validated", false);
+		$fields.data("beingvalidated", false);
 	}
 	return isValid;
 }, $.validator.format("Please either skip these fields or fill at least {0} of them."));
@@ -929,7 +929,7 @@ $.validator.addMethod("time12h", function(value, element) {
 
 // same as url, but TLD is optional
 $.validator.addMethod("url2", function(value, element) {
-	return this.optional(element) || /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)*(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value);
+	return this.optional(element) || /^(https?|ftp):\/\/(((([a-z]|\d|-|\.||~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.||~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)*(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.||~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.||~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.||~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.||~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.||~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value);
 }, $.validator.messages.url);
 
 /**

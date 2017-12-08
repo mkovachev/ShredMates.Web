@@ -11,10 +11,18 @@ namespace ShredMates.Data
         {
         }
 
+        // db sets
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Category> Category { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
+            // connections
+            builder.Entity<Product>().ToTable("Product");
+            builder.Entity<Category>().ToTable("Category");
+
             base.OnModelCreating(builder);
-     
         }
     }
 }

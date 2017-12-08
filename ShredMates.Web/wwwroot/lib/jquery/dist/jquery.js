@@ -588,13 +588,13 @@ var i,
 	},
 
 	// General-purpose constants
-	MAX_NEGATIVE = 1 << 31,
+	MAXNEGATIVE = 1 << 31,
 
 	// Instance methods
 	hasOwn = ({}).hasOwnProperty,
 	arr = [],
 	pop = arr.pop,
-	push_native = arr.push,
+	pushnative = arr.push,
 	push = arr.push,
 	slice = arr.slice,
 	// Use a stripped-down indexOf as it's faster than native
@@ -679,7 +679,7 @@ var i,
 
 	// CSS escapes http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
 	runescape = new RegExp( "\\\\([\\da-f]{1,6}" + whitespace + "?|(" + whitespace + ")|.)", "ig" ),
-	funescape = function( _, escaped, escapedWhitespace ) {
+	funescape = function( , escaped, escapedWhitespace ) {
 		var high = "0x" + escaped - 0x10000;
 		// NaN means non-codepoint
 		// Support: Firefox<24
@@ -701,7 +701,7 @@ var i,
 		setDocument();
 	};
 
-// Optimize for push.apply( _, NodeList )
+// Optimize for push.apply( , NodeList )
 try {
 	push.apply(
 		(arr = slice.call( preferredDoc.childNodes )),
@@ -715,7 +715,7 @@ try {
 
 		// Leverage slice if possible
 		function( target, els ) {
-			push_native.apply( target, slice.call(els) );
+			pushnative.apply( target, slice.call(els) );
 		} :
 
 		// Support: IE<9
@@ -937,8 +937,8 @@ function addHandle( attrs, handler ) {
 function siblingCheck( a, b ) {
 	var cur = b && a,
 		diff = cur && a.nodeType === 1 && b.nodeType === 1 &&
-			( ~b.sourceIndex || MAX_NEGATIVE ) -
-			( ~a.sourceIndex || MAX_NEGATIVE );
+			( ~b.sourceIndex || MAXNEGATIVE ) -
+			( ~a.sourceIndex || MAXNEGATIVE );
 
 	// Use IE sourceIndex if available on both nodes
 	if ( diff ) {
@@ -1188,7 +1188,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// Support: IE8, Opera 11-12.16
 			// Nothing should be selected when empty strings follow ^= or $= or *=
 			// The test attribute must be unknown in Opera but "safe" for WinRT
-			// http://msdn.microsoft.com/en-us/library/ie/hh465388.aspx#attribute_section
+			// http://msdn.microsoft.com/en-us/library/ie/hh465388.aspx#attributesection
 			if ( div.querySelectorAll("[msallowcapture^='']").length ) {
 				rbuggyQSA.push( "[*^$]=" + whitespace + "*(?:''|\"\")" );
 			}
@@ -1212,7 +1212,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 
 			// Support: Safari 8+, iOS 8+
-			// https://bugs.webkit.org/show_bug.cgi?id=136851
+			// https://bugs.webkit.org/showbug.cgi?id=136851
 			// In-page `selector#id sibing-combinator selector` fails
 			if ( !div.querySelectorAll( "a#" + expando + "+*" ).length ) {
 				rbuggyQSA.push(".#.+[+~]");
@@ -2446,7 +2446,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 
 			// Apply set filters to unmatched elements
 			// NOTE: This can be skipped if there are no unmatched elements (i.e., `matchedCount`
-			// equals `i`), unless we didn't visit _any_ elements in the above loop because we have
+			// equals `i`), unless we didn't visit any elements in the above loop because we have
 			// no element matchers and no seed.
 			// Incrementing an initially-string "0" `i` allows `i` to remain a string only in that
 			// case, which will result in a "00" `matchedCount` that differs from `i` but is also
@@ -3108,7 +3108,7 @@ var rnotwhite = ( /\S+/g );
 // Convert String-formatted options into Object-formatted ones
 function createOptions( options ) {
 	var object = {};
-	jQuery.each( options.match( rnotwhite ) || [], function( _, flag ) {
+	jQuery.each( options.match( rnotwhite ) || [], function( , flag ) {
 		object[ flag ] = true;
 	} );
 	return object;
@@ -3224,7 +3224,7 @@ jQuery.Callbacks = function( options ) {
 					}
 
 					( function add( args ) {
-						jQuery.each( args, function( _, arg ) {
+						jQuery.each( args, function( , arg ) {
 							if ( jQuery.isFunction( arg ) ) {
 								if ( !options.unique || !self.has( arg ) ) {
 									list.push( arg );
@@ -3246,7 +3246,7 @@ jQuery.Callbacks = function( options ) {
 
 			// Remove a callback from the list
 			remove: function() {
-				jQuery.each( arguments, function( _, arg ) {
+				jQuery.each( arguments, function( , arg ) {
 					var index;
 					while ( ( index = jQuery.inArray( arg, list, index ) ) > -1 ) {
 						list.splice( index, 1 );
@@ -3402,7 +3402,7 @@ jQuery.extend( {
 					// state = [ resolved | rejected ]
 					state = stateString;
 
-				// [ reject_list | resolve_list ].disable; progress_list.lock
+				// [ rejectlist | resolvelist ].disable; progresslist.lock
 				}, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
 			}
 
@@ -3641,8 +3641,8 @@ var acceptData = function( owner ) {
 
 	// Accepts only:
 	//  - Node
-	//    - Node.ELEMENT_NODE
-	//    - Node.DOCUMENT_NODE
+	//    - Node.ELEMENTNODE
+	//    - Node.DOCUMENTNODE
 	//  - Object
 	//    - Any
 	/* jshint -W018 */
@@ -3797,7 +3797,7 @@ Data.prototype = {
 				// If "name" is an array of keys...
 				// When data is initially created, via ("key", "val") signature,
 				// keys will be converted to camelCase.
-				// Since there is no way to tell _how_ a key was added, remove
+				// Since there is no way to tell how a key was added, remove
 				// both plain key and camelCase key. #12786
 				// This will only penalize the array argument path.
 				name = key.concat( key.map( jQuery.camelCase ) );
@@ -3855,7 +3855,7 @@ var dataUser = new Data();
 //	2. Improve the module's maintainability by reducing the storage
 //		paths to a single mechanism.
 //	3. Use the same single mechanism to support "private" and "user" data.
-//	4. _Never_ expose "private" data to user code (TODO: Drop _data, _removeData)
+//	4. Never expose "private" data to user code (TODO: Drop data, removeData)
 //	5. Avoid exposing implementation details on user objects (eg. expando properties)
 //	6. Provide a clear path for implementation upgrade to WeakMap in 2014
 
@@ -3905,13 +3905,13 @@ jQuery.extend( {
 		dataUser.remove( elem, name );
 	},
 
-	// TODO: Now that all calls to _data and _removeData have been replaced
+	// TODO: Now that all calls to data and removeData have been replaced
 	// with direct calls to dataPriv methods, these can be deprecated.
-	_data: function( elem, name, data ) {
+	data: function( elem, name, data ) {
 		return dataPriv.access( elem, name, data );
 	},
 
-	_removeData: function( elem, name ) {
+	removeData: function( elem, name ) {
 		dataPriv.remove( elem, name );
 	}
 } );
@@ -4010,7 +4010,7 @@ jQuery.fn.extend( {
 				// This might not apply to all properties...*
 				dataUser.set( this, camelKey, value );
 
-				// *... In the case of properties that might _actually_
+				// *... In the case of properties that might actually
 				// have dashes, we need to also store a copy of that
 				// unchanged property.
 				if ( key.indexOf( "-" ) > -1 && data !== undefined ) {
@@ -4054,7 +4054,7 @@ jQuery.extend( {
 		var queue = jQuery.queue( elem, type ),
 			startLength = queue.length,
 			fn = queue.shift(),
-			hooks = jQuery._queueHooks( elem, type ),
+			hooks = jQuery.queueHooks( elem, type ),
 			next = function() {
 				jQuery.dequeue( elem, type );
 			};
@@ -4084,7 +4084,7 @@ jQuery.extend( {
 	},
 
 	// Not public - generate a queueHooks object, or return the current one
-	_queueHooks: function( elem, type ) {
+	queueHooks: function( elem, type ) {
 		var key = type + "queueHooks";
 		return dataPriv.get( elem, key ) || dataPriv.access( elem, key, {
 			empty: jQuery.Callbacks( "once memory" ).add( function() {
@@ -4114,7 +4114,7 @@ jQuery.fn.extend( {
 				var queue = jQuery.queue( this, type, data );
 
 				// Ensure a hooks for this queue
-				jQuery._queueHooks( this, type );
+				jQuery.queueHooks( this, type );
 
 				if ( type === "fx" && queue[ 0 ] !== "inprogress" ) {
 					jQuery.dequeue( this, type );
@@ -4258,7 +4258,7 @@ var wrapMap = {
 	tr: [ 2, "<table><tbody>", "</tbody></table>" ],
 	td: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
 
-	_default: [ 0, "", "" ]
+	default: [ 0, "", "" ]
 };
 
 // Support: IE9
@@ -4317,7 +4317,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 			if ( jQuery.type( elem ) === "object" ) {
 
 				// Support: Android<4.1, PhantomJS<2
-				// push.apply(_, arraylike) throws on ancient WebKit
+				// push.apply(, arraylike) throws on ancient WebKit
 				jQuery.merge( nodes, elem.nodeType ? [ elem ] : elem );
 
 			// Convert non-html into a text node
@@ -4330,7 +4330,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 
 				// Deserialize a standard representation
 				tag = ( rtagName.exec( elem ) || [ "", "" ] )[ 1 ].toLowerCase();
-				wrap = wrapMap[ tag ] || wrapMap._default;
+				wrap = wrapMap[ tag ] || wrapMap.default;
 				tmp.innerHTML = wrap[ 1 ] + jQuery.htmlPrefilter( elem ) + wrap[ 2 ];
 
 				// Descend through wrappers to the right content
@@ -4340,7 +4340,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 				}
 
 				// Support: Android<4.1, PhantomJS<2
-				// push.apply(_, arraylike) throws on ancient WebKit
+				// push.apply(, arraylike) throws on ancient WebKit
 				jQuery.merge( nodes, tmp.childNodes );
 
 				// Remember the top-level container
@@ -4929,7 +4929,7 @@ jQuery.event = {
 			},
 
 			// For cross-browser consistency, don't fire native .click() on links
-			_default: function( event ) {
+			default: function( event ) {
 				return jQuery.nodeName( event.target, "a" );
 			}
 		},
@@ -5254,7 +5254,7 @@ function domManip( collection, args, callback, ignored ) {
 					if ( hasScripts ) {
 
 						// Support: Android<4.1, PhantomJS<2
-						// push.apply(_, arraylike) throws on ancient WebKit
+						// push.apply(, arraylike) throws on ancient WebKit
 						jQuery.merge( scripts, getAll( node, "script" ) );
 					}
 				}
@@ -5278,8 +5278,8 @@ function domManip( collection, args, callback, ignored ) {
 						if ( node.src ) {
 
 							// Optional AJAX dependency, but won't run scripts if not present
-							if ( jQuery._evalUrl ) {
-								jQuery._evalUrl( node.src );
+							if ( jQuery.evalUrl ) {
+								jQuery.evalUrl( node.src );
 							}
 						} else {
 							jQuery.globalEval( node.textContent.replace( rcleanScript, "" ) );
@@ -5559,7 +5559,7 @@ jQuery.each( {
 			jQuery( insert[ i ] )[ original ]( elems );
 
 			// Support: QtWebKit
-			// .get() because push.apply(_, arraylike) throws
+			// .get() because push.apply(, arraylike) throws
 			push.apply( ret, elems.get() );
 		}
 
@@ -5967,8 +5967,8 @@ function getWidthOrHeight( elem, name, extra ) {
 	}
 
 	// Some non-html elements return undefined for offsetWidth, so check for null/undefined
-	// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
-	// MathML - https://bugzilla.mozilla.org/show_bug.cgi?id=491668
+	// svg - https://bugzilla.mozilla.org/showbug.cgi?id=649285
+	// MathML - https://bugzilla.mozilla.org/showbug.cgi?id=491668
 	if ( val <= 0 || val == null ) {
 
 		// Fall back to computed then uncomputed css if necessary
@@ -6352,7 +6352,7 @@ Tween.prototype = {
 	init: function( elem, options, prop, end, easing, unit ) {
 		this.elem = elem;
 		this.prop = prop;
-		this.easing = easing || jQuery.easing._default;
+		this.easing = easing || jQuery.easing.default;
 		this.options = options;
 		this.start = this.now = this.cur();
 		this.end = end;
@@ -6363,7 +6363,7 @@ Tween.prototype = {
 
 		return hooks && hooks.get ?
 			hooks.get( this ) :
-			Tween.propHooks._default.get( this );
+			Tween.propHooks.default.get( this );
 	},
 	run: function( percent ) {
 		var eased,
@@ -6385,7 +6385,7 @@ Tween.prototype = {
 		if ( hooks && hooks.set ) {
 			hooks.set( this );
 		} else {
-			Tween.propHooks._default.set( this );
+			Tween.propHooks.default.set( this );
 		}
 		return this;
 	}
@@ -6394,7 +6394,7 @@ Tween.prototype = {
 Tween.prototype.init.prototype = Tween.prototype;
 
 Tween.propHooks = {
-	_default: {
+	default: {
 		get: function( tween ) {
 			var result;
 
@@ -6449,7 +6449,7 @@ jQuery.easing = {
 	swing: function( p ) {
 		return 0.5 - Math.cos( p * Math.PI ) / 2;
 	},
-	_default: "swing"
+	default: "swing"
 };
 
 jQuery.fx = Tween.prototype.init;
@@ -6519,7 +6519,7 @@ function defaultPrefilter( elem, props, opts ) {
 
 	// Handle queue: false promises
 	if ( !opts.queue ) {
-		hooks = jQuery._queueHooks( elem, "fx" );
+		hooks = jQuery.queueHooks( elem, "fx" );
 		if ( hooks.unqueued == null ) {
 			hooks.unqueued = 0;
 			oldfire = hooks.empty.fire;
@@ -6723,7 +6723,7 @@ function Animation( elem, properties, options ) {
 			props: jQuery.extend( {}, properties ),
 			opts: jQuery.extend( true, {
 				specialEasing: {},
-				easing: jQuery.easing._default
+				easing: jQuery.easing.default
 			}, options ),
 			originalProperties: properties,
 			originalOptions: options,
@@ -6768,7 +6768,7 @@ function Animation( elem, properties, options ) {
 		result = Animation.prefilters[ index ].call( animation, elem, props, animation.opts );
 		if ( result ) {
 			if ( jQuery.isFunction( result.stop ) ) {
-				jQuery._queueHooks( animation.elem, animation.opts.queue ).stop =
+				jQuery.queueHooks( animation.elem, animation.opts.queue ).stop =
 					jQuery.proxy( result.stop, result );
 			}
 			return result;
@@ -6845,7 +6845,7 @@ jQuery.speed = function( speed, easing, fn ) {
 
 	opt.duration = jQuery.fx.off ? 0 : typeof opt.duration === "number" ?
 		opt.duration : opt.duration in jQuery.fx.speeds ?
-			jQuery.fx.speeds[ opt.duration ] : jQuery.fx.speeds._default;
+			jQuery.fx.speeds[ opt.duration ] : jQuery.fx.speeds.default;
 
 	// Normalize opt.queue - true/undefined/null -> "fx"
 	if ( opt.queue == null || opt.queue === true ) {
@@ -7064,7 +7064,7 @@ jQuery.fx.speeds = {
 	fast: 200,
 
 	// Default speed
-	_default: 400
+	default: 400
 };
 
 
@@ -7485,7 +7485,7 @@ jQuery.fn.extend( {
 				if ( className ) {
 
 					// Store className if set
-					dataPriv.set( this, "__className__", className );
+					dataPriv.set( this, "className", className );
 				}
 
 				// If the element has a class name or if we're passed `false`,
@@ -7496,7 +7496,7 @@ jQuery.fn.extend( {
 					this.setAttribute( "class",
 						className || value === false ?
 						"" :
-						dataPriv.get( this, "__className__" ) || ""
+						dataPriv.get( this, "className" ) || ""
 					);
 				}
 			}
@@ -7802,8 +7802,8 @@ jQuery.extend( jQuery.event, {
 		// If nobody prevented the default action, do it now
 		if ( !onlyHandlers && !event.isDefaultPrevented() ) {
 
-			if ( ( !special._default ||
-				special._default.apply( eventPath.pop(), data ) === false ) &&
+			if ( ( !special.default ||
+				special.default.apply( eventPath.pop(), data ) === false ) &&
 				acceptData( elem ) ) {
 
 				// Call a native DOM method on the target with the same name name as the event.
@@ -7908,7 +7908,7 @@ support.focusin = "onfocusin" in window;
 
 // Support: Firefox
 // Firefox doesn't have focus(in | out) events
-// Related ticket - https://bugzilla.mozilla.org/show_bug.cgi?id=687787
+// Related ticket - https://bugzilla.mozilla.org/showbug.cgi?id=687787
 //
 // Support: Chrome, Safari
 // focus(in | out) events fire after focus & blur events,
@@ -7985,7 +7985,7 @@ jQuery.parseXML = function( data ) {
 
 var
 	rhash = /#.*$/,
-	rts = /([?&])_=[^&]*/,
+	rts = /([?&])=[^&]*/,
 	rheaders = /^(.*?):[ \t]*([^\r\n]*)$/mg,
 
 	// #7653, #8125, #8152: local protocol detection
@@ -8061,7 +8061,7 @@ function inspectPrefiltersOrTransports( structure, options, originalOptions, jqX
 	function inspect( dataType ) {
 		var selected;
 		inspected[ dataType ] = true;
-		jQuery.each( structure[ dataType ] || [], function( _, prefilterOrFactory ) {
+		jQuery.each( structure[ dataType ] || [], function( , prefilterOrFactory ) {
 			var dataTypeOrTransport = prefilterOrFactory( options, originalOptions, jqXHR );
 			if ( typeof dataTypeOrTransport === "string" &&
 				!seekingTransport && !inspected[ dataTypeOrTransport ] ) {
@@ -8569,11 +8569,11 @@ jQuery.extend( {
 			if ( s.cache === false ) {
 				s.url = rts.test( cacheURL ) ?
 
-					// If there is already a '_' parameter, set its value
-					cacheURL.replace( rts, "$1_=" + nonce++ ) :
+					// If there is already a '' parameter, set its value
+					cacheURL.replace( rts, "$1=" + nonce++ ) :
 
 					// Otherwise add one to the end
-					cacheURL + ( rquery.test( cacheURL ) ? "&" : "?" ) + "_=" + nonce++;
+					cacheURL + ( rquery.test( cacheURL ) ? "&" : "?" ) + "=" + nonce++;
 			}
 		}
 
@@ -8812,7 +8812,7 @@ jQuery.each( [ "get", "post" ], function( i, method ) {
 } );
 
 
-jQuery._evalUrl = function( url ) {
+jQuery.evalUrl = function( url ) {
 	return jQuery.ajax( {
 		url: url,
 
@@ -9225,7 +9225,7 @@ jQuery.ajaxTransport( "script", function( s ) {
 	if ( s.crossDomain ) {
 		var script, callback;
 		return {
-			send: function( _, complete ) {
+			send: function( , complete ) {
 				script = jQuery( "<script>" ).prop( {
 					charset: s.scriptCharset,
 					src: s.url
@@ -9262,7 +9262,7 @@ var oldCallbacks = [],
 jQuery.ajaxSetup( {
 	jsonp: "callback",
 	jsonpCallback: function() {
-		var callback = oldCallbacks.pop() || ( jQuery.expando + "_" + ( nonce++ ) );
+		var callback = oldCallbacks.pop() || ( jQuery.expando + "" + ( nonce++ ) );
 		this[ callback ] = true;
 		return callback;
 	}
@@ -9354,7 +9354,7 @@ jQuery.ajaxPrefilter( "json jsonp", function( s, originalSettings, jqXHR ) {
 // In Safari 8 documents created via document.implementation.createHTMLDocument
 // collapse sibling forms: the second one becomes a child of the first one.
 // Because of that, this security measure has to be disabled in Safari 8.
-// https://bugs.webkit.org/show_bug.cgi?id=137337
+// https://bugs.webkit.org/showbug.cgi?id=137337
 support.createHTMLDocument = ( function() {
 	var body = document.implementation.createHTMLDocument( "" ).body;
 	body.innerHTML = "<form></form><form></form>";
@@ -9400,14 +9400,14 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 
 
 // Keep a copy of the old load method
-var _load = jQuery.fn.load;
+var load = jQuery.fn.load;
 
 /**
  * Load a url into a page
  */
 jQuery.fn.load = function( url, params, callback ) {
-	if ( typeof url !== "string" && _load ) {
-		return _load.apply( this, arguments );
+	if ( typeof url !== "string" && load ) {
+		return load.apply( this, arguments );
 	}
 
 	var selector, type, response,
@@ -9683,7 +9683,7 @@ jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( 
 
 // Support: Safari<7-8+, Chrome<37-44+
 // Add the top/left cssHooks using jQuery.fn.position
-// Webkit bug: https://bugs.webkit.org/show_bug.cgi?id=29084
+// Webkit bug: https://bugs.webkit.org/showbug.cgi?id=29084
 // Blink bug: https://code.google.com/p/chromium/issues/detail?id=229280
 // getComputedStyle returns percent when specified for top/left/bottom/right;
 // rather than make the css module depend on the offset module, just check for it here
@@ -9803,18 +9803,18 @@ if ( typeof define === "function" && define.amd ) {
 var
 
 	// Map over jQuery in case of overwrite
-	_jQuery = window.jQuery,
+	jQuery = window.jQuery,
 
 	// Map over the $ in case of overwrite
-	_$ = window.$;
+	$ = window.$;
 
 jQuery.noConflict = function( deep ) {
 	if ( window.$ === jQuery ) {
-		window.$ = _$;
+		window.$ = $;
 	}
 
 	if ( deep && window.jQuery === jQuery ) {
-		window.jQuery = _jQuery;
+		window.jQuery = jQuery;
 	}
 
 	return jQuery;

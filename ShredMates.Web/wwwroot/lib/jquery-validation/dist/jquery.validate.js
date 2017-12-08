@@ -1183,7 +1183,7 @@ $.extend( $.validator, {
 			// Retrieved 2014-01-14
 			// If you have a problem with this implementation, report a bug against the above spec
 			// Or use custom methods to implement your own email validation
-			return this.optional( element ) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test( value );
+			return this.optional( element ) || /^[a-zA-Z0-9.!#$%&'*+\/=?^`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test( value );
 		},
 
 		// http://jqueryvalidation.org/url-method/
@@ -1217,7 +1217,7 @@ $.extend( $.validator, {
 		},
 
 		// http://jqueryvalidation.org/creditcard-method/
-		// based on http://en.wikipedia.org/wiki/Luhn_algorithm
+		// based on http://en.wikipedia.org/wiki/Luhnalgorithm
 		creditcard: function( value, element ) {
 			if ( this.optional( element ) ) {
 				return "dependency-mismatch";
@@ -1234,7 +1234,7 @@ $.extend( $.validator, {
 			value = value.replace( /\D/g, "" );
 
 			// Basing min and max length on
-			// http://developer.ean.com/general_info/Valid_Credit_Card_Types
+			// http://developer.ean.com/generalinfo/ValidCreditCardTypes
 			if ( value.length < 13 || value.length > 19 ) {
 				return false;
 			}
@@ -1369,7 +1369,7 @@ var pendingRequests = {},
 	ajax;
 // Use a prefilter if available (1.5+)
 if ( $.ajaxPrefilter ) {
-	$.ajaxPrefilter(function( settings, _, xhr ) {
+	$.ajaxPrefilter(function( settings, , xhr ) {
 		var port = settings.port;
 		if ( settings.mode === "abort" ) {
 			if ( pendingRequests[port] ) {

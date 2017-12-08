@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShredMates.Web", "ShredMates.Web\ShredMates.Web.csproj", "{B6ACBE42-32E2-4602-B30E-34BB82AB8DBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShredMates.Data", "ShredMates.Data\ShredMates.Data.csproj", "{D8649E4E-E576-44A7-AE37-DE4ECC53805E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6ACBE42-32E2-4602-B30E-34BB82AB8DBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6ACBE42-32E2-4602-B30E-34BB82AB8DBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6ACBE42-32E2-4602-B30E-34BB82AB8DBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6ACBE42-32E2-4602-B30E-34BB82AB8DBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8649E4E-E576-44A7-AE37-DE4ECC53805E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8649E4E-E576-44A7-AE37-DE4ECC53805E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8649E4E-E576-44A7-AE37-DE4ECC53805E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8649E4E-E576-44A7-AE37-DE4ECC53805E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A356364F-BC22-4E74-8E97-0F91A1ACA494}
+	EndGlobalSection
+EndGlobal

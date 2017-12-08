@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ShredMates.Data\ShredMates.Data.csproj" />
+    <ProjectReference Include="..\ShredMates.Services\ShredMates.Services.csproj" />
   </ItemGroup>
 
 </Project>

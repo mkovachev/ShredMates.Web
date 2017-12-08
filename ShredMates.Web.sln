@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShredMates.Web", "ShredMates.Web\ShredMates.Web.csproj", "{B6ACBE42-32E2-4602-B30E-34BB82AB8DBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShredMates.Web", "ShredMates.Web\ShredMates.Web.csproj", "{B6ACBE42-32E2-4602-B30E-34BB82AB8DBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShredMates.Data", "ShredMates.Data\ShredMates.Data.csproj", "{D8649E4E-E576-44A7-AE37-DE4ECC53805E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShredMates.Data", "ShredMates.Data\ShredMates.Data.csproj", "{D8649E4E-E576-44A7-AE37-DE4ECC53805E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShredMates.Services", "ShredMates.Services\ShredMates.Services.csproj", "{D7DBBE16-C620-48B5-BB58-8E92A77B74FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShredMates.Common", "ShredMates.Common\ShredMates.Common.csproj", "{6B4877D2-4853-4172-B4C8-F1EE45E7F454}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{D8649E4E-E576-44A7-AE37-DE4ECC53805E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8649E4E-E576-44A7-AE37-DE4ECC53805E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8649E4E-E576-44A7-AE37-DE4ECC53805E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7DBBE16-C620-48B5-BB58-8E92A77B74FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7DBBE16-C620-48B5-BB58-8E92A77B74FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7DBBE16-C620-48B5-BB58-8E92A77B74FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7DBBE16-C620-48B5-BB58-8E92A77B74FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B4877D2-4853-4172-B4C8-F1EE45E7F454}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B4877D2-4853-4172-B4C8-F1EE45E7F454}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B4877D2-4853-4172-B4C8-F1EE45E7F454}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B4877D2-4853-4172-B4C8-F1EE45E7F454}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

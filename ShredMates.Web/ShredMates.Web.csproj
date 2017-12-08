@@ -23,4 +23,9 @@
     <ProjectReference Include="..\ShredMates.Services\ShredMates.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\Filters\" />
+    <Folder Include="Infrastructure\Mapping\" />
+  </ItemGroup>
+
 </Project>

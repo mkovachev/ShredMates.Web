@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ShredMates.Data;
 using ShredMates.Data.Models;
-using ShredMates.Web.Services;
+using ShredMates.Web.Infrastructure.Extensions;
 
 namespace ShredMates.Web
 {
@@ -28,13 +29,15 @@ namespace ShredMates.Web
                 .AddEntityFrameworkStores<ShredMatesDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddAutoMapper(); // auto mapping
 
             services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseDatabaseMigration(); // auto migrations
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

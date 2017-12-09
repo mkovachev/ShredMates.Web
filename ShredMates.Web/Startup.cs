@@ -26,7 +26,7 @@ namespace ShredMates.Web
             services.AddDbContext<ShredMatesDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>(options => 
+            services.AddIdentity<User, IdentityRole>(options =>
             {
                 // set password requirements
                 options.Password.RequireDigit = false;
@@ -41,7 +41,9 @@ namespace ShredMates.Web
 
             services.AddServices(); // auto add services
 
-            services.AddSession(); // for shopping cart
+            services.AddRouting(routing => { routing.LowercaseUrls = true; });
+
+            services.AddSession(); // session for shopping cart
 
             services.AddMvc(options =>
             {

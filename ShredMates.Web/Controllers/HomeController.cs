@@ -17,7 +17,7 @@ namespace ShredMates.Web.Controllers
             // this.HttpContext.Session; // shopping cart
         }
 
-        public async Task<IActionResult> Index(IProductService products)
+        public async Task<IActionResult> Index()
             => View(new HomeIndexViewModel
             {
                 Products = await this.products.AllAsync()

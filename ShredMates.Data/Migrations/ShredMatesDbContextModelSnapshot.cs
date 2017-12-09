@@ -149,12 +149,15 @@ namespace ShredMates.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CategoryId");
+                    b.Property<int>("CategoryId");
 
                     b.Property<DateTime>("CreatedOn");
 
                     b.Property<string>("Description")
                         .HasMaxLength(3000);
+
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(2000);
 
                     b.Property<decimal>("Price")
                         .HasMaxLength(10000);
@@ -268,9 +271,10 @@ namespace ShredMates.Data.Migrations
 
             modelBuilder.Entity("ShredMates.Data.Models.Product", b =>
                 {
-                    b.HasOne("ShredMates.Data.Models.Category")
+                    b.HasOne("ShredMates.Data.Models.Category", "Category")
                         .WithMany("Products")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

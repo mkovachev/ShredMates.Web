@@ -12,8 +12,8 @@ namespace ShredMates.Data
         }
 
         // db sets
-        public DbSet<Product> Product { get; set; }
-        public DbSet<Category> Category { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

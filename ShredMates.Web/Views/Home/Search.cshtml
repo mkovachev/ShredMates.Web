@@ -1,0 +1,28 @@
+﻿@model SearchViewModel
+@{
+    ViewData["Title"] = $"Search Result for: {Model.Search}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <form asp-action="Search">
+        <div class="col-md-4 pull-right">
+            <input asp-for="Search" class="form-control" placeholder="Search..." />
+        </div>
+    </form>
+</div>
+
+<br />
+
+@if (Model.Products.Any())
+{
+    <div class="row home-page">
+        @await Html.PartialAsync("_ShopPartial", Model.Products);
+    </div>
+}
+else
+{
+    <h3>Sorry, no courses found</h3>
+}
+

@@ -32,7 +32,7 @@
                 <ul class="nav navbar-nav">
                     @if (User.Identity.IsAuthenticated && User.IsInRole(WebConstants.AdminRole))
                     {
-                        <li><a asp-area="Admin" asp-controller="Users" asp-action="All">Users</a></li>
+                        <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a></li>
                         <li><a asp-area="Admin" asp-controller="Categories" asp-action="Create">Create Category</a></li>
                         <li><a asp-area="Admin" asp-controller="Products" asp-action="Create">Create Product</a></li>
                     }
@@ -89,7 +89,6 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>

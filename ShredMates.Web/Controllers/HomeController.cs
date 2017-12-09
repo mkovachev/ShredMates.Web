@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShredMates.Services.Contracts;
+using ShredMates.Services.Interfaces;
 using ShredMates.Web.Models;
 using ShredMates.Web.Models.HomeViewModels;
 using System.Diagnostics;

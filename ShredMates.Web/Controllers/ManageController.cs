@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ShredMates.Data.Models;
-using ShredMates.Services.Contracts;
+using ShredMates.Services.Interfaces;
 using ShredMates.Web.Infrastructure.Extensions;
 using ShredMates.Web.Models.ManageViewModels;
 using System;

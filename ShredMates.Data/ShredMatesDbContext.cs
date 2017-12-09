@@ -13,13 +13,17 @@ namespace ShredMates.Data
 
         // db sets
         public DbSet<Product> Products { get; set; }
+
         public DbSet<Category> Categories { get; set; }
+
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // connections
             builder.Entity<Product>().ToTable("Products");
             builder.Entity<Category>().ToTable("Categories");
+            builder.Entity<ShoppingCartItem>().ToTable("ShoppingCartItems");
 
             base.OnModelCreating(builder);
         }

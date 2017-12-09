@@ -133,13 +133,15 @@ namespace ShredMates.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreatedOn");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(60);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("ShredMates.Data.Models.Product", b =>
@@ -149,8 +151,13 @@ namespace ShredMates.Data.Migrations
 
                     b.Property<int?>("CategoryId");
 
+                    b.Property<DateTime>("CreatedOn");
+
                     b.Property<string>("Description")
                         .HasMaxLength(3000);
+
+                    b.Property<decimal>("Price")
+                        .HasMaxLength(10000);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -160,7 +167,7 @@ namespace ShredMates.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("ShredMates.Data.Models.User", b =>

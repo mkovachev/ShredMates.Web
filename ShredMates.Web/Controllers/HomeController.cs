@@ -1,37 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using ShredMates.Services.Contracts;
 using ShredMates.Web.Models;
+using ShredMates.Web.Models.HomeViewModels;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace ShredMates.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IProductService products;
+
+        public HomeController(IProductService products)
         {
-            return View();
+            this.products = products;
+            // this.HttpContext.Session; // shopping cart
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
+        public async Task<IActionResult> Index(IProductService products)
+            => View(new HomeIndexViewModel
+            {
+                Products = await this.products.AllAsync()
+            });
 
-            return View();
-        }
+        public async Task<IActionResult> About() => await Task.Run(() => View());
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
+        public async Task<IActionResult> Contact() => await Task.Run(() => View());
 
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        public async Task<IActionResult> Error()
+             => await Task.Run(() =>
+                    View(new ErrorViewModel
+                    {
+                        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+                    }));
     }
 }

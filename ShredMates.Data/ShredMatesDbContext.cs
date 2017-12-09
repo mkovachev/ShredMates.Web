@@ -17,10 +17,9 @@ namespace ShredMates.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
             // connections
-            builder.Entity<Product>().ToTable("Product");
-            builder.Entity<Category>().ToTable("Category");
+            builder.Entity<Product>().ToTable("Products");
+            builder.Entity<Category>().ToTable("Categories");
 
             base.OnModelCreating(builder);
         }

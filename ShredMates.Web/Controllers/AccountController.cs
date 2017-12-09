@@ -29,10 +29,10 @@ namespace ShredMates.Web.Controllers
             IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
-            userManager = userManager;
-            signInManager = signInManager;
-            emailSender = emailSender;
-            logger = logger;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.emailSender = emailSender;
+            this.logger = logger;
         }
 
         [TempData]

@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Web.Infrastructure.Extensions;
@@ -44,12 +46,15 @@ namespace ShredMates.Web
 
             services.AddRouting(routing => { routing.LowercaseUrls = true; }); // add routing
 
+            // services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddScoped(sp => ShoppingCart.GetCart(sp));
 
             services.AddMvc(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>(); // auto AntiforgeryToken
             });
+
 
             services.AddDistributedMemoryCache(); // add cache
 

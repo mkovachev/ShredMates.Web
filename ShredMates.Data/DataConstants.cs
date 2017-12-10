@@ -16,6 +16,8 @@
         public const int CategoryNameMinLength = 3;
         public const int CategoryNameMaxLength = 60;
 
+        public const int PageSize = 12;
+
         public const int ExamSubmissionFileLength = 2 * 1024 * 1024;
     }
 }

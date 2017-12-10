@@ -1,37 +1,49 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿#cartButton {
+    margin-right: 8px;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+nav {
+    padding: 8px;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+.loginForm {
+    margin: 10%;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+.checkoutForm {
+    margin-top: 5%;
 }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+.orderForm {
+    margin-top: 5%;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #2fa4e7;
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
+a.remove {
+    text-decoration: none;
+}
+
+    a.remove:hover {
+        color: blue;
     }
+
+.center_div {
+    margin: 0 auto;
+    width: 80% /* value of your choice which suits your alignment */
+}
+
+.marginTop {
+    margin-top: 5%;
+}
+
+.marginTop1 {
+    margin-top: 2%;
+}
+
+.formPullRightButton {
+    margin-right: 10px !important
 }
 
 .carousel img {

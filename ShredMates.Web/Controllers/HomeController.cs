@@ -17,7 +17,7 @@ namespace ShredMates.Web.Controllers
         }
 
         public async Task<IActionResult> Index()
-            => View(new HomeIndexViewModel
+            => View(new HomeViewModel
             {
                 Products = await this.products.AllAsync()
             });

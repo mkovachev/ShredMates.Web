@@ -80,7 +80,7 @@ namespace ShredMates.Web
 
             app.UseAuthentication();
 
-            app.UseSession();
+            app.UseSession(); // add session always before app.UseMvc
 
             app.UseMvc(routes =>
             {

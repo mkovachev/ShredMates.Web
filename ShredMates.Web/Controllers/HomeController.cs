@@ -14,7 +14,6 @@ namespace ShredMates.Web.Controllers
         public HomeController(IProductService products)
         {
             this.products = products;
-            // this.HttpContext.Session; // shopping cart
         }
 
         public async Task<IActionResult> Index()

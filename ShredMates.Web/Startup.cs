@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Web.Infrastructure.Extensions;
+using System;
 
 namespace ShredMates.Web
 {
@@ -41,19 +42,28 @@ namespace ShredMates.Web
 
             services.AddServices(); // auto add services
 
-            services.AddRouting(routing => { routing.LowercaseUrls = true; });
+            services.AddRouting(routing => { routing.LowercaseUrls = true; }); // add routing
 
-            services.AddSession(); // session for shopping cart
+            services.AddScoped(sp => ShoppingCart.GetCart(sp));
 
             services.AddMvc(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>(); // auto AntiforgeryToken
             });
+
+            services.AddDistributedMemoryCache(); // add cache
+
+            // add session
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(30);
+                options.Cookie.HttpOnly = true;
+            }); 
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseDatabaseMigration(); // auto migrations
+            //app.UseDatabaseMigration(); // auto migrations
 
             if (env.IsDevelopment())
             {
@@ -69,6 +79,8 @@ namespace ShredMates.Web
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

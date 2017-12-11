@@ -5,12 +5,31 @@
 
 @await Html.PartialAsync("Carousel")
 
+<br />
+
+<div class="row glyphicon-search">
+    <form asp-action="Search">
+        <div class="col-md-4 pull-right">
+            <input class="form-control" placeholder="Search..." />
+        </div>
+    </form>
+</div>
+
+
+<div class="row home-page">
+    @foreach (var product in Model.Products)
+    {
+        @await Html.PartialAsync("AllProducts", product)
+    }
+</div>
+
+
 @{
     var previousDisabled = Model.Current == 1 ? "disabled" : String.Empty;
     var nextDisabled = Model.Next == Model.TotalPages ? "disabled" : String.Empty;
 }
 
-<div class="row">
+<div class="row text-center">
     <ul class="pagination">
         <li class="page-item @previousDisabled"><a class="page-link" href="/index page=@Model.Previous">Previous</a></li>
         @for (int i = 1; i <= Model.TotalPages; i++)
@@ -19,19 +38,4 @@
         }
         <li class="page-item @nextDisabled"><a class="page-link" href="/index?page=@Model.Next">Next</a></li>
     </ul>
-</div>
-
-<div class="row">
-    <form asp-action="Search">
-        <div class="col-md-4 pull-right">
-            <input class="form-control" placeholder="Search..." />
-        </div>
-    </form>
-</div>
-
-<div class="row home-page">
-    @foreach (var product in Model.Products)
-    {
-        @await Html.PartialAsync("AllProducts", product)
-    }
 </div>

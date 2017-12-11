@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShredMates.Data;
 using ShredMates.Services.Interfaces;
 using ShredMates.Web.Models;
 using ShredMates.Web.Models.HomeViewModels;
@@ -12,8 +13,6 @@ namespace ShredMates.Web.Controllers
     {
         private readonly IProductService products;
 
-        private const int PageSize = 12;
-
         public HomeController(IProductService products)
         {
             this.products = products;
@@ -22,9 +21,9 @@ namespace ShredMates.Web.Controllers
         public async Task<IActionResult> Index(int page = 1)
             => View(new HomeViewModel
             {
-                Products = await this.products.AllAsync(page, PageSize),
+                Products = await this.products.AllAsync(page, DataConstants.PageSize),
                 Current = page,
-                TotalPages = (int)Math.Ceiling(this.products.TotalPages() / (double)PageSize)
+                TotalPages = (int)Math.Ceiling(this.products.TotalPages() / (double)DataConstants.PageSize)
             });
 
         public async Task<IActionResult> About() => await Task.Run(() => View());

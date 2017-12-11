@@ -37,8 +37,7 @@
                         <li><a asp-area="Admin" asp-controller="Categories" asp-action="Create">Create Category</a></li>
                         <li><a asp-area="Admin" asp-controller="Products" asp-action="Create">Create Product</a></li>
                     }
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                 <!--For not authorized user-->
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

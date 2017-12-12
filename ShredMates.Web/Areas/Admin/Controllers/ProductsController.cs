@@ -121,14 +121,9 @@ namespace ShredMates.Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            var product = await this.products.FindByIdAsync(id);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-
             await this.products.DeleteAsync(id);
+
+            TempData.AddWarningMessage($"Product deleted successfully!");
 
             return Redirect("/");
         }

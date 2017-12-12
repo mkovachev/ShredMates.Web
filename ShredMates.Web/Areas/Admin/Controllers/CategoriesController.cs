@@ -71,7 +71,7 @@ namespace ShredMates.Web.Areas.Admin.Controllers
 
             await this.categories.EditAsync(id, model.Name);
 
-            TempData.AddSuccessMessage($"Product {model.Name} updated successfully!");
+            TempData.AddSuccessMessage($"Category {model.Name} updated successfully!");
 
             return Redirect("/");
         }
@@ -81,6 +81,8 @@ namespace ShredMates.Web.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await this.categories.DeleteAsync(id);
+
+            TempData.AddWarningMessage($"Category deleted successfully!");
 
             return Redirect("/");
         }

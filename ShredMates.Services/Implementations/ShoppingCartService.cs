@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
@@ -25,11 +23,11 @@ namespace ShredMates.Services.Implementations
 
         public static ShoppingCart GetCart(IServiceProvider services)
         {
-            ISession session = services.GetRequiredService<HttpContextAccessor>()?.HttpContext.Session;
-            var db = services.GetService<ShredMatesDbContext>();
-            var cartId = session.GetString("Id") ?? Guid.NewGuid().ToString();
-            session.SetString("Id", cartId);
-            var shoppingCart = new ShoppingCart() { Id = cartId };
+           // ISession session = services.GetRequiredService<HttpContextAccessor>()?.HttpContext.Session; // TODO
+            //var db = services.GetService<ShredMatesDbContext>();
+            //var cartId = session.GetString("Id") ?? Guid.NewGuid().ToString();
+           // session.SetString("Id", cartId);
+            var shoppingCart = new ShoppingCart() { Id = "Session" };
 
             return shoppingCart;
         }

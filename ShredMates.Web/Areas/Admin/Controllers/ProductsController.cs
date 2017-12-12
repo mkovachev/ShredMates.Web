@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShredMates.Services.Admin.Interfaces;
 using ShredMates.Web.Areas.Admin.Models.Products;
+using ShredMates.Web.Controllers;
 using ShredMates.Web.Infrastructure.Extensions;
 using ShredMates.Web.Models;
 using System;
@@ -116,11 +117,17 @@ namespace ShredMates.Web.Areas.Admin.Controllers
             return Redirect("/");
         }
 
-        public async Task<IActionResult> Delete() => await Task.Run(() => View());
+        public async Task<IActionResult> Delete(int id) => await Task.Run(() => View(id));
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteProduct(int id)
         {
+            var product = await this.products.FindByIdAsync(id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
             await this.products.DeleteAsync(id);
 
             return Redirect("/");

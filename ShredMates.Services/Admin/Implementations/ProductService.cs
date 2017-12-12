@@ -79,7 +79,6 @@ namespace ShredMates.Services.Admin.Implementations
             await this.db.SaveChangesAsync();
         }
 
-
         public bool ExistsById(int id)
         {
             return this.db.Products.Any(c => c.Id == id);

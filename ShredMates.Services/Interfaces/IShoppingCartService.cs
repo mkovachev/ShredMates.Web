@@ -6,6 +6,8 @@ namespace ShredMates.Services.Interfaces
 {
     public interface IShoppingCartService
     {
+        //ShoppingCart InitCart(string id);
+
         Task<ShoppingCartItem> FindItemByIdAsync(int productId);
 
         Task AddItemAsync(Product product, int amount);

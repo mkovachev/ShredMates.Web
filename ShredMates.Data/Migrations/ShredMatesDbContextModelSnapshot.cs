@@ -150,14 +150,12 @@ namespace ShredMates.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<string>("City")
                         .HasMaxLength(10);
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<string>("Email")
@@ -165,11 +163,9 @@ namespace ShredMates.Data.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<DateTime>("OrderPlaced");
@@ -177,11 +173,9 @@ namespace ShredMates.Data.Migrations
                     b.Property<decimal>("OrderTotal");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasMaxLength(25);
 
                     b.Property<string>("PostalCode")
-                        .IsRequired()
                         .HasMaxLength(10);
 
                     b.HasKey("OrderId");
@@ -245,6 +239,16 @@ namespace ShredMates.Data.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("ShredMates.Data.Models.ShoppingCart", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShoppingCart");
+                });
+
             modelBuilder.Entity("ShredMates.Data.Models.ShoppingCartItem", b =>
                 {
                     b.Property<int>("Id")
@@ -259,6 +263,8 @@ namespace ShredMates.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingCartId");
 
                     b.ToTable("ShoppingCartItems");
                 });
@@ -385,6 +391,10 @@ namespace ShredMates.Data.Migrations
                     b.HasOne("ShredMates.Data.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
+
+                    b.HasOne("ShredMates.Data.Models.ShoppingCart")
+                        .WithMany("ShoppingCartItems")
+                        .HasForeignKey("ShoppingCartId");
                 });
 #pragma warning restore 612, 618
         }

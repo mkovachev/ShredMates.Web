@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-<<<<<<< HEAD
-=======
+﻿using Microsoft.AspNetCore.Mvc;
 using ShredMates.Services.Admin.Interfaces;
 using ShredMates.Web.Models;
->>>>>>> master
+using System.Threading.Tasks;
+
 
 namespace ShredMates.Web.Controllers
 {
     public class ProductsController : Controller
     {
-<<<<<<< HEAD
-        public IActionResult Details()
-        {
-            return View();
-=======
+
         private readonly IAdminProductService products;
 
         public ProductsController(IAdminProductService products)
@@ -40,7 +31,7 @@ namespace ShredMates.Web.Controllers
                 Description = product.Description,
                 ImageUrl = product.ImageUrl
             });
->>>>>>> master
+
         }
     }
 }

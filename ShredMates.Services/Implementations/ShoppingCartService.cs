@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
@@ -23,16 +21,27 @@ namespace ShredMates.Services.Implementations
             this.shoppingCart = shoppingCart;
         }
 
-        public static ShoppingCart GetCart(IServiceProvider services)
-        {
-            // ISession session = services.GetService<HttpContextAccessor>()?.HttpContext.Session;
-            // var cartId = session.GetString("Id") ?? Guid.NewGuid().ToString();
-            // session.SetString("Id", cartId);
-            var db = services.GetService<ShredMatesDbContext>();
-            var shoppingCart = new ShoppingCart(db) { Id = Guid.NewGuid().ToString() };
+        //public ShoppingCart InitCart(string id)
+        //{
+        //    this.shoppingCart.Id = id;
+        //    //var shoppingCart = new ShoppingCart
+        //    //{
+        //    //    Id = id
+        //    //};
 
-            return shoppingCart;
-        }
+        //    return shoppingCart;
+        //}
+
+        //public static ShoppingCart GetCart(IServiceProvider services)
+        //{
+        //    ISession session = services.GetService<HttpContextAccessor>()?.HttpContext.Session;
+        //    var cartId = session.GetString("Id") ?? Guid.NewGuid().ToString();
+        //    session.SetString("Id", cartId);
+        //    var db = services.GetService<ShredMatesDbContext>();
+        //    var shoppingCart = new ShoppingCart(db) { Id = cartId };
+
+        //    return shoppingCart;
+        //}
 
         public async Task<List<ShoppingCartItem>> AllItemsAsync()
             => await this.db

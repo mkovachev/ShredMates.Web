@@ -46,14 +46,14 @@ namespace ShredMates.Web.Infrastructure.Extensions
                     }
 
                     // create admin
-                    var admin = await userManager.FindByNameAsync("shredmates@gmail.com");
+                    var admin = await userManager.FindByNameAsync("admin@test.com");
 
                     if (admin == null)
                     {
                         admin = new User
                         {
-                            UserName = "shredmates@gmail.com",
-                            Email = "shredmates@gmail.com"
+                            UserName = "admin@test.com",
+                            Email = "admin@test.com"
                         };
 
                         await userManager.CreateAsync(admin, "admin12");

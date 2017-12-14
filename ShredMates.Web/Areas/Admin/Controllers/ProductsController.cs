@@ -127,23 +127,6 @@ namespace ShredMates.Web.Areas.Admin.Controllers
             return Redirect("/");
         }
 
-        public async Task<IActionResult> Details(int id)
-        {
-            var product = await this.products.FindByIdAsync(id);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(new ProductDetailsViewModel
-            {
-                Title = product.Title,
-                Description = product.Description,
-                ImageUrl = product.ImageUrl
-            });
-        }
-
         private async Task<IEnumerable<SelectListItem>> GetCategoriesAsync()
         {
             var categories = await this.categories.AllAsync();

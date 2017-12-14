@@ -41,6 +41,7 @@ namespace ShredMates.Web
                 .AddEntityFrameworkStores<ShredMatesDbContext>()
                 .AddDefaultTokenProviders();
 
+<<<<<<< HEAD
             // facebook auth
             services.AddAuthentication().AddFacebook(facebookOptions =>
             {
@@ -54,6 +55,15 @@ namespace ShredMates.Web
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // reg http service
             services.AddScoped(session => ShoppingCartService.GetCart(session));
             services.AddRouting(routing => { routing.LowercaseUrls = true; }); // add routing
+=======
+            services.AddAutoMapper(); // auto mapping
+            services.AddServices(); // auto add services
+
+            //services.AddHttpContextAccessor(); // for Core 2.1
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // reg http service
+            services.AddScoped(session => ShoppingCartService.GetCart(session));
+            // services.AddRouting(routing => { routing.LowercaseUrls = true; }); // add routing
+>>>>>>> master
 
             services.AddMvc(options =>
             {
@@ -63,15 +73,20 @@ namespace ShredMates.Web
 
             services.AddAuthorization();
             services.AddDistributedMemoryCache(); // add cache
+<<<<<<< HEAD
             
+=======
+            services.AddSession(); // add session
+
+>>>>>>> master
             // add session
-            services.AddSession(options =>
-            {
-                options.Cookie.HttpOnly = false; // false - cookie is accessible through JavaScript
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // transmitted via HTTPS only
-                options.Cookie.Name = "MySession"; // override the default cookie name
-                options.IdleTimeout = TimeSpan.FromSeconds(30); // session expiraton in minutes
-            });
+            //services.AddSession(options =>
+            //{
+            //    options.Cookie.HttpOnly = false; // false - cookie is accessible through JavaScript
+            //    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // transmitted via HTTPS only
+            //    options.Cookie.Name = "MySession"; // override the default cookie name
+            //    options.IdleTimeout = TimeSpan.FromSeconds(30); // session expiraton in minutes
+            //});
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

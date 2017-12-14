@@ -18,7 +18,7 @@ namespace ShredMates.Web.Controllers
 
         public async Task<IActionResult> Checkout(Order order)
         {
-            var items = await this.shoppingCartServices.AllItemsAsync();
+            var items = await this.shoppingCartServices.AllProductssAsync();
             this.shoppingCart.ShoppingCartItems = items;
 
             if (shoppingCart.ShoppingCartItems.Count == 0)

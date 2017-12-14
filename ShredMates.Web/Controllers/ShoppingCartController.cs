@@ -19,7 +19,7 @@ namespace ShredMates.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var items = await this.shoppingCartServices.AllItemsAsync();
+            var items = await this.shoppingCartServices.AllProductssAsync();
             this.shoppingCart.ShoppingCartItems = items;
 
             return View(new ShoppingCartViewModel
@@ -31,28 +31,28 @@ namespace ShredMates.Web.Controllers
 
         public async Task<IActionResult> AddToCart(int productId)
         {
-            var shoppingCartItem = await this.shoppingCartServices.FindItemByIdAsync(productId);
+            var shoppingCartItem = await this.shoppingCartServices.FindProductByIdAsync(productId);
 
             if (shoppingCartItem == null)
             {
                 return NotFound();
             }
 
-            await this.shoppingCartServices.AddItemAsync(shoppingCartItem.Product, 1);
+            await this.shoppingCartServices.AddToCartAsync(shoppingCartItem.Product, 1);
 
             return RedirectToAction("/");
         }
 
         public async Task<IActionResult> RemoveFromCart(int productId)
         {
-            var shoppingCartItem = await this.shoppingCartServices.FindItemByIdAsync(productId);
+            var shoppingCartItem = await this.shoppingCartServices.FindProductByIdAsync(productId);
 
             if (shoppingCartItem == null)
             {
                 return NotFound();
             }
 
-            await this.shoppingCartServices.RemoveItemAsync(shoppingCartItem.Product);
+            await this.shoppingCartServices.RemoveProductAsync(shoppingCartItem.Product);
 
             return RedirectToAction("/");
         }

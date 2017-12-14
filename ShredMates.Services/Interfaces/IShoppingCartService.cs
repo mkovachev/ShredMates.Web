@@ -8,17 +8,17 @@ namespace ShredMates.Services.Interfaces
     {
         //ShoppingCart InitCart(string id);
 
-        Task<ShoppingCartItem> FindItemByIdAsync(int productId);
+        Task<ShoppingCartItem> FindProductByIdAsync(int productId);
 
-        Task AddItemAsync(Product product, int amount);
+        Task AddToCartAsync(Product product, int amount);
 
-        Task RemoveItemAsync(Product product);
+        Task RemoveProductAsync(Product product);
 
         Task ClearCartAsync();
 
         Task<decimal> GetTotalAsync();
 
-        Task<List<ShoppingCartItem>> AllItemsAsync();
+        Task<List<ShoppingCartItem>> AllProductssAsync();
 
         Task CreateOrderAsync(Order order);
 

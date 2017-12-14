@@ -32,14 +32,14 @@ namespace ShredMates.Services.Implementations
         //    return shoppingCart;
         //}
 
-        public async Task<List<ShoppingCartItem>> AllItemsAsync()
+        public async Task<List<ShoppingCartItem>> AllProductssAsync()
             => await this.db
                        .ShoppingCartItems
                        .Where(c => c.ShoppingCartId == shoppingCart.Id)
                        .Include(i => i.Product)
                        .ToListAsync();
 
-        public async Task AddItemAsync(Product product, int amount)
+        public async Task AddToCartAsync(Product product, int amount)
         {
             var shoppingCartItem = await this.db
                                         .ShoppingCartItems
@@ -65,7 +65,7 @@ namespace ShredMates.Services.Implementations
             await this.db.SaveChangesAsync();
         }
 
-        public async Task RemoveItemAsync(Product product)
+        public async Task RemoveProductAsync(Product product)
         {
             var shoppingCartItem = await this.db
                                     .ShoppingCartItems
@@ -106,7 +106,7 @@ namespace ShredMates.Services.Implementations
                        .Select(c => c.Product.Price * c.Amount)
                        .SumAsync();
 
-        public async Task<ShoppingCartItem> FindItemByIdAsync(int productId)
+        public async Task<ShoppingCartItem> FindProductByIdAsync(int productId)
             => await this.db.ShoppingCartItems.FirstOrDefaultAsync(s => s.Product.Id == productId);
 
         public async Task CreateOrderAsync(Order order)

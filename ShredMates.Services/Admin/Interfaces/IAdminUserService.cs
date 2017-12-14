@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace ShredMates.Services.Admin.Interfaces
 {
-    public interface IUserService
+    public interface IAdminUserService
     {
-        Task<IEnumerable<UserServiceModel>> AllAsync();
+        Task<IEnumerable<AdminUserServiceModel>> AllAsync();
     }
 }

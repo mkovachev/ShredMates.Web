@@ -6,7 +6,7 @@ namespace ShredMates.Web.Areas.Admin.Models.Users
 {
     public class AllUsersViewModel
     {
-        public IEnumerable<UserServiceModel> Users { get; set; }
+        public IEnumerable<AdminUserServiceModel> Users { get; set; }
 
         public IEnumerable<SelectListItem> Roles { get; set; }
     }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Implementations;
@@ -41,12 +42,12 @@ namespace ShredMates.Web
                 .AddDefaultTokenProviders();
 
             services.AddAutoMapper(); // auto mapping
-
             services.AddServices(); // auto add services
 
-            services.AddRouting(routing => { routing.LowercaseUrls = true; }); // add routing
-
+            //services.AddHttpContextAccessor(); // for Core 2.1
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // reg http service
             services.AddScoped(session => ShoppingCartService.GetCart(session));
+            // services.AddRouting(routing => { routing.LowercaseUrls = true; }); // add routing
 
             services.AddMvc(options =>
             {
@@ -55,20 +56,17 @@ namespace ShredMates.Web
             //.AddSessionStateTempDataProvider(); // add TempData provider
 
             services.AddAuthorization();
-
-            //services.AddHttpContextAccessor(); // for Core 2.1
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDistributedMemoryCache(); // add cache
-            services.AddSession();
+            services.AddSession(); // add session
 
             // add session
-            services.AddSession(options =>
-            {
-                options.Cookie.HttpOnly = false; // false - cookie is accessible through JavaScript
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // transmitted via HTTPS only
-                options.Cookie.Name = "MySession"; // override the default cookie name
-                options.IdleTimeout = TimeSpan.FromSeconds(30); // session expiraton in minutes
-            });
+            //services.AddSession(options =>
+            //{
+            //    options.Cookie.HttpOnly = false; // false - cookie is accessible through JavaScript
+            //    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // transmitted via HTTPS only
+            //    options.Cookie.Name = "MySession"; // override the default cookie name
+            //    options.IdleTimeout = TimeSpan.FromSeconds(30); // session expiraton in minutes
+            //});
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -86,22 +84,18 @@ namespace ShredMates.Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseStatusCodePages(async context =>
+            {
+                context.HttpContext.Response.ContentType = "text/plain";
+                await context.HttpContext.Response.WriteAsync(
+                    "Status code page, status code: " +
+                    context.HttpContext.Response.StatusCode);
+            });
+
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseSession(); // add session always before app.UseMvc
-
-            //app.Use(async (context, next) =>
-            //{
-            //    context.Session.SetString("MySession", "My Session State");
-            //    await next();
-            //});
-
-            //app.Run(async (context) =>
-            //{
-            //    var message = context.Session.GetString("MySession");
-            //    await context.Response.WriteAsync($"{message}");
-            //});
 
             app.UseMvc(routes =>
             {
@@ -110,7 +104,6 @@ namespace ShredMates.Web
                   name: "areas",
                   template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
-
 
                 routes.MapRoute(
                     name: "default",

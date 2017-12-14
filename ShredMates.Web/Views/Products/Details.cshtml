@@ -16,7 +16,7 @@
                 <!--Title-->
                 <h4 class="card-title">@Model.Title</h4>
                 <!--Text-->
-                <p class="card-text">@Model.Description.</p>
+                <p class="card-text">@Model.Description</p>
                 <p class="btn btn-group pull-right">
                     <a asp-controller="Home" asp-action="Index" class="btn btn-default">Go to Home</a>
                     <a class="btn btn-success" id="cartButton" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-id="@Model.Id">

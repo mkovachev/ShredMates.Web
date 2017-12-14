@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShredMates.Services.Admin.Interfaces;
 using ShredMates.Web.Areas.Admin.Models.Products;
-using ShredMates.Web.Controllers;
 using ShredMates.Web.Infrastructure.Extensions;
 using ShredMates.Web.Models;
 using System;
@@ -14,10 +13,10 @@ namespace ShredMates.Web.Areas.Admin.Controllers
 {
     public class ProductsController : AdminController
     {
-        private readonly IProductService products;
-        private readonly ICategoryService categories;
+        private readonly IAdminProductService products;
+        private readonly IAdminCategoryService categories;
 
-        public ProductsController(IProductService products, ICategoryService categories)
+        public ProductsController(IAdminProductService products, IAdminCategoryService categories)
         {
             this.products = products;
             this.categories = categories;
@@ -126,23 +125,6 @@ namespace ShredMates.Web.Areas.Admin.Controllers
             TempData.AddWarningMessage($"Product deleted successfully!");
 
             return Redirect("/");
-        }
-
-        public async Task<IActionResult> Details(int id)
-        {
-            var product = await this.products.FindByIdAsync(id);
-
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return View(new ProductDetailsViewModel
-            {
-                Title = product.Title,
-                Description = product.Description,
-                ImageUrl = product.ImageUrl
-            });
         }
 
         private async Task<IEnumerable<SelectListItem>> GetCategoriesAsync()

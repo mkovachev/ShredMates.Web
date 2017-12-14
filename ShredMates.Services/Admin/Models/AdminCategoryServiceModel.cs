@@ -1,6 +1,6 @@
 ﻿namespace ShredMates.Services.Admin.Models
 {
-    public class CategoryServiceModel
+    public class AdminCategoryServiceModel
     {
         public int Id { get; set; }
 

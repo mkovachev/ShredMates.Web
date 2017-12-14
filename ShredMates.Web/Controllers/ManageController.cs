@@ -34,11 +34,11 @@ namespace ShredMates.Web.Controllers
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder)
         {
-            userManager = userManager;
-            signInManager = signInManager;
-            emailSender = emailSender;
-            logger = logger;
-            urlEncoder = urlEncoder;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.emailSender = emailSender;
+            this.logger = logger;
+            this.urlEncoder = urlEncoder;
         }
 
         [TempData]

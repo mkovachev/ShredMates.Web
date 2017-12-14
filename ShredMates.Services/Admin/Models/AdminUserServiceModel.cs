@@ -3,7 +3,7 @@ using ShredMates.Data.Models;
 
 namespace ShredMates.Services.Admin.Models
 {
-    public class UserServiceModel : IMapFrom<User>
+    public class AdminUserServiceModel : IMapFrom<User>
     {
         public string Id { get; set; }
 

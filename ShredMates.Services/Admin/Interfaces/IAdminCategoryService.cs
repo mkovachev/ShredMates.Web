@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace ShredMates.Services.Admin.Interfaces
 {
-    public interface ICategoryService
+    public interface IAdminCategoryService
     {
-        Task<CategoryServiceModel> FindByIdAsync(int id);
+        Task<AdminCategoryServiceModel> FindByIdAsync(int id);
 
-        Task<IEnumerable<CategoryServiceModel>> AllAsync();
+        Task<IEnumerable<AdminCategoryServiceModel>> AllAsync();
 
         Task CreateAsync(string name);
 

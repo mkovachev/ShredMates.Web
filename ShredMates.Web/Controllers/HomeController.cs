@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using ShredMates.Data;
 using ShredMates.Services.Interfaces;
 using ShredMates.Web.Models;
@@ -19,12 +20,17 @@ namespace ShredMates.Web.Controllers
         }
 
         public async Task<IActionResult> Index(int page = 1)
-            => View(new HomeViewModel
+        {
+            var sessionId = HttpContext.Session.GetString("Id") ?? Guid.NewGuid().ToString();
+            HttpContext.Session.SetString("Test", sessionId);
+
+            return View(new HomeViewModel
             {
                 Products = await this.products.AllAsync(page, DataConstants.PageSize),
                 Current = page,
                 TotalPages = (int)Math.Ceiling(this.products.TotalPages() / (double)DataConstants.PageSize)
             });
+        }
 
         public async Task<IActionResult> About() => await Task.Run(() => View());
 

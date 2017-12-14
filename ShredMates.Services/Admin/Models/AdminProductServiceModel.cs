@@ -3,7 +3,7 @@ using System;
 
 namespace ShredMates.Services.Admin.Models
 {
-    public class ProductServiceModel
+    public class AdminProductServiceModel
     {
         public int Id { get; set; }
 

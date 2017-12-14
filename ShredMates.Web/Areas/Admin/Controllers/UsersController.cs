@@ -13,11 +13,11 @@ namespace ShredMates.Web.Areas.Admin.Controllers
 {
     public class UsersController : AdminController
     {
-        private readonly IUserService users;
+        private readonly IAdminUserService users;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<User> userManager;
 
-        public UsersController(IUserService users, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        public UsersController(IAdminUserService users, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             this.users = users;
             this.roleManager = roleManager;

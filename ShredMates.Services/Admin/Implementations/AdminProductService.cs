@@ -10,20 +10,20 @@ using System.Threading.Tasks;
 
 namespace ShredMates.Services.Admin.Implementations
 {
-    public class ProductService : IProductService
+    public class AdminProductService : IAdminProductService
     {
         private readonly ShredMatesDbContext db;
 
-        public ProductService(ShredMatesDbContext db)
+        public AdminProductService(ShredMatesDbContext db)
         {
             this.db = db;
         }
 
-        public async Task<ProductServiceModel> FindByIdAsync(int id)
+        public async Task<AdminProductServiceModel> FindByIdAsync(int id)
             => await this.db
                  .Products
                  .Where(p => p.Id == id)
-                 .ProjectTo<ProductServiceModel>()
+                 .ProjectTo<AdminProductServiceModel>()
                  .FirstOrDefaultAsync();
 
         public async Task CreateAsync(string title, string shortDescription, string description, decimal price, string imageUrl, string imageThumbnailUrl, DateTime createdDate, int categoryId)
@@ -89,11 +89,11 @@ namespace ShredMates.Services.Admin.Implementations
             return this.db.Products.Any(c => c.Title == title);
         }
 
-        public async Task<ProductServiceModel> DetailsAsync(int id) 
+        public async Task<AdminProductServiceModel> DetailsAsync(int id) 
             => await this.db
                     .Products
                     .Where(p => p.Id == id)
-                    .ProjectTo<ProductServiceModel>()
+                    .ProjectTo<AdminProductServiceModel>()
                     .FirstOrDefaultAsync();
     }
 }

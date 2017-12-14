@@ -9,11 +9,11 @@ using ShredMates.Services.Admin.Models;
 
 namespace ShredMates.Services.Admin.Implementations
 {
-    public class CategoryService : ICategoryService
+    public class AdminCategoryService : IAdminCategoryService
     {
         private readonly ShredMatesDbContext db;
 
-        public CategoryService(ShredMatesDbContext db)
+        public AdminCategoryService(ShredMatesDbContext db)
         {
             this.db = db;
         }
@@ -30,22 +30,22 @@ namespace ShredMates.Services.Admin.Implementations
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CategoryServiceModel>> AllAsync() 
+        public async Task<IEnumerable<AdminCategoryServiceModel>> AllAsync() 
             => await this.db
                 .Categories
                 .OrderBy(c => c.Name)
-                .Select(c => new CategoryServiceModel
+                .Select(c => new AdminCategoryServiceModel
                 {
                     Id = c.Id,
                     Name = c.Name
                 })
                 .ToListAsync();
 
-        public async Task<CategoryServiceModel> FindByIdAsync(int id)
+        public async Task<AdminCategoryServiceModel> FindByIdAsync(int id)
         => await this.db
                  .Categories
                  .Where(c => c.Id == id)
-                 .Select(c => new CategoryServiceModel
+                 .Select(c => new AdminCategoryServiceModel
                  {
                      Id = c.Id,
                      Name = c.Name,

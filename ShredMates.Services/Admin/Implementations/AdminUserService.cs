@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace ShredMates.Services.Admin.Implementations
 {
-    public class UserService : IUserService
+    public class AdminUserService : IAdminUserService
     {
         private readonly ShredMatesDbContext db;
 
-        public UserService(ShredMatesDbContext db)
+        public AdminUserService(ShredMatesDbContext db)
         {
             this.db = db;
         }
 
-        public async Task<IEnumerable<UserServiceModel>> AllAsync()
+        public async Task<IEnumerable<AdminUserServiceModel>> AllAsync()
             => await this.db
                        .Users
-                       .ProjectTo<UserServiceModel>()
+                       .ProjectTo<AdminUserServiceModel>()
                        .ToListAsync();
     }
 }

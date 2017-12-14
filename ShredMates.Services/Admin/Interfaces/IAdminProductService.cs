@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace ShredMates.Services.Admin.Interfaces
 {
-    public interface IProductService
+    public interface IAdminProductService
     {
-        Task<ProductServiceModel> FindByIdAsync(int id);
+        Task<AdminProductServiceModel> FindByIdAsync(int id);
 
         Task CreateAsync(
             string title,
@@ -33,7 +33,7 @@ namespace ShredMates.Services.Admin.Interfaces
 
         Task DeleteAsync(int id);
 
-        Task<ProductServiceModel> DetailsAsync(int id);
+        Task<AdminProductServiceModel> DetailsAsync(int id);
 
         bool ExistsById(int id);
 

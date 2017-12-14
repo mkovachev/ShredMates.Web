@@ -17,7 +17,6 @@ namespace ShredMates.Web.Controllers
             this.shoppingCart = shoppingCart;
         }
 
-
         public async Task<IActionResult> Index()
         {
             var items = await this.shoppingCartServices.AllItemsAsync();
@@ -55,7 +54,7 @@ namespace ShredMates.Web.Controllers
 
             await this.shoppingCartServices.RemoveItemAsync(shoppingCartItem.Product);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("/");
         }
     }
 }

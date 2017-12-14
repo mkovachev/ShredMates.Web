@@ -30,14 +30,18 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @await  Component.InvokeAsync("ShoppingCartSummary")
+
+                    <!--nav admin view-->
                     @if (User.Identity.IsAuthenticated && User.IsInRole(WebConstants.AdminRole))
                     {
                         <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a></li>
                         <li><a asp-area="Admin" asp-controller="Categories" asp-action="Create">Create Category</a></li>
                         <li><a asp-area="Admin" asp-controller="Products" asp-action="Create">Create Product</a></li>
                     }
-                 <!--For not authorized user-->
+
+                    <!-- nav all users view-->
+                    @await Component.InvokeAsync("ShoppingCartSummary")
+
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

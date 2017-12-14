@@ -9,12 +9,14 @@ namespace ShredMates.Web.Areas.Admin.Controllers
 {
     public class CategoriesController : AdminController
     {
-        private readonly ICategoryService categories;
+        private readonly IAdminCategoryService categories;
 
-        public CategoriesController(ICategoryService categories)
+        public CategoriesController(IAdminCategoryService categories)
         {
             this.categories = categories;
         }
+
+        public async Task<IActionResult> Test() => await Task.Run(() => View());
 
         public async Task<IActionResult> Create() => await Task.Run(() => View());
 
@@ -47,7 +49,7 @@ namespace ShredMates.Web.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            return View(new CategoryServiceModel
+            return View(new AdminCategoryServiceModel
             {
                 Name = category.Name
             });

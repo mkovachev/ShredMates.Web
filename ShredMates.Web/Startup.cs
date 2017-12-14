@@ -41,10 +41,11 @@ namespace ShredMates.Web
                 .AddEntityFrameworkStores<ShredMatesDbContext>()
                 .AddDefaultTokenProviders();
 
+            // facebook auth
             services.AddAuthentication().AddFacebook(facebookOptions =>
             {
-                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                facebookOptions.AppId = "331814970630527";
+                facebookOptions.AppSecret = "f9a5dd07f11fe3a64932940ed16fa946";
             });
 
             services.AddAutoMapper(); // auto mapping
@@ -62,16 +63,15 @@ namespace ShredMates.Web
 
             services.AddAuthorization();
             services.AddDistributedMemoryCache(); // add cache
-            services.AddSession(); // add session
-
+            
             // add session
-            //services.AddSession(options =>
-            //{
-            //    options.Cookie.HttpOnly = false; // false - cookie is accessible through JavaScript
-            //    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // transmitted via HTTPS only
-            //    options.Cookie.Name = "MySession"; // override the default cookie name
-            //    options.IdleTimeout = TimeSpan.FromSeconds(30); // session expiraton in minutes
-            //});
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = false; // false - cookie is accessible through JavaScript
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // transmitted via HTTPS only
+                options.Cookie.Name = "MySession"; // override the default cookie name
+                options.IdleTimeout = TimeSpan.FromSeconds(30); // session expiraton in minutes
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

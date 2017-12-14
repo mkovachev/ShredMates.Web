@@ -32,17 +32,6 @@ namespace ShredMates.Services.Implementations
         //    return shoppingCart;
         //}
 
-        //public static ShoppingCart GetCart(IServiceProvider services)
-        //{
-        //    ISession session = services.GetService<HttpContextAccessor>()?.HttpContext.Session;
-        //    var cartId = session.GetString("Id") ?? Guid.NewGuid().ToString();
-        //    session.SetString("Id", cartId);
-        //    var db = services.GetService<ShredMatesDbContext>();
-        //    var shoppingCart = new ShoppingCart(db) { Id = cartId };
-
-        //    return shoppingCart;
-        //}
-
         public async Task<List<ShoppingCartItem>> AllItemsAsync()
             => await this.db
                        .ShoppingCartItems

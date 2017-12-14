@@ -1,4 +1,5 @@
 ﻿using ShredMates.Data;
+using ShredMates.Data.Models;
 using ShredMates.Services.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace ShredMates.Services.Interfaces
 
         int TotalPages();
 
-        Task<ProductDetailsServiceModel> ByIdAsync(int id);
+        Task<Product> ByIdAsync(int id);
 
         Task<IEnumerable<AllProductsServiceModel>> FindAsync(string search);
     }

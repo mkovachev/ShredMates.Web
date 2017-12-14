@@ -1,6 +1,7 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ShredMates.Data;
+using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
 using ShredMates.Services.Models;
 using System;
@@ -30,9 +31,9 @@ namespace ShredMates.Services.Implementations
                         .ToListAsync();
         }
 
-        public Task<ProductDetailsServiceModel> ByIdAsync(int id)
+        public async Task<Product> ByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await this.db.Products.FindAsync(id);
         }
 
         public async Task<IEnumerable<AllProductsServiceModel>> FindAsync(string search)

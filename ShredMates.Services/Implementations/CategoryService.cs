@@ -21,11 +21,26 @@ namespace ShredMates.Services.Implementations
             this.shoppingCart = shoppingCart;
         }
 
-        public async Task<IEnumerable<CategoryServiceModel>> AllProductsInCategoryAsync(int page = 1, int pageSize = DataConstants.PageSize)
+        public async Task<Category> ByIdAsync(int id)
+        {
+            return await this.db.Categories.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<CategoryServiceModel>> AllProductsInCategoryAsync(int id, int page = 1, int pageSize = DataConstants.PageSize)
         {
             return await this.db
                         .Categories
-                        .OrderByDescending(p => p.CreatedDate)
+                        .Where(c => c.Id == id)
+                        .Select(c => new CategoryServiceModel
+                        {
+                            Products = c.Products.Select(p => new AllProductsServiceModel
+                            {
+                                Title = p.Title,
+                                ShortDescription = p.ShortDescription,
+                                ImageThumbnailUrl = p.ImageThumbnailUrl,
+                                Price = p.Price
+                            })
+                        })
                         .Skip((page - 1) * pageSize)
                         .Take(pageSize)
                         .ProjectTo<CategoryServiceModel>()

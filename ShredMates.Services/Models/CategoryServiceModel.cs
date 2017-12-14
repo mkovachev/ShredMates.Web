@@ -6,6 +6,8 @@ namespace ShredMates.Services.Models
 {
     public class CategoryServiceModel: IMapFrom<Category>
     {
-        IEnumerable<AllProductsServiceModel> Products { get; set; }
+        public IEnumerable<AllProductsServiceModel> Products { get; set; }
+
+        public Category CurrentCategory { get; set; }
     }
 }

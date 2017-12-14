@@ -1,33 +1,35 @@
-﻿@model AllProductsServiceModel
+﻿@model CategoryViewModel
 @{
     ViewData["Title"] = "All Products";
 }
+@foreach (var product in Model.Products)
+{
 
 <div class="col-sm-4 col-lg-4 col-md-4">
     <div class="thumbnail">
-        <a asp-controller="Products" asp-action="Details" asp-route-id=@Model.Id>
-            <div class="gallery-image img-responsive" style="background-image:url(@Model.ImageThumbnailUrl)"></div>
-            <img src="@Model.ImageThumbnailUrl" class="img-responsive" />
+        <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
+            <div class="gallery-image img-responsive" style="background-image:url(@product.ImageThumbnailUrl)"></div>
+            <img src="@product.ImageThumbnailUrl" class="img-responsive" />
         </a>
         <div class="caption">
-            <h4 class="pull-right">@Model.Price.ToString("N")</h4>
+            <h4 class="pull-right">@product.Price.ToString("N")</h4>
             <h5>
-                <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id">@Model.Title</a>
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Title</a>
             </h5>
-            <p>@Model.ShortDescription</p>
+            <p>@product.ShortDescription</p>
         </div>
 
         <div class="addToCart text-right">
             @if (User.Identity.IsAuthenticated && User.IsInRole(WebConstants.AdminRole))
             {
-                <a class="btn btn-warning btn-sm" asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-                <a class="btn btn-danger btn-sm" asp-area="Admin" asp-controller="Products" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                <a class="btn btn-warning btn-sm" asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id">Edit</a>
+                <a class="btn btn-danger btn-sm" asp-area="Admin" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id">Delete</a>
             }
 
-            <a class="btn btn-info btn-sm" id="cartButton" asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id">Details</a>
+            <a class="btn btn-info btn-sm" id="cartButton" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">Details</a>
 
-            <a class="btn btn-success btn-sm" id="cartButton" asp-area="" asp-controller="ShoppingCart" asp-action="Index" asp-route-id="@Model.Id">Add to cart</a>
+            <a class="btn btn-success btn-sm" id="cartButton" asp-area="" asp-controller="ShoppingCart" asp-action="Index" asp-route-id="@product.Id">Add to cart</a>
         </div>
     </div>
 </div>
-
+}

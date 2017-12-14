@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShredMates.Data;
 using ShredMates.Services.Interfaces;
+using ShredMates.Services.Models;
 using ShredMates.Web.Models;
 using System;
 using System.Threading.Tasks;
@@ -16,8 +17,10 @@ namespace ShredMates.Web.Controllers
             this.categories = categories;
         }
 
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(int id, int page = 1)
         {
+            var category = await this.categories.ByIdAsync(id);
+
             return View(new CategoryViewModel
             {
                 Products = await this.categories.AllProductsInCategoryAsync(page, DataConstants.PageSize),

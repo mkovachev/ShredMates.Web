@@ -31,10 +31,10 @@ namespace ShredMates.Web.Controllers
                 sessionId = DateTime.UtcNow.ToShortDateString();
                 this.HttpContext.Session.SetString(sessionKey, sessionId);
             }
-            var shoppingCart = new ShoppingCart
-            {
-                Id = sessionId
-            };
+            //var shoppingCart = new ShoppingCart
+            //{
+            //    Id = sessionId
+            //};
 
             return View(new HomeViewModel
             {

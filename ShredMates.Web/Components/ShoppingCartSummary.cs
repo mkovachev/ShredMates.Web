@@ -2,6 +2,7 @@
 using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
 using ShredMates.Web.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShredMates.Web.Components

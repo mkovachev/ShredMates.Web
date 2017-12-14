@@ -54,7 +54,7 @@ namespace ShredMates.Web
             services.AddServices(); // auto add services
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // reg http service
-            services.AddScoped(sp => new ShoppingCart());
+            services.AddScoped(sp => new ShoppingCart(){ Id = DateTime.UtcNow.ToShortDateString()});
             services.AddRouting(routing => { routing.LowercaseUrls = true; }); // add routing
 
 

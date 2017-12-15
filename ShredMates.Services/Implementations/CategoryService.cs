@@ -26,7 +26,7 @@ namespace ShredMates.Services.Implementations
             return await this.db.Categories.FindAsync(id);
         }
 
-        public async Task<IEnumerable<CategoryServiceModel>> AllProductsInCategoryAsync(int id, int page = 1, int pageSize = DataConstants.PageSize)
+        public async Task<CategoryServiceModel> AllProductsInCategoryAsync(int id, int page = 1, int pageSize = DataConstants.PageSize)
         {
             return await this.db
                         .Categories
@@ -44,7 +44,7 @@ namespace ShredMates.Services.Implementations
                         .Skip((page - 1) * pageSize)
                         .Take(pageSize)
                         .ProjectTo<CategoryServiceModel>()
-                        .ToListAsync();
+                        .FirstOrDefaultAsync();
         }
 
         public int TotalPages()

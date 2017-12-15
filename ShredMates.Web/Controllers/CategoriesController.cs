@@ -22,7 +22,7 @@ namespace ShredMates.Web.Controllers
 
             return View(new CategoryViewModel
             {
-                Products = await this.categories.AllProductsInCategoryAsync(page, DataConstants.PageSize),
+                Category = await this.categories.AllProductsInCategoryAsync(page, DataConstants.PageSize),
                 Current = page,
                 TotalPages = (int)Math.Ceiling(this.categories.TotalPages() / (double)DataConstants.PageSize)
             });

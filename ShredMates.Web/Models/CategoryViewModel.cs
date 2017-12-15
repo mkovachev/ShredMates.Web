@@ -5,7 +5,7 @@ namespace ShredMates.Web.Models
 {
     public class CategoryViewModel
     {
-        public IEnumerable<CategoryServiceModel> Products { get; set; }
+        public CategoryServiceModel Category { get; set; }
 
         public int Current { get; set; }
 

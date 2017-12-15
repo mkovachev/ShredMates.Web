@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShredMates.Data;
-using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
 using ShredMates.Web.Models;
 using ShredMates.Web.Models.HomeViewModels;
@@ -14,12 +13,10 @@ namespace ShredMates.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IProductService products;
-        //private readonly ShoppingCart shoppingCart;
 
         public HomeController(IProductService products)
         {
             this.products = products;
-            //this.shoppingCart = shoppingCart;
         }
 
         public async Task<IActionResult> Index(int page = 1)

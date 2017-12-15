@@ -30,16 +30,36 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <!-- nav all users -->
+                    <!--Snowboard-->   
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="/snowboard">
+                            Snowboard
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-controller="Snowboard" asp-action="Snowboards">Snowboard</a></li>
+                            <li><a asp-controller="Snowboard" asp-action="Bindings">Bindings</a></li>
+                            <li><a asp-controller="Snowboard" asp-action="Boots">Boots</a></li>  
+                        </ul>
+                    </li>
+                    <!--Ski-->
+                    <li><a asp-controller="Ski" asp-action="Create">Ski</a></li>
+                    <!--MEN-->
+                    <!--WOMEN-->
+                    <!--BRANDS-->
+                    <!--ACCESSORIES-->
+                    <!--SALE-->
+                    <!--Profile-->
 
-                    <!--nav admin view-->
+                    <!--nav admin -->
                     @if (User.Identity.IsAuthenticated && User.IsInRole(WebConstants.AdminRole))
                     {
                         <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a></li>
                         <li><a asp-area="Admin" asp-controller="Categories" asp-action="Create">Create Category</a></li>
                         <li><a asp-area="Admin" asp-controller="Products" asp-action="Create">Create Product</a></li>
                     }
-
-                    <!-- nav all users view-->
+                    <!-- Shopping Cart-->
                     @await Component.InvokeAsync("ShoppingCartSummary")
 
                 </ul>

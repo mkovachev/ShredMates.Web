@@ -52,6 +52,7 @@ namespace ShredMates.Web
             });
 
             services.AddAutoMapper(); // auto mapping
+
             services.AddServices(); // auto add services
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // reg http service

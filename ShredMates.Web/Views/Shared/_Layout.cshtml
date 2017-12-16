@@ -43,12 +43,14 @@
                             <li><a asp-controller="Snowboard" asp-action="Boots">Boots</a></li>
                         </ul>
                     </li>
-                    @await Component.InvokeAsync("CategoryView");
+                    <!--Categories-->
+                    <li>@await Component.InvokeAsync("CategoryView")</li>
                     <!--Ski-->
                     <li><a asp-controller="Ski" asp-action="Index">Ski</a></li>
                     <!--MEN-->
                     <!--WOMEN-->
                     <!--BRANDS-->
+                    <li><a asp-controller="Brands" asp-action="Index">Brands</a></li>
                     <!--ACCESSORIES-->
                     <!--SALE-->
                     <!--Profile-->
@@ -59,11 +61,10 @@
                         <li><a asp-area="Admin" asp-controller="Categories" asp-action="Create">Create Category</a></li>
                         <li><a asp-area="Admin" asp-controller="Products" asp-action="Create">Create Product</a></li>
                     }
-                    <a asp-controller="Contact" asp-action="Index" class="navbar-text">Contact us</a>
-                    <a asp-controller="About" asp-action="Index" class="navbar-text">About</a>
+                    <a asp-controller="Home" asp-action="Contact" class="navbar-text">Contact us</a>
+                    <a asp-controller="Home" asp-action="About" class="navbar-text">About</a>
                     <!-- Shopping Cart-->
                     @await Component.InvokeAsync("ShoppingCartSummary")
-
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

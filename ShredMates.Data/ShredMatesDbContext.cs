@@ -15,7 +15,7 @@ namespace ShredMates.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
-        public DbSet<ShoppingCart> ShoppingCart { get; set; }
+        //public DbSet<ShoppingCart> ShoppingCart { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
 
@@ -24,7 +24,7 @@ namespace ShredMates.Data
             // connections
             builder.Entity<Product>().ToTable("Products");
             builder.Entity<Category>().ToTable("Categories");
-            builder.Entity<ShoppingCart>().ToTable("ShoppingCart");
+            //builder.Entity<ShoppingCart>().ToTable("ShoppingCart");
             builder.Entity<ShoppingCartItem>().ToTable("ShoppingCartItems");
             builder.Entity<Order>().ToTable("Orders");
             builder.Entity<OrderDetail>().ToTable("OrderDetails");

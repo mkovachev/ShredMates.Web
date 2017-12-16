@@ -5,6 +5,6 @@ namespace ShredMates.Services.Interfaces
 {
     public interface IOrderService
     {
-        //Task CreateOrderAsync(Order order);
+        Task CreateOrderAsync(Order order);
     }
 }

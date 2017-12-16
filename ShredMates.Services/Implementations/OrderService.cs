@@ -17,6 +17,29 @@ namespace ShredMates.Services.Implementations
             this.shoppingCart = shoppingCart;
         }
 
-        // public async Task CreateOrderAsync(Order order) { }
+        public async Task CreateOrderAsync(Order order)
+        {
+            order.OrderPlaced = DateTime.UtcNow;
+
+            await this.db.Orders.AddAsync(order);
+
+            var shoppingCartItems = this.shoppingCart.ShoppingCartItems;
+
+            foreach (var product in shoppingCartItems)
+            {
+                var orderDetail = new OrderDetail
+                {
+                    Amount = product.Amount,
+                    ProductId = product.Product.Id,
+                    OrderId = order.OrderId,
+                    Price = product.Product.Price
+                };
+
+                await this.db.OrderDetails.AddAsync(orderDetail);
+
+                await this.db.SaveChangesAsync();
+            }
+
+        }
     }
 }

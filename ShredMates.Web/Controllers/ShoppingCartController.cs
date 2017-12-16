@@ -29,32 +29,32 @@ namespace ShredMates.Web.Controllers
             });
         }
 
-        public async Task<IActionResult> AddToCart(int productId)
+        public async Task<IActionResult> AddToCart(int id)
         {
-            var shoppingCartItem = await this.shoppingCartServices.FindProductByIdAsync(productId);
+            var shoppingCartItem = await this.shoppingCartServices.FindProductByIdAsync(id);
 
             if (shoppingCartItem == null)
             {
                 return NotFound();
             }
 
-            await this.shoppingCartServices.AddToCartAsync(shoppingCartItem.Product, 1);
+            await this.shoppingCartServices.AddToCartAsync(shoppingCartItem, 1);
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> RemoveFromCart(int productId)
+        public async Task<IActionResult> RemoveFromCart(int id)
         {
-            var shoppingCartItem = await this.shoppingCartServices.FindProductByIdAsync(productId);
+            var shoppingCartItem = await this.shoppingCartServices.FindProductByIdAsync(id);
 
             if (shoppingCartItem == null)
             {
                 return NotFound();
             }
 
-            await this.shoppingCartServices.RemoveProductAsync(shoppingCartItem.Product);
+            await this.shoppingCartServices.RemoveProductAsync(shoppingCartItem);
 
-            return RedirectToAction("/");
+           return RedirectToAction("Index", nameof(shoppingCart));
         }
     }
 }

@@ -2,7 +2,6 @@
 using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
 using ShredMates.Web.Models;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShredMates.Web.Components
@@ -18,9 +17,9 @@ namespace ShredMates.Web.Components
             this.shoppingCartServices = shoppingCartServices;
         }
 
+        // same as ShoppingCartController Index
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            // same as ShoppingCartController Index!
             var items = await this.shoppingCartServices.AllProductssAsync();
             this.shoppingCart.ShoppingCartItems = items;
 

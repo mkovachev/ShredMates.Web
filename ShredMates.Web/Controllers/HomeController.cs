@@ -25,7 +25,7 @@ namespace ShredMates.Web.Controllers
             var sessionId = HttpContext.Session.GetString(sessionKey);
             if(sessionId == null)
             {
-                sessionId = DateTime.UtcNow.ToShortDateString();
+                sessionId = Guid.NewGuid().ToString();
                 this.HttpContext.Session.SetString(sessionKey, sessionId);
             }
 

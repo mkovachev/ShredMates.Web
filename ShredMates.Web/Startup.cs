@@ -69,7 +69,7 @@ namespace ShredMates.Web
             {
                 options.Cookie.HttpOnly = false; // false - cookie is accessible through JavaScript
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // transmitted via HTTPS only
-                options.Cookie.Name = DateTime.UtcNow.ToShortDateString(); // override the default cookie name
+                options.Cookie.Name = Guid.NewGuid().ToString(); // override the default cookie name
                 options.IdleTimeout = TimeSpan.FromSeconds(30); // session expiraton in minutes
             });
         }

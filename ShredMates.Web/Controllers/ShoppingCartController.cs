@@ -43,7 +43,7 @@ namespace ShredMates.Web.Controllers
 
             TempData.AddSuccessMessage($"{shoppingCartItem.Title} successfully added to cart");
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("/");
         }
 
         public async Task<IActionResult> RemoveFromCart(int id)

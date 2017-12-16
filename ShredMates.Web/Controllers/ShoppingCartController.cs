@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
+using ShredMates.Web.Infrastructure.Extensions;
 using ShredMates.Web.Models;
 using System.Threading.Tasks;
 
@@ -40,6 +41,8 @@ namespace ShredMates.Web.Controllers
 
             await this.shoppingCartServices.AddToCartAsync(shoppingCartItem, 1);
 
+            TempData.AddSuccessMessage($"{shoppingCartItem.Title} successfully added to cart");
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -54,7 +57,9 @@ namespace ShredMates.Web.Controllers
 
             await this.shoppingCartServices.RemoveProductAsync(shoppingCartItem);
 
-           return RedirectToAction("Index", nameof(shoppingCart));
+            TempData.AddSuccessMessage($"{shoppingCartItem.Title} successfully removed from cart");
+
+            return RedirectToAction("Index", nameof(shoppingCart));
         }
     }
 }

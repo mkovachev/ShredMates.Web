@@ -14,6 +14,6 @@ namespace ShredMates.Services.Interfaces
 
         Task<Product> ByIdAsync(int id);
 
-        Task<IEnumerable<AllProductsServiceModel>> FindAsync(string search);
+        Task<IEnumerable<AllProductsServiceModel>> SearchAsync(string search);
     }
 }

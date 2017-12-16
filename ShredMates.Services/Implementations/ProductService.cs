@@ -4,14 +4,13 @@ using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
 using ShredMates.Services.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShredMates.Services.Implementations
 {
-    public class ProductService: IProductService
+    public class ProductService : IProductService
     {
         private readonly ShredMatesDbContext db;
 
@@ -31,12 +30,9 @@ namespace ShredMates.Services.Implementations
                         .ToListAsync();
         }
 
-        public async Task<Product> ByIdAsync(int id)
-        {
-            return await this.db.Products.FindAsync(id);
-        }
+        public async Task<Product> ByIdAsync(int id) => await this.db.Products.FindAsync(id);
 
-        public async Task<IEnumerable<AllProductsServiceModel>> FindAsync(string search)
+        public async Task<IEnumerable<AllProductsServiceModel>> SearchAsync(string search)
         {
             search = search ?? string.Empty;
 

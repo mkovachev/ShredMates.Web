@@ -41,7 +41,7 @@ namespace ShredMates.Web.Controllers
            => View(new SearchViewModel
            {
                Search = model.Search,
-               Products = await this.products.FindAsync(model.Search)
+               Products = await this.products.SearchAsync(model.Search)
            });
 
         public async Task<IActionResult> About() => await Task.Run(() => View());

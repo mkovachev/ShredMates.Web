@@ -1,10 +1,11 @@
 ﻿using ShredMates.Services.Models;
+using System.Collections.Generic;
 
 namespace ShredMates.Web.Models
 {
     public class CategoryViewModel
     {
-        public CategoryServiceModel Category { get; set; }
+        public IEnumerable<AllProductsServiceModel> Products { get; set; }
 
         public int Current { get; set; }
 

@@ -10,9 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ShredMates.Data;
 using ShredMates.Data.Models;
-using ShredMates.Services.Implementations;
-using ShredMates.Services.Interfaces;
-using ShredMates.Services.Models;
 using ShredMates.Web.Infrastructure.Extensions;
 using System;
 

@@ -5,7 +5,7 @@ namespace ShredMates.Web.Models.HomeViewModels
 {
     public class SearchViewModel
     {
-        public IEnumerable<AllProductsServiceModel> Products { get; set; } = new List<AllProductsServiceModel>();
+        public IEnumerable<AllProductsServiceModel> Products { get; set; }
 
         public string Search { get; set; }
     }

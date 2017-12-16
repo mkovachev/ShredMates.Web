@@ -8,7 +8,7 @@ namespace ShredMates.Services.Interfaces
 {
     public interface ICategoryService
     {
-        Task<CategoryServiceModel> AllProductsInCategoryAsync(int id, int page = 1, int pageSize = DataConstants.PageSize);
+        Task<CategoryServiceModel> AllInCategoryAsync(int id, int page = 1, int pageSize = DataConstants.PageSize);
 
         Task<Category> ByIdAsync(int id);
 

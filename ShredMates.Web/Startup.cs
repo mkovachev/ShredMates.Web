@@ -12,6 +12,7 @@ using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Implementations;
 using ShredMates.Services.Interfaces;
+using ShredMates.Services.Models;
 using ShredMates.Web.Infrastructure.Extensions;
 using System;
 
@@ -62,7 +63,6 @@ namespace ShredMates.Web
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>(); // auto AntiforgeryToken
             });
-            //.AddSessionStateTempDataProvider(); // add TempData provider
 
             services.AddAuthorization();
             services.AddDistributedMemoryCache(); // add cache
@@ -91,14 +91,6 @@ namespace ShredMates.Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStatusCodePages(async context =>
-            {
-                context.HttpContext.Response.ContentType = "text/plain";
-                await context.HttpContext.Response.WriteAsync(
-                    "Status code page, status code: " +
-                    context.HttpContext.Response.StatusCode);
-            });
-
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseAuthentication();
@@ -106,7 +98,6 @@ namespace ShredMates.Web
 
             app.UseMvc(routes =>
             {
-
                 routes.MapRoute(
                   name: "areas",
                   template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"

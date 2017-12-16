@@ -18,11 +18,14 @@
 @if (Model.Products.Any())
 {
     <div class="row home-page">
-        @await Html.PartialAsync("_ShopPartial", Model.Products);
+        @await Html.PartialAsync("SearchResults", Model.Products);
     </div>
 }
 else
 {
-    <h3>Sorry, no courses found</h3>
+    <h3>Sorry, no products found...</h3>
+    <div class="go-back">
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-info btn-sm">Go back</a>
+    </div>
 }
 

@@ -8,6 +8,5 @@ namespace ShredMates.Services.Models
     {
         public IEnumerable<AllProductsServiceModel> Products { get; set; }
 
-        public Category CurrentCategory { get; set; }
     }
 }

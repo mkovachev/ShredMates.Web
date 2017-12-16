@@ -28,10 +28,6 @@ namespace ShredMates.Web.Controllers
                 sessionId = DateTime.UtcNow.ToShortDateString();
                 this.HttpContext.Session.SetString(sessionKey, sessionId);
             }
-            //var shoppingCart = new ShoppingCart
-            //{
-            //    Id = sessionId
-            //};
 
             return View(new HomeViewModel
             {
@@ -40,6 +36,13 @@ namespace ShredMates.Web.Controllers
                 TotalPages = (int)Math.Ceiling(this.products.TotalPages() / (double)DataConstants.PageSize)
             });
         }
+
+        public async Task<IActionResult> Search(HomeViewModel model)
+           => View(new SearchViewModel
+           {
+               Search = model.Search,
+               Products = await this.products.FindAsync(model.Search)
+           });
 
         public async Task<IActionResult> About() => await Task.Run(() => View());
 

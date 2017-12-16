@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShredMates.Services.Admin.Interfaces;
-using ShredMates.Web.Infrastructure.Extensions;
 using ShredMates.Web.Models;
 using System.Threading.Tasks;
 
@@ -25,8 +24,6 @@ namespace ShredMates.Web.Controllers
             {
                 return NotFound();
             }
-
-            TempData.AddSuccessMessage($"Redirecting to {product.Title} details");
 
             return View(new ProductDetailsViewModel
             {

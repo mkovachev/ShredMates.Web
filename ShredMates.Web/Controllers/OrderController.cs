@@ -17,7 +17,6 @@ namespace ShredMates.Web.Controllers
             this.shoppingCart = shoppingCart;
         }
 
-        [HttpPost]
         public async Task<IActionResult> Checkout(Order order)
         {
             var items = await this.shoppingCartServices.AllProductssAsync();
@@ -25,7 +24,8 @@ namespace ShredMates.Web.Controllers
 
             if (shoppingCart.ShoppingCartItems.Count == 0)
             {
-                ModelState.AddModelError("", "Your card is empty, add some products first");
+                ModelState.AddModelError("Empty cart", "Your cart is empty, go grab some products");
+                TempData.AddErrorMessage("Your cart is empty, go grab some products");
             }
 
             if (!ModelState.IsValid)
@@ -36,14 +36,8 @@ namespace ShredMates.Web.Controllers
             await shoppingCartServices.CreateOrderAsync(order);
             await shoppingCartServices.ClearCartAsync();
 
-            TempData.AddSuccessMessage("Redirecting to checkout...");
-            return RedirectToAction("/");
-        }
-
-        public async Task<IActionResult> CheckoutComplete()
-        {
             TempData.AddSuccessMessage("Thank you for your order! Check your email for the order details");
-            return await Task.Run(() => View());
+            return RedirectToAction("Index", "Home");
         }
     }
 }

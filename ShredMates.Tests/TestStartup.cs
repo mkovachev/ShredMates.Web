@@ -62,7 +62,7 @@ namespace ShredMates.Tests
         public static ShredMatesDbContext GetDataBase()
         {
             var dbOptions = new DbContextOptionsBuilder<ShredMatesDbContext>()
-                               .UseInMemoryDatabase("Test")
+                               .UseInMemoryDatabase(Guid.NewGuid().ToString())
                                .Options;
             var db = new ShredMatesDbContext(dbOptions);
 

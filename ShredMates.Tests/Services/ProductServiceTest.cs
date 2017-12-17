@@ -29,6 +29,8 @@ namespace ShredMates.Tests.Services
         {
             // Arrange      
             var productService = new ProductService(db);
+            await this.db.Products.AddRangeAsync(products);
+            await this.db.SaveChangesAsync();
 
             // Act
             var result = await productService.AllAsync();
@@ -41,8 +43,9 @@ namespace ShredMates.Tests.Services
         public async Task FindAsync_ShouldReturn_ProductById()
         {
             // Arrange
-            await this.db.Products.AddRangeAsync(products);
             var productService = new ProductService(db);
+            await this.db.Products.AddRangeAsync(products);
+            await this.db.SaveChangesAsync();
 
             // Act
             var result = await productService.ByIdAsync(1);

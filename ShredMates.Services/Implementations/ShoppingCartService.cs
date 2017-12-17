@@ -49,7 +49,7 @@ namespace ShredMates.Services.Implementations
             {
                 shoppingCartItem = new ShoppingCartItem
                 {
-                    ShoppingCartId = shoppingCart.Id, // TODO
+                    ShoppingCartId = shoppingCart.Id,
                     Product = product,
                     Amount = 1
                 };

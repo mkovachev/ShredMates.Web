@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace ShredMates.Tests.Services
 {
@@ -31,20 +32,15 @@ namespace ShredMates.Tests.Services
             // Arrrange
             var shoppingCartService = new ShoppingCartService(db, this.shoppingCart);
 
-            var id = 1;
-            foreach (var product in products)
+            var item = new ShoppingCartItem()
             {
-                var item = new ShoppingCartItem()
-                {
-                    Id = id++,
-                    Product = product,
-                    Amount = 1,
-                    ShoppingCartId = "1"
-                };
-                this.shoppingCart.ShoppingCartItems.Add(item);
-                await this.db.ShoppingCartItems.AddAsync(item);
-            }
-            
+                Id = 1,
+                Product = products[0],
+                Amount = 1,
+                ShoppingCartId = "1"
+            };
+            this.shoppingCart.ShoppingCartItems.Add(item);
+            await this.db.ShoppingCartItems.AddAsync(item);
             await this.db.SaveChangesAsync();
 
             // Act
@@ -53,11 +49,31 @@ namespace ShredMates.Tests.Services
             // Assert
             items
                 .Should()
-                .Match(r => r.ElementAt(0).Product.Title == "A"
-                         && r.ElementAt(1).Product.Title == "B"
-                         && r.ElementAt(2).Product.Title == "C")
+                .Match(r => r.ElementAt(0).Product.Title == "A")
                 .And
-                .HaveCount(3);
+                .HaveCount(1);
+        }
+
+        [Fact]
+        public async Task AddToCartAsync_ShoulAdd_ProductToCart()
+        {
+            // Arrrange
+            var shoppingCartService = new ShoppingCartService(db, this.shoppingCart);
+
+            var product = new Product { Id = 73, Price = 1000, Title = "Play" };
+
+            // Act
+            await shoppingCartService.AddToCartAsync(product, 1);
+            //await this.db.SaveChangesAsync();
+            var result = await this.db.ShoppingCartItems.FirstOrDefaultAsync(p => p.Product.Title == "Play");
+
+            // Arrange
+            result.Should().NotBeNull();
+            result
+                .Should()
+                .Match<ShoppingCartItem>(p => p.Product.Id == 73
+                                    && p.Product.Title == "Play"
+                                    && p.Product.Price == 1000);
         }
     }
 }

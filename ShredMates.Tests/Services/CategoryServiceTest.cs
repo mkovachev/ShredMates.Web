@@ -51,7 +51,7 @@ namespace ShredMates.Tests.Services
         {
             // Arrange
             var categoryService = new CategoryService(db, shoppingCart);
-            //await this.db.Products.AddRangeAsync(products); // already added
+            await this.db.Products.AddRangeAsync(products);
             await this.db.SaveChangesAsync();
 
             // Act

@@ -35,7 +35,7 @@ namespace ShredMates.Services.Implementations
         public async Task<List<ShoppingCartItem>> AllProductssAsync()
             => await this.db
                        .ShoppingCartItems
-                       .Where(c => c.ShoppingCartId == shoppingCart.Id) // TODO
+                       .Where(c => c.ShoppingCartId == shoppingCart.Id)
                        .Include(i => i.Product)
                        .ToListAsync();
 

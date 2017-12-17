@@ -1,9 +1,8 @@
 ﻿using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Implementations;
-using System;
+using ShredMates.Services.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,28 +12,24 @@ namespace ShredMates.Tests.Services
 {
     public class CategoryServiceTest
     {
+        private readonly ShredMatesDbContext db;
+        private readonly ShoppingCart shoppingCart;
+        private readonly List<Product> products;
+
         public CategoryServiceTest()
         {
             TestStartup.GetMapper();
+            this.db = TestStartup.GetDataBase();
+            this.shoppingCart = TestStartup.GetShoppingCart();
+            this.products = TestStartup.GetProducts();
         }
 
         [Fact]
         public async Task ByIdAsync_ShouldReturn_CorrectCategoryWithId()
         {
             // Arrange
-            var dbOptions = new DbContextOptionsBuilder<ShredMatesDbContext>()
-                                   .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                                   .Options;
-            var db = new ShredMatesDbContext(dbOptions);
-            var shoppingCart = new ShoppingCart();
             var categoryService = new CategoryService(db, shoppingCart);
 
-            var products = new List<Product>()
-            {
-                ( new Product { Title = "A"}),
-                 ( new Product { Title = "B"}),
-                 ( new Product { Title = "C"})
-            };
 
             var category = new Category
             {
@@ -53,29 +48,18 @@ namespace ShredMates.Tests.Services
             result.Should().BeOfType(typeof(Category));
             result.Should().NotBeNull();
             result.Should()
-                .Match<Category>(c => 
-                                    c.Id == category.Id
-                                    && c.Name == category.Name);
+                .Match<Category>(r =>
+                                    r.Id == category.Id
+                                    && r.Name == category.Name);
         }
 
 
         [Fact]
-        public async Task ProductsinCategoryAsync_ShouldReturnAllProductFromCategory_OrderedByTitle()
+        public async Task AllProductsInCategoryAsync_ShouldReturnAllProductFromCategory_OrderedByTitle()
         {
             // Arrange
-            var dbOptions = new DbContextOptionsBuilder<ShredMatesDbContext>()
-                                       .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                                       .Options;
-            var db = new ShredMatesDbContext(dbOptions);
-            var shoppingCart = new ShoppingCart();
+            await this.db.Products.AddRangeAsync(products);
             var categoryService = new CategoryService(db, shoppingCart);
-
-            var products = new List<Product>()
-            {
-                ( new Product { Title = "A"}),
-                 ( new Product { Title = "B"}),
-                 ( new Product { Title = "C"})
-            };
 
             var category = new Category
             {
@@ -84,17 +68,15 @@ namespace ShredMates.Tests.Services
                 Products = products
             };
 
-            db.Add(category);
-            db.SaveChanges();
-
             // Act
-            var result = await categoryService.ProductsinCategoryAsync(category.Id);
+            var result = await categoryService.AllProductsInCategoryAsync(category.Id); //return null but working in project
 
             // Assert
             result
                 .Should()
                 .Match(r => r.ElementAt(0).Title == "A"
-                             && r.ElementAt(1).Title == "B")
+                         && r.ElementAt(1).Title == "B"
+                         && r.ElementAt(2).Title == "C")
                 .And
                 .HaveCount(3);
         }

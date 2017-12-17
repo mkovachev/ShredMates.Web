@@ -12,7 +12,7 @@ namespace ShredMates.Services.Interfaces
 
         Task<Category> ByIdAsync(int id);
 
-        Task<IEnumerable<AllProductsServiceModel>> ProductsinCategoryAsync(int categoryId, int page = 1, int pageSize = DataConstants.PageSize);
+        Task<IEnumerable<AllProductsServiceModel>> AllProductsInCategoryAsync(int categoryId, int page = 1, int pageSize = DataConstants.PageSize);
 
         int TotalPages();
     }

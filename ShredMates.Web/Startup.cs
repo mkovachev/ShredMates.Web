@@ -12,6 +12,7 @@ using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Web.Infrastructure.Extensions;
 using System;
+using System.Collections.Generic;
 
 namespace ShredMates.Web
 {
@@ -53,7 +54,7 @@ namespace ShredMates.Web
             services.AddServices(); // auto add services
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // reg http service
-            services.AddScoped(sp => new ShoppingCart(){ Id = DateTime.UtcNow.ToShortDateString()});
+            services.AddScoped(sp => new ShoppingCart(){ Id = DateTime.UtcNow.ToShortDateString(), ShoppingCartItems = new List<ShoppingCartItem>()});
             services.AddRouting(routing => { routing.LowercaseUrls = true; }); // add routing
 
 

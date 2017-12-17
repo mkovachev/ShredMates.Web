@@ -41,9 +41,9 @@ namespace ShredMates.Web.Controllers
 
             await this.shoppingCartServices.AddToCartAsync(shoppingCartItem, 1);
 
-            TempData.AddSuccessMessage($"{shoppingCartItem.Title} successfully added to cart");
+            //TempData.AddSuccessMessage($"{shoppingCartItem.Title} successfully added to cart");
 
-            return RedirectToAction("/");
+            return RedirectToAction("Index", "Home"); // TODO for product details view
         }
 
         public async Task<IActionResult> RemoveFromCart(int id)
@@ -57,7 +57,7 @@ namespace ShredMates.Web.Controllers
 
             await this.shoppingCartServices.RemoveProductAsync(shoppingCartItem);
 
-            TempData.AddSuccessMessage($"{shoppingCartItem.Title} successfully removed from cart");
+            TempData.AddSuccessMessage($"{shoppingCartItem.Title} reduced with qty 1");
 
             return RedirectToAction("Index", nameof(shoppingCart));
         }

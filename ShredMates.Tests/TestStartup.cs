@@ -77,35 +77,6 @@ namespace ShredMates.Tests
                 ShoppingCartItems = new List<ShoppingCartItem>()
             };
 
-            //var shoppingCart = new ShoppingCart()
-            //{
-            //    Id = "1",
-            //    ShoppingCartItems =
-            //    {
-            //        (new ShoppingCartItem
-            //        {   
-            //            Id = 1,
-            //            ShoppingCartId = "1",
-            //            Product = new Product { Id = 1, Title = "A", CategoryId = 1},
-            //            Amount = 1
-            //        }),
-            //        (new ShoppingCartItem
-            //        {
-            //            Id = 1,
-            //            ShoppingCartId = "1",
-            //            Product = new Product { Id = 2, Title = "B", CategoryId = 1},
-            //            Amount = 1
-            //        }),
-            //         (new ShoppingCartItem
-            //         {
-            //             Id = 1,
-            //             ShoppingCartId = "1",
-            //             Product = new Product { Id = 3, Title = "C", CategoryId = 1},
-            //             Amount = 1
-            //         })
-            //    }
-            //};
-
             return shoppingCart;
         }
 

@@ -2,7 +2,6 @@
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Implementations;
-using ShredMates.Services.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +14,7 @@ namespace ShredMates.Tests.Services
         private readonly ShredMatesDbContext db;
         private readonly ShoppingCart shoppingCart;
         private readonly List<Product> products;
+        private readonly Category category;
 
         public CategoryServiceTest()
         {
@@ -22,6 +22,7 @@ namespace ShredMates.Tests.Services
             this.db = TestStartup.GetDataBase();
             this.shoppingCart = TestStartup.GetShoppingCart();
             this.products = TestStartup.GetProducts();
+            this.category = TestStartup.GetCategory();
         }
 
         [Fact]
@@ -30,16 +31,8 @@ namespace ShredMates.Tests.Services
             // Arrange
             var categoryService = new CategoryService(db, shoppingCart);
 
-
-            var category = new Category
-            {
-                Id = 1,
-                Name = "Snowboard",
-                Products = products
-            };
-
-            db.Add(category);
-            db.SaveChanges();
+            await this.db.AddAsync(category);
+            await this.db.SaveChangesAsync();
 
             // Act
             var result = await categoryService.ByIdAsync(category.Id);
@@ -53,23 +46,17 @@ namespace ShredMates.Tests.Services
                                     && r.Name == category.Name);
         }
 
-
         [Fact]
         public async Task AllProductsInCategoryAsync_ShouldReturnAllProductFromCategory_OrderedByTitle()
         {
             // Arrange
-            await this.db.Products.AddRangeAsync(products);
             var categoryService = new CategoryService(db, shoppingCart);
-
-            var category = new Category
-            {
-                Id = 1,
-                Name = "Snowboard",
-                Products = products
-            };
+            //await this.db.Products.AddRangeAsync(products); // already added
+            await this.db.SaveChangesAsync();
 
             // Act
-            var result = await categoryService.AllProductsInCategoryAsync(category.Id); //return null but working in project
+            var productsInCategory = await categoryService.AllProductsInCategoryAsync(category.Id);
+            var result = productsInCategory.ToList();
 
             // Assert
             result

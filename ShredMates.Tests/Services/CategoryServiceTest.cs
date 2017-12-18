@@ -13,12 +13,12 @@ namespace ShredMates.Tests.Services
     {
         private readonly ShredMatesDbContext db;
         private readonly ShoppingCart shoppingCart;
-        private readonly List<Product> products;
+        private readonly List<AllProductServiceModel> products;
         private readonly Category category;
 
         public CategoryServiceTest()
         {
-            TestStartup.GetMapper();
+            //TestStartup.GetMapper();
             this.db = TestStartup.GetDataBase();
             this.shoppingCart = TestStartup.GetShoppingCart();
             this.products = TestStartup.GetProducts();
@@ -38,8 +38,9 @@ namespace ShredMates.Tests.Services
             var result = await categoryService.ByIdAsync(category.Id);
 
             // Assert
-            result.Should().BeOfType(typeof(Category));
-            result.Should().NotBeNull();
+            Assert.NotNull(result);
+            Assert.IsType<Category>(result);
+
             result.Should()
                 .Match<Category>(r =>
                                     r.Id == category.Id
@@ -59,6 +60,10 @@ namespace ShredMates.Tests.Services
             var result = productsInCategory.ToList();
 
             // Assert
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+            Assert.Equal(3, result.Count);
+
             result
                 .Should()
                 .Match(r => r.ElementAt(0).Title == "A"

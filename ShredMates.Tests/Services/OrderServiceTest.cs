@@ -11,7 +11,7 @@ namespace ShredMates.Tests.Services
     {
         private readonly ShredMatesDbContext db;
         private readonly ShoppingCart shoppingCart;
-        private readonly List<Product> products;
+        private readonly List<AllProductServiceModel> products;
         private readonly Order order;
 
         public OrderServiceTest()
@@ -33,8 +33,8 @@ namespace ShredMates.Tests.Services
             var savedEntry = await this.db.Orders.FindAsync(order.OrderId);
 
             // Assert
-            orders.Should().NotBeNull();
-            savedEntry.Should().NotBeNull();
+            Assert.NotNull(orders);
+            Assert.NotNull(savedEntry);
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace ShredMates.Tests.Services
             await this.db.SaveChangesAsync();
 
             // Assert
-            orderDetails.Should().NotBeNull();
+            Assert.NotNull(orderDetails);
         }
     }
 }

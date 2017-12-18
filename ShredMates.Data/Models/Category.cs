@@ -17,6 +17,6 @@ namespace ShredMates.Data.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CreatedDate { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public ICollection<AllProductServiceModel> Products { get; set; }
     }
 }

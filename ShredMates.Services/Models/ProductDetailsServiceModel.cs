@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ShredMates.Services.Models
 {
-    public class ProductDetailsServiceModel: IMapFrom<Product>
+    public class ProductDetailsServiceModel: IMapFrom<AllProductServiceModel>
     {  
         public string Title { get; set; }
 

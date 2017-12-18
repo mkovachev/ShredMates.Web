@@ -39,7 +39,7 @@ namespace ShredMates.Services.Implementations
                        .Include(i => i.Product)
                        .ToListAsync();
 
-        public async Task AddToCartAsync(Product product, int amount)
+        public async Task AddToCartAsync(AllProductServiceModel product, int amount)
         {
             var shoppingCartItem = await this.db
                                         .ShoppingCartItems
@@ -64,7 +64,7 @@ namespace ShredMates.Services.Implementations
             await this.db.SaveChangesAsync();
         }
 
-        public async Task RemoveProductAsync(Product product)
+        public async Task RemoveProductAsync(AllProductServiceModel product)
         {
             var shoppingCartItem = await this.db
                                     .ShoppingCartItems
@@ -93,7 +93,7 @@ namespace ShredMates.Services.Implementations
                        .Select(c => c.Product.Price * c.Amount)
                        .SumAsync();
 
-        public async Task<Product> FindProductByIdAsync(int productId)
+        public async Task<AllProductServiceModel> FindProductByIdAsync(int productId)
         {
             return await this.db.Products.FirstOrDefaultAsync(s => s.Id == productId);
         }

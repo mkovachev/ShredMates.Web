@@ -12,7 +12,7 @@ namespace ShredMates.Data
         }
 
         // db sets
-        public DbSet<Product> Products { get; set; }
+        public DbSet<AllProductServiceModel> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         //public DbSet<ShoppingCart> ShoppingCart { get; set; }
@@ -22,7 +22,7 @@ namespace ShredMates.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // connections
-            builder.Entity<Product>().ToTable("Products");
+            builder.Entity<AllProductServiceModel>().ToTable("Products");
             builder.Entity<Category>().ToTable("Categories");
             //builder.Entity<ShoppingCart>().ToTable("ShoppingCart");
             builder.Entity<ShoppingCartItem>().ToTable("ShoppingCartItems");

@@ -28,7 +28,7 @@ namespace ShredMates.Services.Admin.Implementations
 
         public async Task CreateAsync(string title, string shortDescription, string description, decimal price, string imageUrl, string imageThumbnailUrl, DateTime createdDate, int categoryId)
         {
-            var product = new Product
+            var product = new AllProductServiceModel
             {
                 Title = title,
                 ShortDescription = shortDescription,

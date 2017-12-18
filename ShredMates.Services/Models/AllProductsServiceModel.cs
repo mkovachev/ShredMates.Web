@@ -3,7 +3,7 @@ using ShredMates.Data.Models;
 
 namespace ShredMates.Services.Models
 {
-    public class AllProductsServiceModel: IMapFrom<Product>
+    public class AllProductsServiceModel: IMapFrom<AllProductServiceModel>
     {
         public int Id { get; set; }
 

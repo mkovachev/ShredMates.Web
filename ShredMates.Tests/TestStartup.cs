@@ -12,6 +12,10 @@ namespace ShredMates.Tests
     {
         private static bool testInitialized = false;
 
+        public TestStartup()
+        {
+        }
+
         //private readonly AutoMapperProfile mapper;
         //private readonly ShredMatesDbContext db;
         //private readonly ShoppingCart shoppingCart;
@@ -80,12 +84,12 @@ namespace ShredMates.Tests
             return shoppingCart;
         }
 
-        public static List<Product> GetProducts()
-            => new List<Product>()
+        public static List<AllProductServiceModel> GetProducts()
+            => new List<AllProductServiceModel>()
             {
-                new Product { Id = 1, Title = "A", Price = 100, CategoryId = 1},
-                new Product { Id = 2, Title = "B", Price = 200, CategoryId = 1},
-                new Product { Id = 3, Title = "C", Price = 300, CategoryId = 1}
+                new AllProductServiceModel { Id = 1, Title = "A", Price = 100, CategoryId = 1},
+                new AllProductServiceModel { Id = 2, Title = "B", Price = 200, CategoryId = 1},
+                new AllProductServiceModel { Id = 3, Title = "C", Price = 300, CategoryId = 1}
             };
 
         public static Order GetOrder()
@@ -99,7 +103,7 @@ namespace ShredMates.Tests
             {
                 Id = 1,
                 Name = "Snowboard",
-                Products = new List<Product>()
+                Products = new List<AllProductServiceModel>()
             };
 
         public static OrderDetail GetOrderDetails()

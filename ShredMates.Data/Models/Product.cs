@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ShredMates.Data.Models
 {
-    public class Product
+    public class AllProductServiceModel
     {
         public int Id { get; set; }
 

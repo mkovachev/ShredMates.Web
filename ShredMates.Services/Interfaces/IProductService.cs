@@ -12,7 +12,7 @@ namespace ShredMates.Services.Interfaces
 
         int TotalPages();
 
-        Task<Product> ByIdAsync(int id);
+        Task<AllProductServiceModel> ByIdAsync(int id);
 
         Task<IEnumerable<AllProductsServiceModel>> SearchAsync(string search);
     }

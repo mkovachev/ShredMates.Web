@@ -30,7 +30,7 @@ namespace ShredMates.Services.Implementations
                         .ToListAsync();
         }
 
-        public async Task<Product> ByIdAsync(int id) => await this.db.Products.FindAsync(id);
+        public async Task<AllProductServiceModel> ByIdAsync(int id) => await this.db.Products.FindAsync(id);
 
         public async Task<IEnumerable<AllProductsServiceModel>> SearchAsync(string search)
         {

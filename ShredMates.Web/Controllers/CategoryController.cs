@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ShredMates.Data;
 using ShredMates.Services.Interfaces;
 using ShredMates.Web.Models;
@@ -11,16 +10,19 @@ namespace ShredMates.Web.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryService categories;
-        private readonly IMapper mapper;
 
-        public CategoryController(ICategoryService categories, IMapper mapper)
+        public CategoryController(ICategoryService categories)
         {
             this.categories = categories;
-            this.mapper = mapper;
         }
 
         public async Task<IActionResult> Index(int id, int page = 1)
         {
+            if (!int.TryParse(id.ToString(), out var n))
+            {
+                return NotFound();
+            }
+
             return View(new CategoryViewModel
             {
                 Products = await this.categories.AllProductsInCategoryAsync(id, page, DataConstants.PageSize),

@@ -21,13 +21,13 @@ namespace ShredMates.Web.Controllers
 
         public async Task<IActionResult> Index(int page = 1)
         {
-            //const string sessionKey = "session";
-            //var sessionId = HttpContext?.Session.GetString(sessionKey);
-            //if(sessionId == null)
-            //{
-            //    sessionId = Guid.NewGuid().ToString();
-            //    this.HttpContext.Session.SetString(sessionKey, sessionId);
-            //}
+            const string sessionKey = "session";
+            var sessionId = HttpContext?.Session.GetString(sessionKey);
+            if (sessionId == null)
+            {
+                sessionId = Guid.NewGuid().ToString();
+                this.HttpContext.Session.SetString(sessionKey, sessionId);
+            }
 
             return View(new HomeViewModel
             {

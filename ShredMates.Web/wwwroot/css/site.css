@@ -4,20 +4,20 @@
 }
 
 nav {
-    padding: 8px;
+    padding: 2px;
     background-color: transparent;
 }
 
 .loginForm {
-    margin: 10%;
+    margin: 5%;
 }
 
 .checkoutForm {
-    margin-top: 5%;
+    margin-top: 2%;
 }
 
 .orderForm {
-    margin-top: 5%;
+    margin-top: 2%;
     border-radius: 20px;
     border-style: solid;
     border-color: #2fa4e7;
@@ -33,11 +33,11 @@ a.remove {
 
 .center_div {
     margin: 0 auto;
-    width: 80% /* value of your choice which suits your alignment */
+    width: 100%;
 }
 
 .details {
-    margin-top: 5%;
+    margin-top: 2%;
 }
 
 .formPullRightButton {
@@ -45,6 +45,5 @@ a.remove {
 }
 
 .carousel img {
-    min-width: 100%;
-    height: 300px;
+    width: 100%;
 }

@@ -34,14 +34,8 @@
                     <!--Snowboard-->
                     <li>@await Component.InvokeAsync("CategoryView")</li>
                     <!--Ski-->
-                    <li><a asp-controller="Ski" asp-action="Index">Ski</a></li>
-                    <!--MEN-->
-                    <!--WOMEN-->
-                    <!--BRANDS-->
-                    <li><a asp-controller="Brands" asp-action="Index">Brands</a></li>
-                    <!--ACCESSORIES-->
-                    <!--SALE-->
-                    <!--Profile-->
+                    <li>@await Component.InvokeAsync("SkiView")</li>
+                    <!--<li><a asp-controller="Ski" asp-action="Index">Ski</a></li>-->
                     <!--nav admin -->
                     @if (User.Identity.IsAuthenticated && User.IsInRole(WebConstants.AdminRole))
                     {
@@ -57,8 +51,14 @@
                         </li>
                         <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a></li>
                     }
-                    <li><a asp-controller="Home" asp-action="Contact">Contact us</a></li>
-                    <li><a asp-controller="Home" asp-action="About">About</a></li>
+                    <!--MEN--> <!--WOMEN-->
+                    <!--BRANDS-->
+                    <li><a asp-controller="Brands" asp-action="Index">Brands</a></li>
+                    <!--ACCESSORIES-->
+                    <!--SALE-->
+                    <!--Profile-->
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact us</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <!-- Shopping Cart-->
                     @await Component.InvokeAsync("ShoppingCartSummary")
                 </ul>

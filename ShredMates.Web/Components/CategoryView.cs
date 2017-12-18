@@ -8,17 +8,12 @@ namespace ShredMates.Web.Components
     {
         private readonly ShredMatesDbContext db;
 
-        public CategoryView(ShredMatesDbContext db)
-        {
-            this.db = db;
-        }
+        public CategoryView(ShredMatesDbContext db) => this.db = db;
 
         public IViewComponentResult Invoke()
-        {
-            var categories = this.db.Categories.OrderBy(c => c.Name);
-
-            return View(categories);
-        }
+            => View(this.db.Categories
+                        .Where(c => c.Name.Contains("Snowboard"))
+                        .OrderBy(c => c.Name));
 
     }
 }

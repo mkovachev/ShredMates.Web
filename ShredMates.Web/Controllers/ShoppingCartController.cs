@@ -2,7 +2,6 @@
 using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
 using ShredMates.Web.Infrastructure.Extensions;
-using ShredMates.Web.Infrastructure.ToastrPlugIn;
 using ShredMates.Web.Models;
 using System.Threading.Tasks;
 

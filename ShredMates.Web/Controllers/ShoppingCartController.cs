@@ -2,6 +2,7 @@
 using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
 using ShredMates.Web.Infrastructure.Extensions;
+using ShredMates.Web.Infrastructure.ToastrPlugIn;
 using ShredMates.Web.Models;
 using System.Threading.Tasks;
 
@@ -58,6 +59,7 @@ namespace ShredMates.Web.Controllers
             await this.shoppingCartServices.RemoveProductAsync(shoppingCartItem);
 
             TempData.AddSuccessMessage($"{shoppingCartItem.Title} reduced with qty 1");
+            //this.AddToastMessage("Toastr", "Remove ${shoppingCartItem.Title}", ToastType.Success);
 
             return RedirectToAction("Index", nameof(shoppingCart));
         }

@@ -77,6 +77,7 @@ namespace ShredMates.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
             app.UseDatabaseMigration(); // auto migrations
 
             if (env.IsDevelopment())

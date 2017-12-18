@@ -25,11 +25,12 @@ namespace ShredMates.Web.Controllers
             if (shoppingCart.ShoppingCartItems.Count == 0)
             {
                 ModelState.AddModelError("Empty cart", "Your cart is empty, go grab some products");
-                TempData.AddErrorMessage("Your cart is empty, go grab some products");
+                TempData.AddErrorMessage("Your cart is empty, go back and add some products");
             }
 
             if (!ModelState.IsValid)
             {
+                TempData.AddErrorMessage("Please fill in all fields");
                 return View(order);
             }
 

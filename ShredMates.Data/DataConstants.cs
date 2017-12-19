@@ -3,7 +3,7 @@
     public class DataConstants
     {
         public const int ProductTitleMinLength = 3;
-        public const int ProductTitleMaxLength = 60;
+        public const int ProductTitleMaxLength = 50;
 
         public const int ProductShortDescriptionMaxLength = 50;
 
@@ -14,10 +14,8 @@
         public const int ProductPriceMaxLength = 10000;
 
         public const int CategoryNameMinLength = 3;
-        public const int CategoryNameMaxLength = 60;
+        public const int CategoryNameMaxLength = 50;
 
         public const int PageSize = 12;
-
-        public const int ExamSubmissionFileLength = 2 * 1024 * 1024;
     }
 }

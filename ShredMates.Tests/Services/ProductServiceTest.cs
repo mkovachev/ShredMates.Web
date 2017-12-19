@@ -14,7 +14,7 @@ namespace ShredMates.Tests.Services
     {
         private readonly ShredMatesDbContext db;
         private readonly ShoppingCart shoppingCart;
-        private readonly List<AllProductServiceModel> products;
+        private readonly List<Product> products;
         private readonly Order order;
 
         public ProductServiceTest()
@@ -41,7 +41,7 @@ namespace ShredMates.Tests.Services
             // Assert
             Assert.NotNull(result);
             Assert.NotEmpty(result);
-            Assert.IsType<List<ShredMates.Services.Models.AllProductsServiceModel>>(result);
+            Assert.IsType<List<ShredMates.Services.Models.ProductListingServiceModel>>(result);
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace ShredMates.Tests.Services
             // Assert
             Assert.NotNull(result);
             result.Should()
-                .Match<AllProductServiceModel>(p => p.Id == 1
+                .Match<Product>(p => p.Id == 1
                                     && p.Title == "A");
         }
     }

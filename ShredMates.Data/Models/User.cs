@@ -2,7 +2,6 @@
 
 namespace ShredMates.Data.Models
 {
-
     public class User : IdentityUser
     {
     }

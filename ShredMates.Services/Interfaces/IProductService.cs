@@ -8,12 +8,12 @@ namespace ShredMates.Services.Interfaces
 {
     public interface IProductService
     {
-        Task<IEnumerable<AllProductsServiceModel>> AllAsync(int page = 1, int pageSize = DataConstants.PageSize);
+        Task<IEnumerable<ProductListingServiceModel>> AllAsync(int page = 1, int pageSize = DataConstants.PageSize);
 
         int TotalPages();
 
-        Task<AllProductServiceModel> ByIdAsync(int id);
+        Task<Product> ByIdAsync(int id);
 
-        Task<IEnumerable<AllProductsServiceModel>> SearchAsync(string search);
+        Task<List<ProductListingServiceModel>> SearchAsync(string search);
     }
 }

@@ -1,6 +1,9 @@
-﻿namespace ShredMates.Services.Admin.Models
+﻿using ShredMates.Common.Mapping;
+using ShredMates.Data.Models;
+
+namespace ShredMates.Services.Admin.Models
 {
-    public class AdminCategoryServiceModel
+    public class AdminCategoryServiceModel: IMapFrom<Category>
     {
         public int Id { get; set; }
 

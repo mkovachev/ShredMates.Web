@@ -19,20 +19,20 @@ namespace ShredMates.Services.Implementations
             this.db = db;
         }
 
-        public async Task<IEnumerable<AllProductsServiceModel>> AllAsync(int page = 1, int pageSize = DataConstants.PageSize)
+        public async Task<IEnumerable<ProductListingServiceModel>> AllAsync(int page = 1, int pageSize = DataConstants.PageSize)
         {
             return await this.db
                         .Products
                         .OrderByDescending(p => p.CreatedDate)
                         .Skip((page - 1) * pageSize)
                         .Take(pageSize)
-                        .ProjectTo<AllProductsServiceModel>()
+                        .ProjectTo<ProductListingServiceModel>()
                         .ToListAsync();
         }
 
-        public async Task<AllProductServiceModel> ByIdAsync(int id) => await this.db.Products.FindAsync(id);
+        public async Task<Product> ByIdAsync(int id) => await this.db.Products.FindAsync(id);
 
-        public async Task<IEnumerable<AllProductsServiceModel>> SearchAsync(string search)
+        public async Task<List<ProductListingServiceModel>> SearchAsync(string search)
         {
             search = search ?? string.Empty;
 
@@ -40,7 +40,7 @@ namespace ShredMates.Services.Implementations
                         .Products
                         .OrderByDescending(p => p.CreatedDate)
                         .Where(p => p.Title.ToLower().Contains(search.ToLower()))
-                        .ProjectTo<AllProductsServiceModel>()
+                        .ProjectTo<ProductListingServiceModel>()
                         .ToListAsync();
         }
 

@@ -1,4 +1,7 @@
-﻿namespace ShredMates.Web.Models
+﻿using ShredMates.Data.Models;
+using System.Collections.Generic;
+
+namespace ShredMates.Web.Models
 {
     public class ProductDetailsViewModel
     {
@@ -10,6 +13,8 @@
 
         public decimal Price { get; set; }
 
-        public string ImageUrl { get; set; }
+        public List<Image> Images { get; set; }
+
+        public List<ProductAttribute> ProductAttributes { get; set; }
     }
 }

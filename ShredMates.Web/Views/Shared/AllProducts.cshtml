@@ -1,4 +1,4 @@
-﻿@model AllProductsServiceModel
+﻿@model ProductListingServiceModel
 @{
     ViewData["Title"] = "All Products";
 }
@@ -6,8 +6,8 @@
 <div class="col-sm-4 col-lg-4 col-md-4">
     <div class="thumbnail">
         <a asp-controller="Products" asp-action="Details" asp-route-id=@Model.Id>
-            <div class="gallery-image img-responsive" style="background-image:url(@Model.ImageThumbnailUrl)"></div>
-            <img src="@Model.ImageThumbnailUrl" class="img-responsive" />
+            <div class="gallery-image img-responsive" style="background-image:url(@Model.Thumbnail)"></div>
+            <img src="@Model.Thumbnail" class="img-responsive" />
             <img src="https://picsum.photos/700/500/?random&giud=@(Guid.NewGuid())" class="img-responsive">
         </a>
         <div class="caption">

@@ -1,10 +1,11 @@
 ﻿using ShredMates.Common.Mapping;
 using ShredMates.Data.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ShredMates.Services.Models
 {
-    public class ProductDetailsServiceModel: IMapFrom<AllProductServiceModel>
+    public class ProductDetailsServiceModel: IMapFrom<Product>
     {  
         public string Title { get; set; }
 
@@ -13,7 +14,7 @@ namespace ShredMates.Services.Models
         public decimal Price { get; set; }
 
         [DataType(DataType.ImageUrl)]
-        public string ImageUrl { get; set; }
+        public List<Image> Images { get; set; }
 
         public int CategoryId { get; set; }
 

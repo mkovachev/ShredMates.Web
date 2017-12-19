@@ -6,11 +6,11 @@ namespace ShredMates.Services.Interfaces
 {
     public interface IShoppingCartService
     {
-        Task<AllProductServiceModel> FindProductByIdAsync(int productId);
+        Task<Product> FindProductByIdAsync(int productId);
 
-        Task AddToCartAsync(AllProductServiceModel product, int amount);
+        Task AddToCartAsync(Product product, int amount);
 
-        Task RemoveProductAsync(AllProductServiceModel product);
+        Task RemoveProductAsync(Product product);
 
         Task ClearCartAsync();
 
@@ -19,7 +19,5 @@ namespace ShredMates.Services.Interfaces
         Task<List<ShoppingCartItem>> AllProductssAsync();
 
         Task CreateOrderAsync(Order order);
-
-        Task ClearCartAsync(string id);
     }
 }

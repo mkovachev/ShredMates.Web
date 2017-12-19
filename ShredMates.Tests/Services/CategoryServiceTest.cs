@@ -2,6 +2,7 @@
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Implementations;
+using ShredMates.Services.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace ShredMates.Tests.Services
     {
         private readonly ShredMatesDbContext db;
         private readonly ShoppingCart shoppingCart;
-        private readonly List<AllProductServiceModel> products;
+        private readonly List<Product> products;
         private readonly Category category;
 
         public CategoryServiceTest()

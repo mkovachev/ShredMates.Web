@@ -2,14 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ShredMates.Services.Interfaces;
+using ShredMates.Services.Models;
 using ShredMates.Web.Controllers;
 using ShredMates.Web.Models.HomeViewModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
-using System.Linq;
-using ShredMates.Data.Models;
-using System.Collections.Generic;
-using ShredMates.Services.Models;
 
 namespace ShredMates.Tests.Web
 {
@@ -23,11 +21,11 @@ namespace ShredMates.Tests.Web
             var mockHomeController = new Mock<HomeController>(mockProductService).Object;
             var mockHomeViewModel = new Mock<HomeViewModel>().Object;
 
-            mockHomeViewModel.Products = new List<AllProductsServiceModel>()
+            mockHomeViewModel.Products = new List<ProductListingServiceModel>()
             {
-                new AllProductsServiceModel { Id = 1, Title = "A", Price = 100 },
-                new AllProductsServiceModel { Id = 2, Title = "B", Price = 200},
-                new AllProductsServiceModel { Id = 3, Title = "C", Price = 300}
+                new ProductListingServiceModel { Id = 1, Title = "A", Price = 100 },
+                new ProductListingServiceModel { Id = 2, Title = "B", Price = 200},
+                new ProductListingServiceModel { Id = 3, Title = "C", Price = 300}
             };
 
             // get mocked session

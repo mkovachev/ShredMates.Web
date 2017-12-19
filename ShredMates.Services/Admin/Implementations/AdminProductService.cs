@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Admin.Interfaces;
-using ShredMates.Services.Admin.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,33 +19,49 @@ namespace ShredMates.Services.Admin.Implementations
             this.db = db;
         }
 
-        public async Task<AdminProductServiceModel> FindByIdAsync(int id)
+        public async Task<Product> FindByIdAsync(int id)
             => await this.db
                  .Products
                  .Where(p => p.Id == id)
-                 .ProjectTo<AdminProductServiceModel>()
                  .FirstOrDefaultAsync();
 
-        public async Task CreateAsync(string title, string shortDescription, string description, decimal price, string imageUrl, string imageThumbnailUrl, DateTime createdDate, int categoryId)
+        public bool ExistsById(int id)
         {
-            var product = new AllProductServiceModel
+            return this.db.Products.Any(c => c.Id == id);
+        }
+
+        public bool ExistsByName(string title)
+        {
+            return this.db.Products.Any(c => c.Title == title);
+        }
+
+        public async Task<Product> DetailsAsync(int id)
+            => await this.db
+                    .Products
+                    .Where(p => p.Id == id)
+                    .FirstOrDefaultAsync();
+
+        public async Task CreateAsync(string title, string shortDescription, string description, decimal price, List<Image> images, string thumbnail, List<ProductAttribute> productAttributes, DateTime createdDate, int categoryId)
+        {
+            var product = new Product
             {
                 Title = title,
                 ShortDescription = shortDescription,
                 Description = description,
                 Price = price,
-                ImageUrl = imageUrl,
-                ImageThumbnailUrl = imageThumbnailUrl,
+                Images = images,
+                Thumbnail = thumbnail,
+                ProductAttributes = productAttributes,
                 CreatedDate = createdDate,
                 CategoryId = categoryId
             };
 
-            this.db.Add(product);
+            this.db.Products.Add(product);
 
             await this.db.SaveChangesAsync();
         }
 
-        public async Task EditAsync(int id, string title, string shortDescription, string description, decimal price, string imageUrl, string imageThumbnailUrl, DateTime createdDate, int categoryId)
+        public async Task EditAsync(int id, string title, string shortDescription, string description, decimal price, List<Image> images, string thumbnail, List<ProductAttribute> productAttributes, DateTime createdDate, int categoryId)
         {
             var product = await this.db.Products.FindAsync(id);
 
@@ -57,8 +73,9 @@ namespace ShredMates.Services.Admin.Implementations
             product.ShortDescription = shortDescription;
             product.Description = description;
             product.Price = price;
-            product.ImageUrl = imageUrl;
-            product.ImageThumbnailUrl = imageThumbnailUrl;
+            product.Images = images;
+            product.Thumbnail = thumbnail;
+            product.ProductAttributes = productAttributes;
             product.CreatedDate = createdDate;
             product.CategoryId = categoryId;
 
@@ -78,22 +95,5 @@ namespace ShredMates.Services.Admin.Implementations
 
             await this.db.SaveChangesAsync();
         }
-
-        public bool ExistsById(int id)
-        {
-            return this.db.Products.Any(c => c.Id == id);
-        }
-
-        public bool ExistsByName(string title)
-        {
-            return this.db.Products.Any(c => c.Title == title);
-        }
-
-        public async Task<AdminProductServiceModel> DetailsAsync(int id) 
-            => await this.db
-                    .Products
-                    .Where(p => p.Id == id)
-                    .ProjectTo<AdminProductServiceModel>()
-                    .FirstOrDefaultAsync();
     }
 }

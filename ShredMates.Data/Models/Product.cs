@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ShredMates.Data.Models
 {
-    public class AllProductServiceModel
+    public class Product
     {
         public int Id { get; set; }
 
@@ -26,16 +27,15 @@ namespace ShredMates.Data.Models
         [MinLength(10)]
         [MaxLength(2000)]
         [DataType(DataType.ImageUrl)]
-        public string ImageUrl { get; set; }
-
-        [MinLength(10)]
-        [MaxLength(2000)]
-        [DataType(DataType.ImageUrl)]
-        public string ImageThumbnailUrl { get; set; }
+        public string Thumbnail { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CreatedDate { get; set; }
+
+        public List<Image> Images { get; set; }
+
+        public List<ProductAttribute> ProductAttributes { get; set; }
 
         public int CategoryId { get; set; }
 

@@ -29,7 +29,8 @@ namespace ShredMates.Web.Controllers
             {
                 Title = product.Title,
                 Description = product.Description,
-                ImageUrl = product.ImageUrl
+                Images = product.Images,
+                ProductAttributes = product.ProductAttributes
             });
 
         }

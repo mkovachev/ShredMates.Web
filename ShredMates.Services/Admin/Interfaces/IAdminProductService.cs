@@ -1,20 +1,23 @@
-﻿using ShredMates.Services.Admin.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using ShredMates.Data.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShredMates.Services.Admin.Interfaces
 {
     public interface IAdminProductService
     {
-        Task<AdminProductServiceModel> FindByIdAsync(int id);
+        Task<Product> FindByIdAsync(int id);
 
         Task CreateAsync(
             string title,
             string shortDescription,
             string description,
             decimal price,
-            string imageUrl,
-            string imageThumbnailUrl,
+            List<Image> images,
+            string thumbnail,
+            List<ProductAttribute> productAttributes,
             DateTime createdDate,
             int categoryId
             );
@@ -25,15 +28,16 @@ namespace ShredMates.Services.Admin.Interfaces
             string shortDescription,
             string description,
             decimal price,
-            string imageUrl,
-            string imageThumbnailUrl,
+            List<Image> images,
+            string thumbnail,
+            List<ProductAttribute> productAttributes,
             DateTime createdDate,
             int categoryId
             );
 
         Task DeleteAsync(int id);
 
-        Task<AdminProductServiceModel> DetailsAsync(int id);
+        Task<Product> DetailsAsync(int id);
 
         bool ExistsById(int id);
 

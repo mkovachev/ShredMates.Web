@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ShredMates.Data.Models
@@ -13,10 +12,6 @@ namespace ShredMates.Data.Models
         [MaxLength(DataConstants.CategoryNameMaxLength)]
         public string Name { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime CreatedDate { get; set; }
-
-        public ICollection<AllProductServiceModel> Products { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

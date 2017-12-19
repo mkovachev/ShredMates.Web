@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using ShredMates.Data;
+﻿using ShredMates.Data;
 using ShredMates.Data.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,7 +10,7 @@ namespace ShredMates.Tests.Services
     {
         private readonly ShredMatesDbContext db;
         private readonly ShoppingCart shoppingCart;
-        private readonly List<AllProductServiceModel> products;
+        private readonly List<Product> products;
         private readonly Order order;
 
         public OrderServiceTest()

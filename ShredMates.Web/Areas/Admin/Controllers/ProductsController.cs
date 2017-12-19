@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ShredMates.Services.Admin.Interfaces;
 using ShredMates.Web.Areas.Admin.Models.Products;
 using ShredMates.Web.Infrastructure.Extensions;
-using ShredMates.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,22 +33,22 @@ namespace ShredMates.Web.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
+                model.Categories = await this.GetCategoriesAsync();
                 return View(model);
             }
 
             var product = this.products.ExistsByName(model.Title);
 
             if (!product)
-            {
-                model.Categories = await this.GetCategoriesAsync();
-
+            { 
                 await this.products.CreateAsync(
                     model.Title,
                     model.ShortDescription,
                     model.Description,
                     model.Price,
-                    model.ImageUrl,
-                    model.ImageThumbnailUrl,
+                    model.Images,
+                    model.Thumbnail,
+                    model.ProductAttributes,
                     model.CreatedDate,
                     model.CategoryId);
             }
@@ -74,8 +73,9 @@ namespace ShredMates.Web.Areas.Admin.Controllers
                 ShortDescription = product.ShortDescription,
                 Description = product.Description,
                 Price = product.Price,
-                ImageThumbnailUrl = product.ImageThumbnailUrl,
-                ImageUrl = product.ImageUrl,
+                Thumbnail = product.Thumbnail,
+                Images = product.Images,
+                ProductAttributes = product.ProductAttributes,
                 CreatedDate = product.CreatedDate,
                 CategoryId = product.CategoryId,
                 Categories = await this.GetCategoriesAsync()
@@ -92,13 +92,12 @@ namespace ShredMates.Web.Areas.Admin.Controllers
             }
 
             var product = this.products.ExistsById(id);
+            var categories = await this.GetCategoriesAsync();
 
-            if (!product)
+            if (categories == null || !product)
             {
                 return NotFound();
             }
-
-            model.Categories = await this.GetCategoriesAsync();
 
             await this.products.EditAsync(
                 id,
@@ -106,8 +105,9 @@ namespace ShredMates.Web.Areas.Admin.Controllers
                 model.ShortDescription,
                 model.Description,
                 model.Price,
-                model.ImageThumbnailUrl,
-                model.ImageUrl,
+                model.Images,
+                model.Thumbnail,
+                model.ProductAttributes,
                 model.CreatedDate,
                 model.CategoryId);
 

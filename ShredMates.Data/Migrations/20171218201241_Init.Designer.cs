@@ -11,7 +11,7 @@ using System;
 namespace ShredMates.Data.Migrations
 {
     [DbContext(typeof(ShredMatesDbContext))]
-    [Migration("20171216211520_Init")]
+    [Migration("20171218201241_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -129,20 +129,50 @@ namespace ShredMates.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ShredMates.Data.Models.AttributeParam", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("ProductAttributeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductAttributeId");
+
+                    b.ToTable("AttributeParam");
+                });
+
             modelBuilder.Entity("ShredMates.Data.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedDate");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(60);
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("ShredMates.Data.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("ProductId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("ShredMates.Data.Models.Order", b =>
@@ -218,26 +248,49 @@ namespace ShredMates.Data.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(3000);
 
-                    b.Property<string>("ImageThumbnailUrl")
-                        .HasMaxLength(2000);
-
-                    b.Property<string>("ImageUrl")
-                        .HasMaxLength(2000);
-
                     b.Property<decimal>("Price");
 
                     b.Property<string>("ShortDescription")
                         .HasMaxLength(50);
 
+                    b.Property<string>("Thumbnail")
+                        .HasMaxLength(2000);
+
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(60);
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ShredMates.Data.Models.ProductAttribute", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductAttribute");
+                });
+
+            modelBuilder.Entity("ShredMates.Data.Models.ShoppingCart", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShoppingCart");
                 });
 
             modelBuilder.Entity("ShredMates.Data.Models.ShoppingCartItem", b =>
@@ -254,6 +307,8 @@ namespace ShredMates.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingCartId");
 
                     b.ToTable("ShoppingCartItems");
                 });
@@ -354,6 +409,20 @@ namespace ShredMates.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("ShredMates.Data.Models.AttributeParam", b =>
+                {
+                    b.HasOne("ShredMates.Data.Models.ProductAttribute")
+                        .WithMany("AttributeParams")
+                        .HasForeignKey("ProductAttributeId");
+                });
+
+            modelBuilder.Entity("ShredMates.Data.Models.Image", b =>
+                {
+                    b.HasOne("ShredMates.Data.Models.Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId");
+                });
+
             modelBuilder.Entity("ShredMates.Data.Models.OrderDetail", b =>
                 {
                     b.HasOne("ShredMates.Data.Models.Order", "Order")
@@ -375,11 +444,23 @@ namespace ShredMates.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("ShredMates.Data.Models.ProductAttribute", b =>
+                {
+                    b.HasOne("ShredMates.Data.Models.Product", "Product")
+                        .WithMany("ProductAttributes")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("ShredMates.Data.Models.ShoppingCartItem", b =>
                 {
                     b.HasOne("ShredMates.Data.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
+
+                    b.HasOne("ShredMates.Data.Models.ShoppingCart", "ShoppingCart")
+                        .WithMany("ShoppingCartItems")
+                        .HasForeignKey("ShoppingCartId");
                 });
 #pragma warning restore 612, 618
         }

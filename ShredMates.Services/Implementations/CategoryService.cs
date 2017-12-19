@@ -26,13 +26,13 @@ namespace ShredMates.Services.Implementations
             return await this.db.Categories.FindAsync(id);
         }
 
-        public async Task<IEnumerable<AllProductsServiceModel>> AllProductsInCategoryAsync(int categoryId, int page = 1, int pageSize = DataConstants.PageSize)
+        public async Task<IEnumerable<ProductListingServiceModel>> AllProductsInCategoryAsync(int categoryId, int page = 1, int pageSize = DataConstants.PageSize)
         {
             return await this.db
                     .Products
                     .Where(p => p.CategoryId == categoryId)
                     .OrderBy(p => p.Title)
-                    .ProjectTo<AllProductsServiceModel>()
+                    .ProjectTo<ProductListingServiceModel>()
                     .ToListAsync();
         }
 
@@ -44,7 +44,7 @@ namespace ShredMates.Services.Implementations
         //                .Where(c => c.Id == id)
         //                .Select(c => new CategoryServiceModel
         //                {
-        //                    Products = c.Products.Select(p => new AllProductsServiceModel
+        //                    Products = c.Products.Select(p => new ProductsListingServiceModel
         //                    {
         //                        Title = p.Title,
         //                        ShortDescription = p.ShortDescription,

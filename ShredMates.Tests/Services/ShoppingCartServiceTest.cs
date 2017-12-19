@@ -14,7 +14,7 @@ namespace ShredMates.Tests.Services
     {
         private readonly ShredMatesDbContext db;
         private readonly ShoppingCart shoppingCart;
-        private readonly List<AllProductServiceModel> products;
+        private readonly List<Product> products;
         private readonly Order order;
 
         public ShoppingCartServiceTest()
@@ -60,7 +60,7 @@ namespace ShredMates.Tests.Services
             // Arrrange
             var shoppingCartService = new ShoppingCartService(db, this.shoppingCart);
 
-            var product = new AllProductServiceModel { Id = 73, Price = 1000, Title = "Play" };
+            var product = new Product { Id = 73, Price = 1000, Title = "Play" };
 
             // Act
             await shoppingCartService.AddToCartAsync(product, 1);

@@ -1,5 +1,4 @@
-﻿using AutoMapper.QueryableExtensions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Admin.Interfaces;
@@ -57,6 +56,7 @@ namespace ShredMates.Services.Admin.Implementations
             };
 
             this.db.Products.Add(product);
+            //this.db.Categories.Products.Add(product); // add to category products list TODO
 
             await this.db.SaveChangesAsync();
         }

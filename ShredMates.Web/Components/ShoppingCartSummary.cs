@@ -20,7 +20,7 @@ namespace ShredMates.Web.Components
         // same as ShoppingCartController Index
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var items = await this.shoppingCartServices.AllProductssAsync();
+            var items = await this.shoppingCartServices.AllProductsAsync();
             this.shoppingCart.ShoppingCartItems = items;
 
             return View(new ShoppingCartViewModel

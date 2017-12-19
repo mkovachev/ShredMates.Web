@@ -16,7 +16,7 @@ namespace ShredMates.Services.Interfaces
 
         Task<decimal> GetTotalAsync();
 
-        Task<List<ShoppingCartItem>> AllProductssAsync();
+        Task<List<ShoppingCartItem>> AllProductsAsync();
 
         Task CreateOrderAsync(Order order);
     }

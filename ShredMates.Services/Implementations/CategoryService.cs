@@ -26,6 +26,7 @@ namespace ShredMates.Services.Implementations
             return await this.db.Categories.FindAsync(id);
         }
 
+        
         public async Task<IEnumerable<ProductListingServiceModel>> AllProductsInCategoryAsync(int categoryId, int page = 1, int pageSize = DataConstants.PageSize)
         {
             return await this.db
@@ -36,7 +37,7 @@ namespace ShredMates.Services.Implementations
                     .ToListAsync();
         }
 
-        // category does not contain a list of products in create method TODO
+        // category does not contain a list of products TODO
         //public async Task<CategoryServiceModel> AllInCategoryAsync(int id, int page = 1, int pageSize = DataConstants.PageSize)
         //{
         //    return await this.db
@@ -44,11 +45,11 @@ namespace ShredMates.Services.Implementations
         //                .Where(c => c.Id == id)
         //                .Select(c => new CategoryServiceModel
         //                {
-        //                    Products = c.Products.Select(p => new ProductsListingServiceModel
+        //                    Products = c.Products.Select(p => new ProductListingServiceModel
         //                    {
         //                        Title = p.Title,
         //                        ShortDescription = p.ShortDescription,
-        //                        ImageThumbnailUrl = p.ImageThumbnailUrl,
+        //                        Thumbnail = p.Thumbnail,
         //                        Price = p.Price
         //                    })
         //                })

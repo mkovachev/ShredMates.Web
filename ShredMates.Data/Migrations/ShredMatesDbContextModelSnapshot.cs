@@ -282,19 +282,9 @@ namespace ShredMates.Data.Migrations
                     b.ToTable("ProductAttribute");
                 });
 
-            modelBuilder.Entity("ShredMates.Data.Models.ShoppingCart", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ShoppingCart");
-                });
-
             modelBuilder.Entity("ShredMates.Data.Models.ShoppingCartItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Amount");
@@ -306,8 +296,6 @@ namespace ShredMates.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("ShoppingCartId");
 
                     b.ToTable("ShoppingCartItems");
                 });
@@ -437,7 +425,7 @@ namespace ShredMates.Data.Migrations
 
             modelBuilder.Entity("ShredMates.Data.Models.Product", b =>
                 {
-                    b.HasOne("ShredMates.Data.Models.Category", "Category")
+                    b.HasOne("ShredMates.Data.Models.Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -456,10 +444,6 @@ namespace ShredMates.Data.Migrations
                     b.HasOne("ShredMates.Data.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
-
-                    b.HasOne("ShredMates.Data.Models.ShoppingCart", "ShoppingCart")
-                        .WithMany("ShoppingCartItems")
-                        .HasForeignKey("ShoppingCartId");
                 });
 #pragma warning restore 612, 618
         }

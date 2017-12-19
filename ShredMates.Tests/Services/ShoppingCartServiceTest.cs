@@ -34,7 +34,7 @@ namespace ShredMates.Tests.Services
 
             var item = new ShoppingCartItem()
             {
-                Id = 1,
+                Id = "1",
                 Product = products[0],
                 Amount = 1,
                 ShoppingCartId = "1"
@@ -44,7 +44,7 @@ namespace ShredMates.Tests.Services
             await this.db.SaveChangesAsync();
 
             // Act
-            var items = await shoppingCartService.AllProductssAsync();
+            var items = await shoppingCartService.AllProductsAsync();
 
             // Assert
             items

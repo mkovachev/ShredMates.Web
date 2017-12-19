@@ -2,7 +2,6 @@
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
-using ShredMates.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +21,7 @@ namespace ShredMates.Services.Implementations
             this.shoppingCart = shoppingCart;
         }
 
-        public async Task<List<ShoppingCartItem>> AllProductssAsync()
+        public async Task<List<ShoppingCartItem>> AllProductsAsync()
             => await this.db
                        .ShoppingCartItems
                        .Where(c => c.ShoppingCartId == shoppingCart.Id)
@@ -39,12 +38,14 @@ namespace ShredMates.Services.Implementations
             {
                 shoppingCartItem = new ShoppingCartItem
                 {
+                    //Id = Guid.NewGuid().ToString(),
                     ShoppingCartId = shoppingCart.Id,
                     Product = product,
                     Amount = 1
                 };
 
-                await this.db.ShoppingCartItems.AddAsync(shoppingCartItem);
+                this.shoppingCart.ShoppingCartItems.Add(shoppingCartItem); // add to cart items list
+                await this.db.ShoppingCartItems.AddAsync(shoppingCartItem); // add to shopping items
             }
             else
             {

@@ -8,8 +8,8 @@
     <div class="col-sm-4 col-lg-4 col-md-4">
         <div class="thumbnail">
             <a asp-controller="Products" asp-action="Details" asp-route-id=@product.Id>
-                <div class="gallery-image img-responsive" style="background-image:url(@product.ImageThumbnailUrl)"></div>
-                <img src="@product.ImageThumbnailUrl" class="img-responsive" />
+                <div class="gallery-image img-responsive" style="background-image:url(@product.Thumbnail)"></div>
+                <img src="@product.Thumbnail" class="img-responsive" />
             </a>
             <div class="caption">
                 <h4 class="pull-right">@product.Price.ToString("N")</h4>

@@ -57,7 +57,7 @@ namespace ShredMates.Web.Controllers
 
             await this.shoppingCartServices.RemoveProductAsync(shoppingCartItem);
 
-            TempData.AddSuccessMessage($"{shoppingCartItem.Title} reduced with qty 1");
+            TempData.AddSuccessMessage($"{shoppingCartItem.Title} amount updated successfully");
             //this.AddToastMessage("Toastr", "Remove ${shoppingCartItem.Title}", ToastType.Success);
 
             return RedirectToAction("Index", nameof(shoppingCart));

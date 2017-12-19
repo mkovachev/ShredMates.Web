@@ -2,7 +2,7 @@
 using ShredMates.Data;
 using System.Linq;
 
-namespace ShredMates.Web.Components
+namespace ShredMates.Web.ViewComponents
 {
     public class SkiView : ViewComponent
     {

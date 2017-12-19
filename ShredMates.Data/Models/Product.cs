@@ -30,8 +30,8 @@ namespace ShredMates.Data.Models
         public string Thumbnail { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime CreatedDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.mm.yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DateCreated { get; set; }
 
         public List<Image> Images { get; set; }
 

@@ -45,7 +45,6 @@ namespace ShredMates.Tests.Web
             var result = await mockHomeController.Index(); // returns null when calling AllAsync();
 
             //Assert
-            Assert.IsNotType<ViewResult>(result);
             // var viewResult = Assert.IsType<ViewResult>(result);
             // var model = Assert.IsType<HomeViewModel>(viewResult.Model);
         }

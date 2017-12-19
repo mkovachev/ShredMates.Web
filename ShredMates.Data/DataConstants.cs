@@ -16,6 +16,6 @@
         public const int CategoryNameMinLength = 3;
         public const int CategoryNameMaxLength = 50;
 
-        public const int PageSize = 12;
+        public const int PageSize = 6;
     }
 }

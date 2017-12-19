@@ -51,7 +51,7 @@ namespace ShredMates.Services.Admin.Implementations
                 Images = images,
                 Thumbnail = thumbnail,
                 ProductAttributes = productAttributes,
-                CreatedDate = createdDate,
+                DateCreated = createdDate,
                 CategoryId = categoryId
             };
 
@@ -76,7 +76,7 @@ namespace ShredMates.Services.Admin.Implementations
             product.Images = images;
             product.Thumbnail = thumbnail;
             product.ProductAttributes = productAttributes;
-            product.CreatedDate = createdDate;
+            product.DateCreated = createdDate;
             product.CategoryId = categoryId;
 
             await this.db.SaveChangesAsync();

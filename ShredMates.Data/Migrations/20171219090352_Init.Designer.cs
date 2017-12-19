@@ -11,9 +11,10 @@ using System;
 namespace ShredMates.Data.Migrations
 {
     [DbContext(typeof(ShredMatesDbContext))]
-    partial class ShredMatesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171219090352_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -242,7 +243,7 @@ namespace ShredMates.Data.Migrations
 
                     b.Property<int>("CategoryId");
 
-                    b.Property<DateTime>("DateCreated");
+                    b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("Description")
                         .HasMaxLength(3000);

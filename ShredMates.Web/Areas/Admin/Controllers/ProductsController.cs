@@ -24,7 +24,7 @@ namespace ShredMates.Web.Areas.Admin.Controllers
         public async Task<IActionResult> Create()
             => View(new CreateEditProductViewModel
             {
-                CreatedDate = DateTime.UtcNow,
+                DateCreated = DateTime.UtcNow,
                 Categories = await this.GetCategoriesAsync()
             });
 
@@ -49,7 +49,7 @@ namespace ShredMates.Web.Areas.Admin.Controllers
                     model.Images,
                     model.Thumbnail,
                     model.ProductAttributes,
-                    model.CreatedDate,
+                    model.DateCreated,
                     model.CategoryId);
             }
 
@@ -76,7 +76,7 @@ namespace ShredMates.Web.Areas.Admin.Controllers
                 Thumbnail = product.Thumbnail,
                 Images = product.Images,
                 ProductAttributes = product.ProductAttributes,
-                CreatedDate = product.CreatedDate,
+                DateCreated = product.DateCreated,
                 CategoryId = product.CategoryId,
                 Categories = await this.GetCategoriesAsync()
             });
@@ -108,7 +108,7 @@ namespace ShredMates.Web.Areas.Admin.Controllers
                 model.Images,
                 model.Thumbnail,
                 model.ProductAttributes,
-                model.CreatedDate,
+                model.DateCreated,
                 model.CategoryId);
 
             TempData.AddSuccessMessage($"Product {model.Title} updated successfully!");

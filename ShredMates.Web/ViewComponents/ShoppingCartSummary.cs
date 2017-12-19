@@ -4,7 +4,7 @@ using ShredMates.Services.Interfaces;
 using ShredMates.Web.Models;
 using System.Threading.Tasks;
 
-namespace ShredMates.Web.Components
+namespace ShredMates.Web.ViewComponents
 {
     public class ShoppingCartSummary: ViewComponent
     {

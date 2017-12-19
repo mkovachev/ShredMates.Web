@@ -34,7 +34,7 @@ namespace ShredMates.Web.Areas.Admin.Models.Products
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime CreatedDate { get; set; }
+        public DateTime DateCreated { get; set; }
 
         public List<Image> Images { get; set; }
 

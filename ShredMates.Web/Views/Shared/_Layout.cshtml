@@ -21,28 +21,21 @@
         <div class="container nav">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="sr-only">Toggle navigation</span>     
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ShredMates</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <!-- nav all users -->
-                    <!--Snowboard-->
-                    <li>@await Component.InvokeAsync("CategoryView")</li>
-                    <!--Ski-->
+                    <li>@await Component.InvokeAsync("SnowboardView")</li>
                     <li>@await Component.InvokeAsync("SkiView")</li>
-                    <!--<li><a asp-controller="Ski" asp-action="Index">Ski</a></li>-->
                     <!--nav admin -->
                     @if (User.Identity.IsAuthenticated && User.IsInRole(WebConstants.AdminRole))
                     {
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="/">
-                                Create
-                                <span class="caret"></span>
+                                Create<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a asp-area="Admin" asp-controller="Categories" asp-action="Create">Create Category</a></li>
@@ -51,12 +44,7 @@
                         </li>
                         <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a></li>
                     }
-                    <!--MEN--> <!--WOMEN-->
-                    <!--BRANDS-->
                     <li><a asp-area="" asp-controller="Brands" asp-action="Index">Brands</a></li>
-                    <!--ACCESSORIES-->
-                    <!--SALE-->
-                    <!--Profile-->
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact us</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <!-- Shopping Cart-->

@@ -2,13 +2,13 @@
 using ShredMates.Data;
 using System.Linq;
 
-namespace ShredMates.Web.Components
+namespace ShredMates.Web.ViewComponents
 {
-    public class CategoryView: ViewComponent
+    public class SnowboardView: ViewComponent
     {
         private readonly ShredMatesDbContext db;
 
-        public CategoryView(ShredMatesDbContext db) => this.db = db;
+        public SnowboardView(ShredMatesDbContext db) => this.db = db;
 
         public IViewComponentResult Invoke()
             => View(this.db.Categories

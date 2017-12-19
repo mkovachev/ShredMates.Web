@@ -11,9 +11,10 @@ using System;
 namespace ShredMates.Data.Migrations
 {
     [DbContext(typeof(ShredMatesDbContext))]
-    partial class ShredMatesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171219111057_ProductDate")]
+    partial class ProductDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

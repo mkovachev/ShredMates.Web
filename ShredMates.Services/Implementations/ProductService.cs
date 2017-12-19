@@ -23,7 +23,7 @@ namespace ShredMates.Services.Implementations
         {
             return await this.db
                         .Products
-                        .OrderByDescending(p => p.CreatedDate)
+                        .OrderByDescending(p => p.DateCreated)
                         .Skip((page - 1) * pageSize)
                         .Take(pageSize)
                         .ProjectTo<ProductListingServiceModel>()
@@ -38,7 +38,7 @@ namespace ShredMates.Services.Implementations
 
             return await this.db
                         .Products
-                        .OrderByDescending(p => p.CreatedDate)
+                        .OrderByDescending(p => p.DateCreated)
                         .Where(p => p.Title.ToLower().Contains(search.ToLower()))
                         .ProjectTo<ProductListingServiceModel>()
                         .ToListAsync();

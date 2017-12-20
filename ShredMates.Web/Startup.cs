@@ -52,25 +52,25 @@ namespace ShredMates.Web
 
             services.AddAutoMapper(); // auto mapping
 
-            services.AddServices(); // auto add services
+            services.AddServices(); // auto services
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // reg http service
 
-            services.AddSingleton(sp => new ShoppingCart() { Id = Guid.NewGuid().ToString(), ShoppingCartItems = new List<ShoppingCartItem>()});
+            services.AddSingleton(sp => new ShoppingCart() { Id = Guid.NewGuid().ToString(), ShoppingCartItems = new List<ShoppingCartItem>() });
 
-            services.AddRouting(routing => { routing.LowercaseUrls = true; }); // add routing
+            services.AddRouting(routing => { routing.LowercaseUrls = true; }); // routing lowercase
 
             services.AddMvc(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>(); // auto AntiforgeryToken
             });
 
-            services.AddAuthorization(); // autho
-            services.AddDistributedMemoryCache(); // add cache
-            services.AddSession(options =>  // add session
+            services.AddAuthorization(); // auth
+            services.AddDistributedMemoryCache(); // cache
+            services.AddSession(options =>  // session
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(30);
-            });       
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -91,10 +91,22 @@ namespace ShredMates.Web
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseSession(); // add session always before app.UseMvc
+            app.UseSession(); // session always before app.UseMvc
 
             app.UseMvc(routes =>
             {
+                //routes.MapRoute(
+                //    name: "shopping cart",
+                //    template: "shoppingcart/index",
+                //    defaults: new { contoller = "ShoppingCart", action = "Index" }
+                //    );
+
+                routes.MapRoute(
+                name: "products",
+                template: "products/{id}/{title}",
+                defaults: new { controller = "Products", action = "Details" }
+                );
+
                 routes.MapRoute(
                   name: "areas",
                   template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"

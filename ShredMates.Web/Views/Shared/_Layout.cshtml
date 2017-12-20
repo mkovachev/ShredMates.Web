@@ -51,7 +51,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact us</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <!-- Shopping Cart-->
-                    @await Component.InvokeAsync("ShoppingCartSummary")
+                    @await Component.InvokeAsync("ShoppingCart")
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

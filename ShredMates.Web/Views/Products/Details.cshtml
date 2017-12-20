@@ -7,7 +7,7 @@
     <div class="row">
         <div class="details">
             <div class="text-center view overlay hm-white-slight">
-                <img src="@Model.Images" class="img-responsive" alt="">
+                <!--<img src="Model.Images" class="img-responsive">-->
                 <img src="https://picsum.photos/700/500/?random&giud=@(Guid.NewGuid())" class="img-responsive">
                 <a href="#">
                     <div class="mask waves-effect waves-light"></div>
@@ -17,8 +17,8 @@
                 <h4 class="product-title">@Model.Title</h4>
                 <p class="product-description">@Model.Description</p>
                 <p class="btn btn-group pull-right">
-                    <a class="btn btn-info btn-sm" asp-controller="Home" asp-action="Index">Go back</a> 
-                    <a class="btn btn-success btn-sm" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.Id">Add to cart</a>
+                    <a class="btn btn-info btn-sm" asp-area="" asp-controller="Home" asp-action="Index">Go back</a>
+                    <a class="btn btn-success btn-sm" asp-area="" asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-id="@Model.Id">Add to cart</a>
                 </p>
             </div>
         </div>

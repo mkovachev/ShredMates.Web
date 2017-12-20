@@ -20,7 +20,11 @@
             @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
             {
                 <tr>
-                    <td>@item.Product.Title</td>
+                    <td>
+                        <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Product.Id" asp-route-title="@item.Product.Title.ToFriendlyUrl()">
+                            @item.Product.Title
+                        </a>
+                    </td>
                     <td>@item.Product.Price.ToString("N")</td>
                     <td>@((item.Amount * item.Product.Price).ToString("N"))</td>
                     <td>@item.Amount</td>

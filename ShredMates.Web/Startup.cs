@@ -91,20 +91,20 @@ namespace ShredMates.Web
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseSession(); // session always before app.UseMvc
+            app.UseSession(); // session always before app.UseMvc()
 
             app.UseMvc(routes =>
             {
-                //routes.MapRoute(
-                //    name: "shopping cart",
-                //    template: "shoppingcart/index",
-                //    defaults: new { contoller = "ShoppingCart", action = "Index" }
-                //    );
-
                 routes.MapRoute(
                 name: "products",
                 template: "products/{id}/{title}",
                 defaults: new { controller = "Products", action = "Details" }
+                );
+
+                routes.MapRoute(
+                name: "category",
+                template: "products/{id}/{title}",
+                defaults: new { controller = "Category", action = "Index" }
                 );
 
                 routes.MapRoute(

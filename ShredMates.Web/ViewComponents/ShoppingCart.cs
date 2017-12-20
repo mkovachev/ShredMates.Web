@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShredMates.Services.Interfaces;
-using ShredMates.Services.Models;
 using ShredMates.Web.Models;
 using System.Threading.Tasks;
 

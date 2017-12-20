@@ -32,9 +32,9 @@
 <div class="row text-center">
     <ul class="pagination">
         <li class="page-item @previousDisabled">
-            <a class="page-link" href="/page=@Model.Previous">Previous</a>
+            <a class="page-link" href="/?page=@Model.Previous">Previous</a>
         </li>
-        @for (int i = 1; i <= Model.TotalPages; i+=5)
+        @for (int i = 1; i <= Model.TotalPages; i++)
         {
             <li class="page-item @(Model.Current == i ? "active" : String.Empty)">
                 <a class="page-link" href="/?page=@i">@i</a>

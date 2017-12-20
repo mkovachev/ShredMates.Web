@@ -19,7 +19,7 @@ namespace ShredMates.Tests.Services
 
         public CategoryServiceTest()
         {
-            TestStartup.GetMapper();
+            //TestStartup.GetMapper();
             this.db = TestStartup.GetDataBase();
             this.shoppingCart = TestStartup.GetShoppingCart();
             this.products = TestStartup.GetProducts();

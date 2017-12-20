@@ -13,12 +13,19 @@ namespace ShredMates.Tests.Web
 {
     public class HomeControllerTest
     {
+        private readonly ShoppingCart shoppingCart;
+
+        public HomeControllerTest()
+        {
+            this.shoppingCart = TestStartup.GetShoppingCart();
+        }
+
         [Fact]
         public async Task Index_ShouldReturn_HomeViewModel()
         {
             // Arrange
             var mockProductService = new Mock<IProductService>().Object;
-            var mockHomeController = new Mock<HomeController>(mockProductService).Object;
+            var mockHomeController = new Mock<HomeController>(mockProductService, shoppingCart).Object;
             var mockHomeViewModel = new Mock<HomeViewModel>().Object;
 
             mockHomeViewModel.Products = new List<ProductListingServiceModel>()

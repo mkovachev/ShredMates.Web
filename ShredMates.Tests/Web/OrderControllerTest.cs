@@ -4,8 +4,6 @@ using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
 using ShredMates.Services.Models;
 using ShredMates.Web.Controllers;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -28,8 +26,8 @@ namespace ShredMates.Tests.Web
         {
             // Arrange
             var shoppingCartServices = new Mock<IShoppingCartService>().Object;
-            var orderController = new Mock<OrderController>(shoppingCartServices, shoppingCart).Object;
             var orderService = new Mock<IOrderService>().Object;
+            var orderController = new Mock<OrderController>(shoppingCartServices, shoppingCart, orderService).Object;
 
             var product = new Product { Id = 1, Title = "A", Price = 100 };
 

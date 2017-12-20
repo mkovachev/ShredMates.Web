@@ -282,24 +282,6 @@ namespace ShredMates.Data.Migrations
                     b.ToTable("ProductAttribute");
                 });
 
-            modelBuilder.Entity("ShredMates.Data.Models.ShoppingCartItem", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Amount");
-
-                    b.Property<int?>("ProductId");
-
-                    b.Property<string>("ShoppingCartId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ShoppingCartItems");
-                });
-
             modelBuilder.Entity("ShredMates.Data.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -437,13 +419,6 @@ namespace ShredMates.Data.Migrations
                         .WithMany("ProductAttributes")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ShredMates.Data.Models.ShoppingCartItem", b =>
-                {
-                    b.HasOne("ShredMates.Data.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
                 });
 #pragma warning restore 612, 618
         }

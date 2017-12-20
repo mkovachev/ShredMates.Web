@@ -2,6 +2,7 @@
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Implementations;
+using ShredMates.Services.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

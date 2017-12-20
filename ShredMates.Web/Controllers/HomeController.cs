@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ShredMates.Data;
 using ShredMates.Services.Interfaces;
+using ShredMates.Services.Models;
 using ShredMates.Web.Models;
 using ShredMates.Web.Models.HomeViewModels;
 using System;
@@ -13,19 +14,23 @@ namespace ShredMates.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IProductService products;
+        private readonly ShoppingCart shoppingCart;
 
-        public HomeController(IProductService products)
+        private const string sessionKey = "session";
+
+        public HomeController(IProductService products, ShoppingCart shoppingCart)
         {
             this.products = products;
+            this.shoppingCart = shoppingCart;
         }
 
         public async Task<IActionResult> Index(int page = 1)
         {
-            const string sessionKey = "session";
-            var sessionId = HttpContext?.Session.GetString(sessionKey);
+            var sessionId = this.HttpContext.Session.GetString(sessionKey);
+
             if (sessionId == null)
             {
-                sessionId = Guid.NewGuid().ToString();
+                sessionId = this.shoppingCart.Id;
                 this.HttpContext.Session.SetString(sessionKey, sessionId);
             }
 

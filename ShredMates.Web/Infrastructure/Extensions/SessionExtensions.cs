@@ -1,10 +1,26 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Text;
 
 namespace ShredMates.Web.Infrastructure.Extensions
 {
     public static class SessionExtensions
     {
+        private const string sessionKey = "session";
+                
+        public static string GetSessionId(this ISession session)
+        {
+            var sessionId = session.GetString(sessionKey);
+
+            if (sessionId == null)
+            {
+                sessionId = Guid.NewGuid().ToString();
+                session.SetString(sessionKey, sessionId);
+            }
+
+            return sessionId;
+        }
+
         public static void SetInt32(this ISession session, string key, int value)
         {
             var bytes = new byte[]

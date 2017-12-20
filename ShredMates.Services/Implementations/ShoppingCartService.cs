@@ -2,11 +2,11 @@
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
+using ShredMates.Services.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 
 namespace ShredMates.Services.Implementations
 {
@@ -21,46 +21,49 @@ namespace ShredMates.Services.Implementations
             this.shoppingCart = shoppingCart;
         }
 
-        public async Task<List<ShoppingCartItem>> AllProductsAsync()
-            => await this.db
+        public async Task<Product> FindProductByIdAsync(int productId)
+            => await this.db.Products.FirstOrDefaultAsync(s => s.Id == productId);
+
+        public List<ShoppingCartItem> AllProducts()
+            => this.shoppingCart
                        .ShoppingCartItems
                        .Where(c => c.ShoppingCartId == shoppingCart.Id)
-                       .Include(i => i.Product)
-                       .ToListAsync();
+                       .ToList();
 
-        public async Task AddToCartAsync(Product product, int amount)
+        public void AddToCart(Product product, int amount)
         {
-            var shoppingCartItem = await this.db
+            var shoppingCartItem = this.shoppingCart
                                         .ShoppingCartItems
-                                        .SingleOrDefaultAsync(s => s.Product.Id == product.Id
-                                                              && s.ShoppingCartId == shoppingCart.Id);
+                                        .Where(c => c.ShoppingCartId == shoppingCart.Id
+                                                        && c.Product.Id == product.Id)
+                                        .FirstOrDefault();
+                   
             if (shoppingCartItem == null)
             {
                 shoppingCartItem = new ShoppingCartItem
                 {
-                    //Id = Guid.NewGuid().ToString(),
+                    Id = Guid.NewGuid().ToString(),
                     ShoppingCartId = shoppingCart.Id,
                     Product = product,
                     Amount = 1
                 };
 
-                this.shoppingCart.ShoppingCartItems.Add(shoppingCartItem); // add to cart items list
-                await this.db.ShoppingCartItems.AddAsync(shoppingCartItem); // add to shopping items
+                this.shoppingCart.ShoppingCartItems.Add(shoppingCartItem);
             }
             else
             {
                 shoppingCartItem.Amount++;
             }
-
-            await this.db.SaveChangesAsync();
+            return;
         }
 
-        public async Task RemoveProductAsync(Product product)
+        public void RemoveProduct(Product product)
         {
-            var shoppingCartItem = await this.db
-                                    .ShoppingCartItems
-                                    .SingleOrDefaultAsync(s => s.Product.Id == product.Id
-                                            && s.ShoppingCartId == shoppingCart.Id);
+            var shoppingCartItem = this.shoppingCart
+                                        .ShoppingCartItems
+                                        .Where(s => s.Product.Id == product.Id
+                                                   && s.ShoppingCartId == shoppingCart.Id)
+                                         .FirstOrDefault();
 
             if (shoppingCartItem != null)
             {
@@ -70,59 +73,21 @@ namespace ShredMates.Services.Implementations
                 }
                 else
                 {
-                    this.db.ShoppingCartItems.Remove(shoppingCartItem);
+                    this.shoppingCart.ShoppingCartItems.Remove(shoppingCartItem);
                 }
             }
-
-            await this.db.SaveChangesAsync();
         }
 
-        public async Task<decimal> GetTotalAsync()
-            => await this.db
+        public void ClearCart()
+        {
+            this.shoppingCart.ShoppingCartItems.Clear();
+        }
+
+        public decimal GetTotal()
+            =>  this.shoppingCart
                        .ShoppingCartItems
                        .Where(c => c.ShoppingCartId == shoppingCart.Id)
                        .Select(c => c.Product.Price * c.Amount)
-                       .SumAsync();
-
-        public async Task<Product> FindProductByIdAsync(int productId)
-        {
-            return await this.db.Products.FirstOrDefaultAsync(s => s.Id == productId);
-        }
-
-        public async Task CreateOrderAsync(Order order)
-        {
-            order.OrderPlaced = DateTime.UtcNow;
-
-            this.db.Orders.Add(order);
-
-            var shoppingCartItems = shoppingCart.ShoppingCartItems;
-
-            foreach (var shoppingCartItem in shoppingCartItems)
-            {
-                var orderDetail = new OrderDetail()
-                {
-                    Amount = shoppingCartItem.Amount,
-                    ProductId = shoppingCartItem.Product.Id,
-                    OrderId = order.OrderId,
-                    Price = shoppingCartItem.Product.Price
-                };
-
-                this.db.OrderDetails.Add(orderDetail);
-            }
-
-            await this.db.SaveChangesAsync();
-        }
-
-        public async Task ClearCartAsync()
-        {
-            var cartItems = await this.db
-                                .ShoppingCartItems
-                                .Where(c => c.ShoppingCartId == shoppingCart.Id)
-                                .ToListAsync();
-
-            this.db.ShoppingCartItems.RemoveRange(cartItems);
-
-            await this.db.SaveChangesAsync();
-        }
+                       .Sum();
     }
 }

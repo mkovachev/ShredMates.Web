@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ShredMates.Data;
 using ShredMates.Data.Models;
+using ShredMates.Services.Models;
 using ShredMates.Web.Infrastructure.Extensions;
 using System;
 using System.Collections.Generic;
@@ -54,30 +55,26 @@ namespace ShredMates.Web
             services.AddServices(); // auto add services
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // reg http service
-            services.AddScoped(sp => new ShoppingCart(){ Id = DateTime.UtcNow.ToShortDateString(), ShoppingCartItems = new List<ShoppingCartItem>()});
-            services.AddRouting(routing => { routing.LowercaseUrls = true; }); // add routing
 
+            services.AddSingleton(sp => new ShoppingCart() { Id = Guid.NewGuid().ToString(), ShoppingCartItems = new List<ShoppingCartItem>()});
+
+            services.AddRouting(routing => { routing.LowercaseUrls = true; }); // add routing
 
             services.AddMvc(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>(); // auto AntiforgeryToken
             });
 
-            services.AddAuthorization();
+            services.AddAuthorization(); // autho
             services.AddDistributedMemoryCache(); // add cache
-
             services.AddSession(options =>  // add session
             {
-                options.Cookie.HttpOnly = false; // false - cookie is accessible through JavaScript
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // transmitted via HTTPS only
-                options.Cookie.Name = Guid.NewGuid().ToString(); // override the default cookie name
-                options.IdleTimeout = TimeSpan.FromSeconds(30); // session expiraton in minutes
-            });
+                options.IdleTimeout = TimeSpan.FromSeconds(30);
+            });       
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-
             app.UseDatabaseMigration(); // auto migrations
 
             if (env.IsDevelopment())

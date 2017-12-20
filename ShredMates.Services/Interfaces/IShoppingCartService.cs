@@ -1,4 +1,5 @@
 ﻿using ShredMates.Data.Models;
+using ShredMates.Services.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,16 +9,14 @@ namespace ShredMates.Services.Interfaces
     {
         Task<Product> FindProductByIdAsync(int productId);
 
-        Task AddToCartAsync(Product product, int amount);
+        void AddToCart(Product product, int amount);
 
-        Task RemoveProductAsync(Product product);
+        void RemoveProduct(Product product);
 
-        Task ClearCartAsync();
+        void ClearCart();
 
-        Task<decimal> GetTotalAsync();
+        decimal GetTotal();
 
-        Task<List<ShoppingCartItem>> AllProductsAsync();
-
-        Task CreateOrderAsync(Order order);
+        List<ShoppingCartItem> AllProducts();
     }
 }

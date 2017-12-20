@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
+using ShredMates.Services.Models;
 using ShredMates.Web.Infrastructure.Extensions;
 using ShredMates.Web.Models;
 using System.Threading.Tasks;
@@ -19,16 +19,11 @@ namespace ShredMates.Web.Controllers
         }
 
         public async Task<IActionResult> Index()
-        {
-            var items = await this.shoppingCartServices.AllProductsAsync();
-            this.shoppingCart.ShoppingCartItems = items;
-
-            return View(new ShoppingCartViewModel
+            => await Task.Run(() => View(new ShoppingCartViewModel
             {
                 ShoppingCart = shoppingCart,
-                ShoppingCartTotal = await this.shoppingCartServices.GetTotalAsync()
-            });
-        }
+                ShoppingCartTotal = this.shoppingCartServices.GetTotal()
+            }));
 
         public async Task<IActionResult> AddToCart(int id)
         {
@@ -39,11 +34,11 @@ namespace ShredMates.Web.Controllers
                 return NotFound();
             }
 
-            await this.shoppingCartServices.AddToCartAsync(shoppingCartItem, 1);
+            this.shoppingCartServices.AddToCart(shoppingCartItem, 1);
 
-            //TempData.AddSuccessMessage($"{shoppingCartItem.Title} successfully added to cart");
+            TempData.AddSuccessMessage($"{shoppingCartItem.Title} successfully added to cart");
 
-            return RedirectToAction("Index", "Home"); // TODO for product details view
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> RemoveFromCart(int id)
@@ -55,7 +50,7 @@ namespace ShredMates.Web.Controllers
                 return NotFound();
             }
 
-            await this.shoppingCartServices.RemoveProductAsync(shoppingCartItem);
+            this.shoppingCartServices.RemoveProduct(shoppingCartItem);
 
             TempData.AddSuccessMessage($"{shoppingCartItem.Title} amount updated successfully");
             //this.AddToastMessage("Toastr", "Remove ${shoppingCartItem.Title}", ToastType.Success);

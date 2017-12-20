@@ -1,5 +1,6 @@
 ﻿using ShredMates.Data;
 using ShredMates.Data.Models;
+using ShredMates.Services.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;

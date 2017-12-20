@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
+using ShredMates.Services.Models;
 using ShredMates.Web.Infrastructure.Extensions;
 using System.Threading.Tasks;
 
@@ -10,16 +11,18 @@ namespace ShredMates.Web.Controllers
     {
         private readonly IShoppingCartService shoppingCartServices;
         private readonly ShoppingCart shoppingCart;
+        private readonly IOrderService orderService;
 
-        public OrderController(IShoppingCartService shoppingCartServices, ShoppingCart shoppingCart)
+        public OrderController(IShoppingCartService shoppingCartServices, ShoppingCart shoppingCart, IOrderService orderService)
         {
             this.shoppingCartServices = shoppingCartServices;
             this.shoppingCart = shoppingCart;
+            this.orderService = orderService;
         }
 
         public async Task<IActionResult> Checkout(Order order)
         {
-            var items = await this.shoppingCartServices.AllProductsAsync();
+            var items = this.shoppingCartServices.AllProducts();
             this.shoppingCart.ShoppingCartItems = items;
 
             if (shoppingCart.ShoppingCartItems.Count == 0)
@@ -30,12 +33,14 @@ namespace ShredMates.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                //TempData.AddErrorMessage("Please fill in all fields");
+                // TempData.AddErrorMessage("Please fill in all fields");
                 return View(order);
             }
 
-            await shoppingCartServices.CreateOrderAsync(order);
-            await shoppingCartServices.ClearCartAsync();
+            await orderService.CreateOrderAsync(order);
+            shoppingCartServices.ClearCart();
+
+            // send email with order details to customer
 
             TempData.AddSuccessMessage("Thank you for your order! Check your email for the order details");
             return RedirectToAction("Index", "Home");

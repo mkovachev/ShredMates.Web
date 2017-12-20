@@ -2,11 +2,11 @@
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Implementations;
+using ShredMates.Services.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace ShredMates.Tests.Services
 {
@@ -40,11 +40,10 @@ namespace ShredMates.Tests.Services
                 ShoppingCartId = "1"
             };
             this.shoppingCart.ShoppingCartItems.Add(item);
-            await this.db.ShoppingCartItems.AddAsync(item);
             await this.db.SaveChangesAsync();
 
             // Act
-            var items = await shoppingCartService.AllProductsAsync();
+            var items = shoppingCartService.AllProducts();
 
             // Assert
             items
@@ -55,7 +54,7 @@ namespace ShredMates.Tests.Services
         }
 
         [Fact]
-        public async Task AddToCartAsync_ShoulAdd_ProductToCart()
+        public void AddToCartAsync_ShoulAdd_ProductToCart()
         {
             // Arrrange
             var shoppingCartService = new ShoppingCartService(db, this.shoppingCart);
@@ -63,9 +62,9 @@ namespace ShredMates.Tests.Services
             var product = new Product { Id = 73, Price = 1000, Title = "Play" };
 
             // Act
-            await shoppingCartService.AddToCartAsync(product, 1);
-            //await this.db.SaveChangesAsync();
-            var result = await this.db.ShoppingCartItems.FirstOrDefaultAsync(p => p.Product.Title == "Play");
+            shoppingCartService.AddToCart(product, 1);
+
+            var result = this.shoppingCart.ShoppingCartItems.FirstOrDefault(p => p.Product.Title == "Play");
 
             // Arrange
             result.Should().NotBeNull();

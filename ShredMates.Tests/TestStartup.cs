@@ -46,9 +46,9 @@ namespace ShredMates.Tests
         public static List<Product> GetProducts()
             => new List<Product>()
             {
-                new Product { Id = 1, Title = "A", Price = 100 },
-                new Product { Id = 2, Title = "B", Price = 200 },
-                new Product { Id = 3, Title = "C", Price = 300 }
+                new Product { Id = 1, Title = "A", Price = 100, CategoryId = 1 },
+                new Product { Id = 2, Title = "B", Price = 200, CategoryId = 1 },
+                new Product { Id = 3, Title = "C", Price = 300, CategoryId = 1 }
             };
 
         public static Order GetOrder()

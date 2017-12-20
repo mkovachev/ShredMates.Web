@@ -25,13 +25,14 @@ namespace ShredMates.Web.Controllers
                 return NotFound();
             }
 
-            return View(new ProductDetailsViewModel
+            return await Task.Run(() => View(new ProductDetailsViewModel
             {
+                Id = product.Id,
                 Title = product.Title,
                 Description = product.Description,
                 Images = product.Images,
                 ProductAttributes = product.ProductAttributes
-            });
+            }));
 
         }
     }

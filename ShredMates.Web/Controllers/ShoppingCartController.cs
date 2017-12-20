@@ -38,6 +38,7 @@ namespace ShredMates.Web.Controllers
 
             TempData.AddSuccessMessage($"{shoppingCartItem.Title} successfully added to cart");
 
+            // how to redirect to the same product if in product details
             return RedirectToAction("Index", "Home");
         }
 

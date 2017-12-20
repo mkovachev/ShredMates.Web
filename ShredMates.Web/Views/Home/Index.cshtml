@@ -36,9 +36,9 @@
         </li>
         @for (int i = 1; i <= Model.TotalPages; i++)
         {
-            <li class="page-item @(Model.Current == i ? "active" : String.Empty)">
-                <a class="page-link" href="/?page=@i">@i</a>
-            </li>
+        <li class="page-item @(Model.Current == i ? "active" : String.Empty)">
+            <a class="page-link" href="/?page=@i">@i</a>
+        </li>
         }
         <li class="page-item @nextDisabled">
             <a class="page-link" href="/?page=@Model.Next">Next</a>

@@ -28,8 +28,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <!-- nav all users -->
-                    <li>@await Component.InvokeAsync("SnowboardView")</li>
-                    <li>@await Component.InvokeAsync("SkiView")</li>
+                    <li>@await Component.InvokeAsync("Snowboard")</li>
+                    <li>@await Component.InvokeAsync("Splitboard")</li>
+                    <li>@await Component.InvokeAsync("Ski")</li>
+                    <li>@await Component.InvokeAsync("Wakeboard")</li>
+                    <li>@await Component.InvokeAsync("Kitesurf")</li>
                     <!--nav admin -->
                     @if (User.Identity.IsAuthenticated && User.IsInRole(WebConstants.AdminRole))
                     {

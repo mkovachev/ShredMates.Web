@@ -34,7 +34,7 @@ namespace ShredMates.Web.Controllers
                 this.HttpContext.Session.SetString(sessionKey, sessionId);
             }
 
-            return View(new HomeViewModel
+            return View(new ProductListingViewModel
             {
                 Products = await this.products.AllAsync(page, DataConstants.PageSize),
                 Current = page,
@@ -42,8 +42,8 @@ namespace ShredMates.Web.Controllers
             });
         }
 
-        public async Task<IActionResult> Search(HomeViewModel model)
-           => View(new SearchViewModel
+        public async Task<IActionResult> Search(ProductListingViewModel model)
+           => View(new ProductListingViewModel
            {
                Search = model.Search,
                Products = await this.products.SearchAsync(model.Search)

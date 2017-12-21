@@ -26,7 +26,7 @@ namespace ShredMates.Tests.Web
             // Arrange
             var mockProductService = new Mock<IProductService>().Object;
             var mockHomeController = new Mock<HomeController>(mockProductService, shoppingCart).Object;
-            var mockHomeViewModel = new Mock<HomeViewModel>().Object;
+            var mockHomeViewModel = new Mock<ProductListingViewModel>().Object;
 
             mockHomeViewModel.Products = new List<ProductListingServiceModel>()
             {
@@ -64,14 +64,14 @@ namespace ShredMates.Tests.Web
             var mockProductService = new Mock<IProductService>().Object;
             var shoppingCart = new Mock<ShoppingCart>().Object;
             var homeController = new HomeController(mockProductService, shoppingCart);
-            var mockHomeViewModel = new Mock<HomeViewModel>().Object;
+            var mockHomeViewModel = new Mock<ProductListingViewModel>().Object;
 
             // Act
             var result = await homeController.Search(mockHomeViewModel);
 
             //Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsType<SearchViewModel>(viewResult.Model);
+            var model = Assert.IsType<ProductListingViewModel>(viewResult.Model);
         }
     }
 }

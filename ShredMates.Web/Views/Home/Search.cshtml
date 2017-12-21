@@ -1,24 +1,21 @@
-﻿@model SearchViewModel
+﻿@model ProductListingViewModel
 @{
-    ViewData["Title"] = $"Search Result for: {Model.Search}";
+    ViewData["Title"] = "Result found";
 }
 
 <h2>@ViewData["Title"]</h2>
 
-<div class="row">
-    <form asp-action="Search">
-        <div class="col-md-4 pull-right">
-            <input asp-for="Search" class="form-control" placeholder="Search..." />
-        </div>
-    </form>
-</div>
+@await Html.PartialAsync("_Search");
 
 <br />
 
 @if (Model.Products.Any())
 {
     <div class="row home-page">
-        @await Html.PartialAsync("SearchResults", Model.Products);
+        @foreach (var product in Model.Products)
+        {
+            @await Html.PartialAsync("_ProductListing", product)
+        }
     </div>
 }
 else
@@ -29,3 +26,5 @@ else
     </div>
 }
 
+
+@await Html.PartialAsync("_Paging")

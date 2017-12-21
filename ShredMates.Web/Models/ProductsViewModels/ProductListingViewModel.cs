@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 namespace ShredMates.Web.Models.HomeViewModels
 {
-    public class HomeViewModel
+    public class ProductListingViewModel
     {
         public IEnumerable<ProductListingServiceModel> Products { get; set; }
+
+        public string Search { get; set; }
 
         public int Current { get; set; }
 
@@ -14,8 +16,6 @@ namespace ShredMates.Web.Models.HomeViewModels
         public int TotalPages { get; set; }
 
         public int Next => this.Current == TotalPages ? this.TotalPages : Current + 1;
-
-        public string Search { get; set; }
 
     }
 }

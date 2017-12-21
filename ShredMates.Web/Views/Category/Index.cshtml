@@ -15,7 +15,7 @@
 <div class="row home-page">
     @foreach (var product in Model.Products)
     {
-        @await Html.PartialAsync("AllProducts", product)
+        @await Html.PartialAsync("_ProductListing", product)
     }
 </div>
 

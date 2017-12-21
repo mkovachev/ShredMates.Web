@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ShredMates.Data;
 using ShredMates.Data.Models;
+using ShredMates.Services.Implementations;
+using ShredMates.Services.Interfaces;
 using ShredMates.Services.Models;
 using ShredMates.Web.Infrastructure.Extensions;
 using System;
@@ -57,6 +59,9 @@ namespace ShredMates.Web
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // reg http service
 
             services.AddSingleton(sp => new ShoppingCart() { Id = Guid.NewGuid().ToString(), ShoppingCartItems = new List<ShoppingCartItem>() });
+
+            services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+            services.AddTransient<IEmailService, EmailService>();
 
             services.AddRouting(routing => { routing.LowercaseUrls = true; }); // routing lowercase
 

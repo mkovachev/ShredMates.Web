@@ -1,5 +1,4 @@
 ﻿using ShredMates.Common.Mapping;
-using ShredMates.Data.Models;
 
 namespace ShredMates.Services.Models
 {

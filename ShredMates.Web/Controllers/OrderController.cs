@@ -5,7 +5,6 @@ using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
 using ShredMates.Services.Models;
 using ShredMates.Web.Infrastructure.Extensions;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -13,6 +12,9 @@ namespace ShredMates.Web.Controllers
 {
     public class OrderController : Controller
     {
+        private const string senderEmailName = "shredmates";
+        private const string senderEmailAddress = "shredmates@gmail.com";
+
         private readonly IShoppingCartService shoppingCartServices;
         private readonly ShoppingCart shoppingCart;
         private readonly IOrderService orderService;
@@ -60,7 +62,7 @@ namespace ShredMates.Web.Controllers
                      + Path.DirectorySeparatorChar.ToString()
                      + "orderConfirmation.html";
 
-            // read template
+            // read file TODO
             var builder = new BodyBuilder();
             using (StreamReader reader = System.IO.File.OpenText(pathToFile))
             {
@@ -71,13 +73,13 @@ namespace ShredMates.Web.Controllers
             {
                 ToAddresses =
                 {
-                    new EmailAddress { Name = order.FirstName, Address = order.Email }
+                    new EmailAddress { Name = $"{order.LastName} {order.FirstName}", Address = order.Email }
                 },
                 FromAddresses =
                 {
-                    new EmailAddress { Name = "test", Address = "test@muimail.com" }
+                    new EmailAddress { Name = senderEmailName, Address = senderEmailAddress }
                 },
-                Subject = $"ShredMated Shop Order {order.OrderId}",
+                Subject = $"ShredMates Shop Order {order.OrderId}",
                 Content = builder.ToString()
             };
 

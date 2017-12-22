@@ -16,7 +16,7 @@ namespace ShredMates.Tests.Web
 
         public OrderControllerTest()
         {
-            //TestStartup.GetMapper();
+            TestStartup.GetMapper();
             this.db = TestStartup.GetDataBase();
             this.shoppingCart = TestStartup.GetShoppingCart();
         }

@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Admin.Interfaces;
 using ShredMates.Services.Admin.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ShredMates.Services.Admin.Implementations
 {
@@ -30,7 +30,7 @@ namespace ShredMates.Services.Admin.Implementations
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AdminCategoryServiceModel>> AllAsync() 
+        public async Task<IEnumerable<AdminCategoryServiceModel>> AllAsync()
             => await this.db
                 .Categories
                 .OrderBy(c => c.Name)
@@ -49,7 +49,7 @@ namespace ShredMates.Services.Admin.Implementations
                  {
                      Id = c.Id,
                      Name = c.Name,
-                     
+
                  })
                  .FirstOrDefaultAsync();
 

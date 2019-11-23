@@ -3,7 +3,7 @@ using ShredMates.Data.Models;
 
 namespace ShredMates.Services.Admin.Models
 {
-    public class AdminCategoryServiceModel: IMapFrom<Category>
+    public class AdminCategoryServiceModel : IMapFrom<Category>
     {
         public int Id { get; set; }
 

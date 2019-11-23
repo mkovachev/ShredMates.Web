@@ -30,9 +30,7 @@ namespace ShredMates.Services.Admin.Implementations
         }
 
         public bool ExistsByName(string title)
-        {
-            return this.db.Products.Any(c => c.Title == title);
-        }
+            => this.db.Products.Any(c => c.Title == title);
 
         public async Task<Product> DetailsAsync(int id)
             => await this.db

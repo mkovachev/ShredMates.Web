@@ -2,7 +2,7 @@
 
 namespace ShredMates.Web.TagHelpers
 {
-    public class EmailTagHelper: TagHelper
+    public class EmailTagHelper : TagHelper
     {
         public string Address { get; set; }
 

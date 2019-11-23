@@ -1,11 +1,4 @@
-﻿using ShredMates.Data;
-using ShredMates.Data.Models;
-using ShredMates.Services.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace ShredMates.Tests.Services
+﻿namespace ShredMates.Tests.Services
 {
     public class OrderServiceTest
     {

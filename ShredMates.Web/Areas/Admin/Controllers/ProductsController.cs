@@ -40,7 +40,7 @@ namespace ShredMates.Web.Areas.Admin.Controllers
             var product = this.products.ExistsByName(model.Title);
 
             if (!product)
-            { 
+            {
                 await this.products.CreateAsync(
                     model.Title,
                     model.ShortDescription,

@@ -12,16 +12,16 @@ namespace ShredMates.Web.Controllers
 {
     public class OrderController : Controller
     {
-        private const string senderEmailName = "shredmates";
-        private const string senderEmailAddress = "shredmates@gmail.com";
-
+        private const string senderEmailName = "tradeport3";
+        private const string senderEmailAddress = "tradeport3@gmail.com";
+        private const string Message = "Your cart is empty, go back and add some products";
         private readonly IShoppingCartService shoppingCartServices;
         private readonly ShoppingCart shoppingCart;
         private readonly IOrderService orderService;
         private readonly IEmailService emailService;
-        private IHostingEnvironment env;
+        private readonly IWebHostEnvironment env;
 
-        public OrderController(IShoppingCartService shoppingCartServices, ShoppingCart shoppingCart, IOrderService orderService, IEmailService emailService, IHostingEnvironment env)
+        public OrderController(IShoppingCartService shoppingCartServices, ShoppingCart shoppingCart, IOrderService orderService, IEmailService emailService, IWebHostEnvironment env)
         {
             this.shoppingCartServices = shoppingCartServices;
             this.shoppingCart = shoppingCart;
@@ -38,7 +38,7 @@ namespace ShredMates.Web.Controllers
             if (shoppingCart.ShoppingCartItems.Count == 0)
             {
                 ModelState.AddModelError("Empty cart", "Your cart is empty, go grab some products");
-                TempData.AddErrorMessage("Your cart is empty, go back and add some products");
+                TempData.AddErrorMessage(Message);
             }
 
             if (!ModelState.IsValid)
@@ -47,7 +47,7 @@ namespace ShredMates.Web.Controllers
                 return View(order);
             }
 
-            await this.orderService.CreateOrderAsync(order);
+            await orderService.CreateOrderAsync(order).ConfigureAwait(false);
             shoppingCartServices.ClearCart();
 
             // send email with order details to customer

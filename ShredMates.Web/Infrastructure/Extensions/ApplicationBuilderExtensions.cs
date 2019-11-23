@@ -41,7 +41,7 @@ namespace ShredMates.Web.Infrastructure.Extensions
                                 Name = role
                             });
 
-                            var error = result.Errors.SelectMany(e => e.Code);               
+                            var error = result.Errors.SelectMany(e => e.Code);
                         }
                     }
 

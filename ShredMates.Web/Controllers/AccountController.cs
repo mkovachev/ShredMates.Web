@@ -7,7 +7,6 @@ using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
 using ShredMates.Web.Infrastructure.Extensions;
 using ShredMates.Web.Models.AccountViewModels;
-using ShredMates.Web.Services;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;

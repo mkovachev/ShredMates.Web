@@ -37,7 +37,7 @@ namespace ShredMates.Services.Implementations
                                         .Where(c => c.ShoppingCartId == shoppingCart.Id
                                                         && c.Product.Id == product.Id)
                                         .FirstOrDefault();
-                   
+
             if (shoppingCartItem == null)
             {
                 shoppingCartItem = new ShoppingCartItem
@@ -84,7 +84,7 @@ namespace ShredMates.Services.Implementations
         }
 
         public decimal GetTotal()
-            =>  this.shoppingCart
+            => this.shoppingCart
                        .ShoppingCartItems
                        .Where(c => c.ShoppingCartId == shoppingCart.Id)
                        .Select(c => c.Product.Price * c.Amount)

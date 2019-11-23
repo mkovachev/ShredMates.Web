@@ -1,13 +1,4 @@
-﻿using Moq;
-using ShredMates.Data;
-using ShredMates.Data.Models;
-using ShredMates.Services.Interfaces;
-using ShredMates.Services.Models;
-using ShredMates.Web.Controllers;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace ShredMates.Tests.Web
+﻿namespace ShredMates.Tests.Web
 {
     public class OrderControllerTest
     {
@@ -43,7 +34,7 @@ namespace ShredMates.Tests.Web
             await this.db.SaveChangesAsync();
 
             var order = new Mock<Order>().Object;
-      
+
             var result = await this.db.Orders.AddAsync(order);
 
             // Act

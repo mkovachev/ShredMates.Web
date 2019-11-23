@@ -1,5 +1,3 @@
-using System;
-
 namespace ShredMates.Web.Models
 {
     public class ErrorViewModel

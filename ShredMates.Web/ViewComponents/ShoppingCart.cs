@@ -17,7 +17,7 @@ namespace ShredMates.Web.ViewComponents
         }
 
         // same as ShoppingCartController Index
-        public async Task<IViewComponentResult> InvokeAsync() 
+        public async Task<IViewComponentResult> InvokeAsync()
             => await Task.Run(() => View(new ShoppingCartViewModel
             {
                 ShoppingCart = shoppingCart,

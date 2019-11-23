@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ShredMates.Web.ViewComponents
 {
-    public class Snowboard: ViewComponent
+    public class Snowboard : ViewComponent
     {
         private readonly ShredMatesDbContext db;
 

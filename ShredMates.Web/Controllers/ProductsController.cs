@@ -18,7 +18,7 @@ namespace ShredMates.Web.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var product = await this.products.FindByIdAsync(id);
+            var product = await products.FindByIdAsync(id).ConfigureAwait(false);
 
             if (product == null)
             {
@@ -32,7 +32,8 @@ namespace ShredMates.Web.Controllers
                 Description = product.Description,
                 Images = product.Images,
                 ProductAttributes = product.ProductAttributes
-            }));
+            }))
+                .ConfigureAwait(false);
 
         }
     }

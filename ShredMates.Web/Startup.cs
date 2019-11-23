@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -30,6 +29,8 @@ namespace ShredMates.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+
             services.AddDbContext<ShredMatesDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ShredMatesDbConnection")));
 
@@ -46,13 +47,13 @@ namespace ShredMates.Web
 
 
             // facebook auth
-            services.AddAuthentication().AddFacebook(facebookOptions =>
+            /*services.AddAuthentication().AddFacebook(facebookOptions =>
             {
                 facebookOptions.AppId = "331814970630527";
                 facebookOptions.AppSecret = "f9a5dd07f11fe3a64932940ed16fa946";
-            });
+            });*/
 
-            services.AddAutoMapper(); // auto mapping
+            //services.AddAutoMapper(); // auto mapping
 
             services.AddServices(); // auto services
 
@@ -76,27 +77,32 @@ namespace ShredMates.Web
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(30);
             });
+
+            services.AddMvc(option => option.EnableEndpointRouting = false);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseDatabaseMigration(); // auto migrations
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-                app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //    app.UseDirectoryBrowser();
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //}
 
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseSession(); // session always before app.UseMvc()
+
+            app.UseStaticFiles();
+
 
             app.UseMvc(routes =>
             {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ShredMates.Services.Models
 {
-    public class CategoryServiceModel: IMapFrom<Category>
+    public class CategoryServiceModel : IMapFrom<Category>
     {
         public List<ProductListingServiceModel> Products { get; set; }
     }

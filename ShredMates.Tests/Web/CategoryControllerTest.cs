@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Moq;
-using ShredMates.Services.Interfaces;
-using ShredMates.Web.Controllers;
-using ShredMates.Web.Models;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace ShredMates.Tests.Web
+﻿namespace ShredMates.Tests.Web
 {
     public class CategoryControllerTest
     {

@@ -1,13 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using ShredMates.Data;
-using ShredMates.Data.Models;
-using ShredMates.Services.Models;
-using ShredMates.Web.Infrastructure.Mapping;
-using System;
-using System.Collections.Generic;
-
-namespace ShredMates.Tests
+﻿namespace ShredMates.Tests
 {
     public class TestStartup
     {

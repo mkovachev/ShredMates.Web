@@ -1,5 +1,4 @@
-﻿using ShredMates.Data.Models;
-using ShredMates.Services.Models;
+﻿using ShredMates.Services.Models;
 
 namespace ShredMates.Web.Models
 {

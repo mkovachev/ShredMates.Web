@@ -7,7 +7,7 @@ namespace ShredMates.Web.Infrastructure.Extensions
     public static class SessionExtensions
     {
         private const string sessionKey = "session";
-                
+
         public static string GetSessionId(this ISession session)
         {
             var sessionId = session.GetString(sessionKey);
@@ -60,8 +60,7 @@ namespace ShredMates.Web.Infrastructure.Extensions
 
         public static byte[] Get(this ISession session, string key)
         {
-            byte[] value = null;
-            session.TryGetValue(key, out value);
+            session.TryGetValue(key, out byte[] value);
             return value;
         }
     }

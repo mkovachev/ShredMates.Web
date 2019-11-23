@@ -20,7 +20,7 @@ namespace ShredMates.Services.Admin.Implementations
         public async Task<IEnumerable<AdminUserServiceModel>> AllAsync()
             => await this.db
                        .Users
-                       .ProjectTo<AdminUserServiceModel>()
+                       .ProjectTo<AdminUserServiceModel>(null)
                        .ToListAsync();
     }
 }

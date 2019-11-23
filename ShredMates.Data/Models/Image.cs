@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ShredMates.Data.Models
+﻿namespace ShredMates.Data.Models
 {
     public partial class Image
     {

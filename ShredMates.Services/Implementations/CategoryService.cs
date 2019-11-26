@@ -37,7 +37,6 @@ namespace ShredMates.Services.Implementations
                     .ToListAsync();
         }
 
-        // category does not contain a list of products TODO
         public async Task<CategoryServiceModel> AllInCategoryAsync(int id, int page = 1, int pageSize = DataConstants.PageSize)
         {
             return await this.db

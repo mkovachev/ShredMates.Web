@@ -14,7 +14,7 @@ namespace ShredMates.Services.Admin.Implementations
 
         public AdminUserService(ShredMatesDbContext db)
         {
-            this.db = db;
+            this.db = db ?? throw new System.ArgumentNullException(nameof(db));
         }
 
         public async Task<IEnumerable<AdminUserServiceModel>> AllAsync()

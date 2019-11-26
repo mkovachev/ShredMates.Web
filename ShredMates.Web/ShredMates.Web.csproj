@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Infrastructure\Filters\**" />
     <Compile Remove="wwwroot\templated\**" />
+    <Content Remove="Infrastructure\Filters\**" />
     <Content Remove="wwwroot\templated\**" />
+    <EmbeddedResource Remove="Infrastructure\Filters\**" />
     <EmbeddedResource Remove="wwwroot\templated\**" />
+    <None Remove="Infrastructure\Filters\**" />
     <None Remove="wwwroot\templated\**" />
   </ItemGroup>
 
@@ -31,10 +35,6 @@
     <ProjectReference Include="..\ShredMates.Common\ShredMates.Common.csproj" />
     <ProjectReference Include="..\ShredMates.Data\ShredMates.Data.csproj" />
     <ProjectReference Include="..\ShredMates.Services\ShredMates.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Infrastructure\Filters\" />
   </ItemGroup>
 
 </Project>

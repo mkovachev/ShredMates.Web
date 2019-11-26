@@ -38,26 +38,26 @@ namespace ShredMates.Services.Implementations
         }
 
         // category does not contain a list of products TODO
-        //public async Task<CategoryServiceModel> AllInCategoryAsync(int id, int page = 1, int pageSize = DataConstants.PageSize)
-        //{
-        //    return await this.db
-        //                .Categories
-        //                .Where(c => c.Id == id)
-        //                .Select(c => new CategoryServiceModel
-        //                {
-        //                    Products = c.Products.Select(p => new ProductListingServiceModel
-        //                    {
-        //                        Title = p.Title,
-        //                        ShortDescription = p.ShortDescription,
-        //                        Thumbnail = p.Thumbnail,
-        //                        Price = p.Price
-        //                    })
-        //                })
-        //                .Skip((page - 1) * pageSize)
-        //                .Take(pageSize)
-        //                .ProjectTo<CategoryServiceModel>()
-        //                .FirstOrDefaultAsync();
-        //}
+        public async Task<CategoryServiceModel> AllInCategoryAsync(int id, int page = 1, int pageSize = DataConstants.PageSize)
+        {
+            return await this.db
+                        .Categories
+                        .Where(c => c.Id == id)
+                        .Select(c => new CategoryServiceModel
+                        {
+                            Products = c.Products.Select(p => new ProductListingServiceModel
+                            {
+                                Title = p.Title,
+                                ShortDescription = p.ShortDescription,
+                                Thumbnail = p.Thumbnail,
+                                Price = p.Price
+                            })
+                        })
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ProjectTo<CategoryServiceModel>(null)
+                        .FirstOrDefaultAsync();
+        }
 
         public int TotalPages()
             => this.db.Categories.Count();

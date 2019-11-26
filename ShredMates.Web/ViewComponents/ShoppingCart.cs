@@ -7,10 +7,10 @@ namespace ShredMates.Web.ViewComponents
 {
     public class ShoppingCart : ViewComponent
     {
-        private readonly ShredMates.Services.Models.ShoppingCart shoppingCart;
+        private readonly ShoppingCart shoppingCart;
         private readonly IShoppingCartService shoppingCartServices;
 
-        public ShoppingCart(ShredMates.Services.Models.ShoppingCart shoppingCart, IShoppingCartService shoppingCartServices)
+        public ShoppingCart(ShoppingCart shoppingCart, IShoppingCartService shoppingCartServices)
         {
             this.shoppingCart = shoppingCart;
             this.shoppingCartServices = shoppingCartServices;
@@ -20,7 +20,7 @@ namespace ShredMates.Web.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
             => await Task.Run(() => View(new ShoppingCartViewModel
             {
-                ShoppingCart = shoppingCart,
+                // ShoppingCart = shoppingCart, //TODO
                 ShoppingCartTotal = this.shoppingCartServices.GetTotal()
             }));
     }

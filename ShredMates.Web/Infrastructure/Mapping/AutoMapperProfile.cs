@@ -12,7 +12,7 @@ namespace ShredMates.Web.Infrastructure.Mapping
             var allTypes = AppDomain
                 .CurrentDomain
                 .GetAssemblies()
-                .Where(a => a.GetName().Name.Contains("ShredMates"))
+                .Where(a => a.GetName().Name.StartsWith("ShredMates"))
                 .SelectMany(a => a.GetTypes());
 
             allTypes

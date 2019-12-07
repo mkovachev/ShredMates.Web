@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using MimeKit;
 using ShredMates.Data.Models;
 using ShredMates.Services.Interfaces;
 using ShredMates.Services.Models;

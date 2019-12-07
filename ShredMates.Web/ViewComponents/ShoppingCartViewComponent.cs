@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace ShredMates.Web.ViewComponents
 {
-    public class ShoppingCart : ViewComponent
+    public class ShoppingCartViewComponent : ViewComponent
     {
-        private readonly ShoppingCart shoppingCart;
+        private readonly ShredMates.Services.Models.ShoppingCart shoppingCart;
         private readonly IShoppingCartService shoppingCartServices;
 
-        public ShoppingCart(ShoppingCart shoppingCart, IShoppingCartService shoppingCartServices)
+        public ShoppingCartViewComponent(ShredMates.Services.Models.ShoppingCart shoppingCart, IShoppingCartService shoppingCartServices)
         {
             this.shoppingCart = shoppingCart;
             this.shoppingCartServices = shoppingCartServices;
@@ -20,7 +20,7 @@ namespace ShredMates.Web.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
             => await Task.Run(() => View(new ShoppingCartViewModel
             {
-                // ShoppingCart = shoppingCart, //TODO
+                ShoppingCart = shoppingCart,
                 ShoppingCartTotal = this.shoppingCartServices.GetTotal()
             }));
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -6,127 +7,98 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using ShredMates.Data;
 using ShredMates.Data.Models;
-using ShredMates.Services.Implementations;
-using ShredMates.Services.Interfaces;
+using ShredMates.Services.Common;
 using ShredMates.Services.Models;
+using ShredMates.Web.Controllers;
 using ShredMates.Web.Infrastructure.Extensions;
 using System;
 using System.Collections.Generic;
 
-namespace ShredMates.Web
+namespace OnlineShop.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
 
-            services.AddDbContext<ShredMatesDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ShredMatesDbConnection")));
+            services
+               .Configure<CookiePolicyOptions>(options =>
+               {
+                   options.CheckConsentNeeded = context => true;
+                   options.MinimumSameSitePolicy = SameSiteMode.None;
+               });
 
-            services.AddIdentity<User, IdentityRole>(options =>
+            services.AddDbContext<ShredMatesDbContext>(options
+                => options.UseSqlServer(Configuration.GetDefaultConnectionString()));
+
+            services
+                .AddDefaultIdentity<User>()
+                .AddRoles<IdentityRole>()
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<ShredMatesDbContext>();
+
+            services
+               .Configure<IdentityOptions>(options =>
+               {
+                   options.Password.RequireDigit = false;
+                   options.Password.RequiredLength = 6;
+                   options.Password.RequireLowercase = false;
+                   options.Password.RequireNonAlphanumeric = false;
+                   options.Password.RequireUppercase = false;
+               });
+
+            // Shopping cart
+            services.AddSingleton(s => new ShoppingCart()
             {
-                // set password requirements
-                options.Password.RequireDigit = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-            })
-                .AddEntityFrameworkStores<ShredMatesDbContext>()
-                .AddDefaultTokenProviders();
-
-
-            // facebook auth
-            /*services.AddAuthentication().AddFacebook(facebookOptions =>
-            {
-                facebookOptions.AppId = "331814970630527";
-                facebookOptions.AppSecret = "f9a5dd07f11fe3a64932940ed16fa946";
-            });*/
-
-            //services.AddAutoMapper(); // auto mapping
-
-            services.AddServices(); // auto services
-
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // reg http service
-
-            services.AddSingleton(sp => new ShoppingCart() { Id = Guid.NewGuid().ToString(), ShoppingCartItems = new List<ShoppingCartItem>() });
-
-            services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
-            services.AddTransient<IEmailService, EmailService>();
-
-            services.AddRouting(routing => { routing.LowercaseUrls = true; }); // routing lowercase
-
-            services.AddMvc(options =>
-            {
-                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>(); // auto AntiforgeryToken
+                Id = Guid.NewGuid().ToString(),
+                ShoppingCartItems = new List<ShoppingCartItem>()
             });
 
-            services.AddAuthorization(); // auth
-            services.AddDistributedMemoryCache(); // cache
-            services.AddSession(options =>  // session
-            {
-                options.IdleTimeout = TimeSpan.FromSeconds(30);
-            });
+            services.AddServices(); // auto reg all services
 
-            services.AddMvc(option => option.EnableEndpointRouting = false);
+            // auto req all mappings
+            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(ITransientService).Assembly,
+                                   typeof(HomeController).Assembly);
+
+
+            services
+                .AddMvc(options => options.AddAutoValidateAntiforgeryToken())
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddSessionStateTempDataProvider(); // add TempData
+
+            services.AddRouting(routing => { routing.LowercaseUrls = true; });
+
+            services.AddSession(options => options.IdleTimeout = TimeSpan.FromSeconds(30));
+
+            services.AddControllersWithViews();
+            services.AddRazorPages();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseDatabaseMigration(); // auto migrations
+            app.UseExceptionHandling(env);
 
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //    app.UseDirectoryBrowser();
-            //    app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
-            //    app.UseExceptionHandler("/Home/Error");
-            //}
-
-            app.UseStatusCodePages();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
+
+            app.UseRouting();
+
             app.UseAuthentication();
-            app.UseSession(); // session always before app.UseMvc()
+            app.UseAuthorization();
 
-            app.UseStaticFiles();
+            app.UseSession(); // always before app.UseEndpoints();!
 
+            app.UseEndpoints();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                name: "products",
-                template: "products/{id}/{title}",
-                defaults: new { controller = "Products", action = "Details" }
-                );
-
-                routes.MapRoute(
-                name: "category",
-                template: "products/{id}/{title}",
-                defaults: new { controller = "Category", action = "Index" }
-                );
-
-                routes.MapRoute(
-                  name: "areas",
-                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
-
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.SeedData();
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using MailKit.Net.Smtp;
-using MimeKit;
-using MimeKit.Text;
-using ShredMates.Services.Interfaces;
+﻿using ShredMates.Services.Interfaces;
 using ShredMates.Services.Models;
 using System.Linq;
 

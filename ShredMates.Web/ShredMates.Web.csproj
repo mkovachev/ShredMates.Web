@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-ShredMates.Web-35216E13-467B-4E75-9210-562C3682C799</UserSecretsId>
+    <UserSecretsId>aspnet-ShredMates.Web</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\lib\" />
     <Folder Include="wwwroot\templates\Email\" />
+    <Folder Include="wwwroot\lib\**" />
   </ItemGroup>
 </Project>

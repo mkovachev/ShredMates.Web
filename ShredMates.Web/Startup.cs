@@ -98,7 +98,7 @@ namespace ShredMates.Web
 
             app.UseEndpoints();
 
-            //app.SeedData();
+            app.SeedData();
         }
     }
 }

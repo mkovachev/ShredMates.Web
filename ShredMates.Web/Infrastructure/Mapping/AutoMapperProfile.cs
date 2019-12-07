@@ -19,7 +19,7 @@ namespace ShredMates.Web.Infrastructure.Mapping
         //            AppDomain
         //            .CurrentDomain
         //            .GetAssemblies()
-        //            .Where(a => a.GetName().Name.StartsWith("OnlineShop."))
+        //            .Where(a => a.GetName().Name.StartsWith("ShredMates."))
         //            .SelectMany(a => a.GetExportedTypes())
         //            .Where(t => t.IsClass && !t.IsAbstract)
         //            .Select(t => new

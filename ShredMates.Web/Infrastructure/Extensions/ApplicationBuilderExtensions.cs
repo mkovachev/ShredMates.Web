@@ -85,12 +85,12 @@ namespace ShredMates.Web.Infrastructure.Extensions
                 var userManager = services.GetService<UserManager<User>>();
 
                 // create admin for testing
-                if (await userManager.FindByNameAsync("admin@onlineshop.com") == null)
+                if (await userManager.FindByNameAsync("admin@ShredMates.com") == null)
                 {
                     User admin = new User
                     {
-                        UserName = "admin@onlineshop.com",
-                        Email = "admin@onlineshop.com"
+                        UserName = "admin@ShredMates.com",
+                        Email = "admin@ShredMates.com"
                     };
 
                     await userManager.CreateAsync(admin, "adminpass");
@@ -99,12 +99,12 @@ namespace ShredMates.Web.Infrastructure.Extensions
                 }
 
                 // create user for testing
-                if (await userManager.FindByNameAsync("user@onlineshop.com") == null)
+                if (await userManager.FindByNameAsync("user@ShredMates.com") == null)
                 {
                     User user = new User
                     {
-                        UserName = "user@onlineshop.com",
-                        Email = "user@onlineshop.com"
+                        UserName = "user@ShredMates.com",
+                        Email = "user@ShredMates.com"
                     };
                     await userManager.CreateAsync(user, "userpass");
                     await userManager.AddToRoleAsync(user, WebConstants.ModeratorRole);

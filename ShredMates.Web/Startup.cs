@@ -16,7 +16,7 @@ using ShredMates.Web.Infrastructure.Extensions;
 using System;
 using System.Collections.Generic;
 
-namespace OnlineShop.Web
+namespace ShredMates.Web
 {
     public class Startup
     {
@@ -98,7 +98,7 @@ namespace OnlineShop.Web
 
             app.UseEndpoints();
 
-            app.SeedData();
+            //app.SeedData();
         }
     }
 }

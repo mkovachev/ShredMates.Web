@@ -83,9 +83,9 @@ namespace ShredMates.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //app.UseExceptionHandling(env);
+            app.UseExceptionHandling(env);
 
-            app.UseDeveloperExceptionPage();
+            //app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

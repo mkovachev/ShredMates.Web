@@ -1,11 +1,12 @@
 ﻿using ShredMates.Data.Models;
+using ShredMates.Services.Common;
 using ShredMates.Services.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShredMates.Services.Interfaces
 {
-    public interface IShoppingCartService
+    public interface IShoppingCartService : IScopedService
     {
         Task<Product> FindProductByIdAsync(int productId);
 

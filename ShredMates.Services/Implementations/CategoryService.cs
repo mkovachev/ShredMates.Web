@@ -1,4 +1,5 @@
-﻿using AutoMapper.QueryableExtensions;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ShredMates.Data;
 using ShredMates.Data.Models;
@@ -14,11 +15,13 @@ namespace ShredMates.Services.Implementations
     {
         private readonly ShredMatesDbContext db;
         private readonly ShoppingCart shoppingCart;
+        private readonly IMapper mapper;
 
-        public CategoryService(ShredMatesDbContext db, ShoppingCart shoppingCart)
+        public CategoryService(ShredMatesDbContext db, ShoppingCart shoppingCart, IMapper mapper)
         {
-            this.db = db;
-            this.shoppingCart = shoppingCart;
+            this.db = db ?? throw new System.ArgumentNullException(nameof(db));
+            this.shoppingCart = shoppingCart ?? throw new System.ArgumentNullException(nameof(shoppingCart));
+            this.mapper = mapper ?? throw new System.ArgumentNullException(nameof(mapper));
         }
 
         public async Task<Category> ByIdAsync(int id)
@@ -33,7 +36,7 @@ namespace ShredMates.Services.Implementations
                     .Products
                     .Where(p => p.CategoryId == categoryId)
                     .OrderBy(p => p.Title)
-                    .ProjectTo<ProductListingServiceModel>(null)
+                    .ProjectTo<ProductListingServiceModel>(this.mapper.ConfigurationProvider)
                     .ToListAsync();
         }
 
@@ -54,7 +57,7 @@ namespace ShredMates.Services.Implementations
                         })
                         .Skip((page - 1) * pageSize)
                         .Take(pageSize)
-                        .ProjectTo<CategoryServiceModel>(null)
+                        .ProjectTo<CategoryServiceModel>(this.mapper.ConfigurationProvider)
                         .FirstOrDefaultAsync();
         }
 

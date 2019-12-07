@@ -1,8 +1,9 @@
-﻿using ShredMates.Services.Models;
+﻿using ShredMates.Services.Common;
+using ShredMates.Services.Models;
 
 namespace ShredMates.Services.Interfaces
 {
-    public interface IEmailService
+    public interface IEmailService : ISingletonService
     {
         void SendEmail(EmailMessage emailMessage);
     }

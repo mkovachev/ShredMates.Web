@@ -76,7 +76,7 @@ namespace ShredMates.Web.Infrastructure.Extensions
                     await roleManager.CreateAsync(adminRole);
                 }
                 //create role = "Moderator"
-                if (!await roleManager.RoleExistsAsync(WebConstants.AdminRole))
+                if (!await roleManager.RoleExistsAsync(WebConstants.ModeratorRole))
                 {
                     IdentityRole moderatorRole = new IdentityRole(WebConstants.ModeratorRole);
                     await roleManager.CreateAsync(moderatorRole);
@@ -95,7 +95,6 @@ namespace ShredMates.Web.Infrastructure.Extensions
 
                     await userManager.CreateAsync(admin, "adminpass");
                     await userManager.AddToRoleAsync(admin, WebConstants.AdminRole);
-                    await userManager.AddToRoleAsync(admin, WebConstants.ModeratorRole);
                 }
 
                 // create user for testing

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ShredMates.Services.Interfaces;
+using ShredMates.Services.Common;
 using System.Linq;
-using System.Reflection;
 
 namespace ShredMates.Web.Infrastructure.Extensions
 {
@@ -9,19 +8,56 @@ namespace ShredMates.Web.Infrastructure.Extensions
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            Assembly
-                .GetAssembly(typeof(IService))
-                .GetTypes()
-                .Where(t => t.IsClass && t.GetInterfaces().Any(i => i.Name == $"I{t.Name}"))
-                .Select(t => new
+            var serviceInterfaceType = typeof(ITransientService);
+            var scopedServiceInterfaceType = typeof(IScopedService);
+            var singletonServiceInterfaceType = typeof(ISingletonService);
+
+            var types = serviceInterfaceType
+                            .Assembly
+                            .GetExportedTypes()
+                            .Where(t => t.IsClass && !t.IsAbstract)
+                            .Select(t => new
+                            {
+                                Service = t.GetInterface($"I{t.Name}"),
+                                Implementation = t
+                            })
+                            .Where(t => t.Service != null);
+
+            foreach (var type in types)
+            {
+                if (serviceInterfaceType.IsAssignableFrom(type.Service))
                 {
-                    Interface = t.GetInterface($"I{t.Name}"),
-                    Service = t
-                })
-                .ToList()
-                .ForEach(s => services.AddTransient(s.Interface, s.Service));
+                    services.AddTransient(type.Service, type.Implementation);
+                }
+                else if (singletonServiceInterfaceType.IsAssignableFrom(type.Service))
+                {
+                    services.AddSingleton(type.Service, type.Implementation);
+                }
+                else if (scopedServiceInterfaceType.IsAssignableFrom(type.Service))
+                {
+                    services.AddScoped(type.Service, type.Implementation);
+                }
+            }
 
             return services;
         }
+
+        // old working
+        //public static IServiceCollection AddServices(this IServiceCollection services)
+        //{
+        //    Assembly
+        //        .GetAssembly(typeof(IService))
+        //        .GetTypes()
+        //        .Where(t => t.IsClass && t.GetInterfaces().Any(i => i.Name == $"I{t.Name}"))
+        //        .Select(t => new
+        //        {
+        //            Interface = t.GetInterface($"I{t.Name}"),
+        //            Service = t
+        //        })
+        //        .ToList()
+        //        .ForEach(s => services.AddTransient(s.Interface, s.Service));
+
+        //    return services;
+        //}
     }
 }

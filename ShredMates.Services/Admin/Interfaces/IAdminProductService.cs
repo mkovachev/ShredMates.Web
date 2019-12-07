@@ -1,11 +1,12 @@
 ﻿using ShredMates.Data.Models;
+using ShredMates.Services.Common;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShredMates.Services.Admin.Interfaces
 {
-    public interface IAdminProductService
+    public interface IAdminProductService : ITransientService
     {
         Task<Product> FindByIdAsync(int id);
 

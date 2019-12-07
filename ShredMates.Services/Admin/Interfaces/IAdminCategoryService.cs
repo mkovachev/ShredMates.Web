@@ -1,10 +1,11 @@
 ﻿using ShredMates.Services.Admin.Models;
+using ShredMates.Services.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShredMates.Services.Admin.Interfaces
 {
-    public interface IAdminCategoryService
+    public interface IAdminCategoryService: ITransientService
     {
         Task<AdminCategoryServiceModel> FindByIdAsync(int id);
 

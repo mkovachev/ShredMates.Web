@@ -1,4 +1,5 @@
-﻿using AutoMapper.QueryableExtensions;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ShredMates.Data;
 using ShredMates.Data.Models;
@@ -13,10 +14,12 @@ namespace ShredMates.Services.Implementations
     public class ProductService : IProductService
     {
         private readonly ShredMatesDbContext db;
+        private readonly IMapper mapper;
 
-        public ProductService(ShredMatesDbContext db)
+        public ProductService(ShredMatesDbContext db, IMapper mapper)
         {
-            this.db = db;
+            this.db = db ?? throw new System.ArgumentNullException(nameof(db));
+            this.mapper = mapper ?? throw new System.ArgumentNullException(nameof(mapper));
         }
 
         public async Task<IEnumerable<ProductListingServiceModel>> AllAsync(int page = 1, int pageSize = DataConstants.PageSize)
@@ -26,7 +29,7 @@ namespace ShredMates.Services.Implementations
                         .OrderByDescending(p => p.DateCreated)
                         .Skip((page - 1) * pageSize)
                         .Take(pageSize)
-                        .ProjectTo<ProductListingServiceModel>(null)
+                        .ProjectTo<ProductListingServiceModel>(this.mapper.ConfigurationProvider)
                         .ToListAsync();
         }
 
@@ -40,7 +43,7 @@ namespace ShredMates.Services.Implementations
                         .Products
                         .OrderByDescending(p => p.DateCreated)
                         .Where(p => p.Title.ToLower().Contains(search.ToLower()))
-                        .ProjectTo<ProductListingServiceModel>(null)
+                        .ProjectTo<ProductListingServiceModel>(this.mapper.ConfigurationProvider)
                         .ToListAsync();
         }
 

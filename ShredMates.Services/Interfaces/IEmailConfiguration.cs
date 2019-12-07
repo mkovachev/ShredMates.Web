@@ -1,6 +1,8 @@
-﻿namespace ShredMates.Services.Interfaces
+﻿using ShredMates.Services.Common;
+
+namespace ShredMates.Services.Interfaces
 {
-    public interface IEmailConfiguration
+    public interface IEmailConfiguration : ISingletonService
     {
         string SmtpServer { get; }
         int SmtpPort { get; }

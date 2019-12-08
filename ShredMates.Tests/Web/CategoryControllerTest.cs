@@ -1,6 +1,13 @@
-﻿namespace ShredMates.Tests.Web
+﻿using Microsoft.AspNetCore.Mvc;
+using Moq;
+using ShredMates.Services.Interfaces;
+using ShredMates.Web.Controllers;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace ShredMates.Tests.Web
 {
-    public class CategoryControllerTest
+    public class AdminCategoryControllerTest
     {
         [Fact]
         public async Task Index_ShouldReturn_CategoryViewModel_WithAllProducts()

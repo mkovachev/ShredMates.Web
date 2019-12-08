@@ -1,4 +1,14 @@
-﻿namespace ShredMates.Tests.Services
+﻿using FluentAssertions;
+using ShredMates.Data;
+using ShredMates.Data.Models;
+using ShredMates.Services.Implementations;
+using ShredMates.Services.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace ShredMates.Tests.Services
 {
     public class ShoppingCartServiceTest
     {
@@ -54,7 +64,9 @@
             // Act
             shoppingCartService.AddToCart(product, 1);
 
-            var result = this.shoppingCart.ShoppingCartItems.FirstOrDefault(p => p.Product.Title == "Play");
+            var result = this.shoppingCart
+                .ShoppingCartItems
+                .FirstOrDefault(p => p.Product.Title == "Play");
 
             // Arrange
             result.Should().NotBeNull();

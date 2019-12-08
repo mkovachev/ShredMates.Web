@@ -1,4 +1,12 @@
-﻿namespace ShredMates.Tests
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using ShredMates.Data;
+using ShredMates.Data.Models;
+using ShredMates.Services.Models;
+using System;
+using System.Collections.Generic;
+
+namespace ShredMates.Tests
 {
     public class TestStartup
     {
@@ -8,7 +16,7 @@
         {
             if (!testInitialized)
             {
-                Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
+                //Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
                 testInitialized = true;
             }
         }

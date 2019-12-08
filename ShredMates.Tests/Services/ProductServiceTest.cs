@@ -1,4 +1,15 @@
-﻿namespace ShredMates.Tests.Services
+﻿using AutoMapper;
+using FluentAssertions;
+using ShredMates.Data;
+using ShredMates.Data.Models;
+using ShredMates.Services.Implementations;
+using ShredMates.Services.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace ShredMates.Tests.Services
 {
     public class ProductServiceTest
     {
@@ -6,6 +17,7 @@
         private readonly ShoppingCart shoppingCart;
         private readonly List<Product> products;
         private readonly Order order;
+        private readonly IMapper mapper;
 
         public ProductServiceTest()
         {
@@ -20,7 +32,7 @@
         public async Task AllAsync_ShouldReturn_AllProducts()
         {
             // Arrange      
-            var productService = new ProductService(db);
+            var productService = new ProductService(db, mapper);
             await this.db.Products.AddRangeAsync(products);
             await this.db.SaveChangesAsync();
 
@@ -31,14 +43,14 @@
             // Assert
             Assert.NotNull(result);
             Assert.NotEmpty(result);
-            Assert.IsType<List<ShredMates.Services.Models.ProductListingServiceModel>>(result);
+            Assert.IsType<List<ProductListingServiceModel>>(result);
         }
 
         [Fact]
         public async Task FindAsync_ShouldReturn_ProductById()
         {
             // Arrange
-            var productService = new ProductService(db);
+            var productService = new ProductService(db, mapper);
             await this.db.Products.AddRangeAsync(products);
             await this.db.SaveChangesAsync();
 

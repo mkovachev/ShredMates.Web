@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ShredMates.Web.Areas.Admin.Controllers
 {
-    public class CategoriesController : AdminController
+    public class CategoryController : AdminController
     {
         private readonly IAdminCategoryService categories;
 
-        public CategoriesController(IAdminCategoryService categories)
+        public CategoryController(IAdminCategoryService categories)
         {
             this.categories = categories;
         }

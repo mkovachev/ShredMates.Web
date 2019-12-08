@@ -1,4 +1,13 @@
-﻿namespace ShredMates.Tests.Web
+﻿using Moq;
+using ShredMates.Data;
+using ShredMates.Data.Models;
+using ShredMates.Services.Interfaces;
+using ShredMates.Services.Models;
+using ShredMates.Web.Controllers;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace ShredMates.Tests.Web
 {
     public class OrderControllerTest
     {

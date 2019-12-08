@@ -1,4 +1,15 @@
-﻿namespace ShredMates.Tests.Services
+﻿using AutoMapper;
+using FluentAssertions;
+using ShredMates.Data;
+using ShredMates.Data.Models;
+using ShredMates.Services.Implementations;
+using ShredMates.Services.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace ShredMates.Tests.Services
 {
     public class CategoryServiceTest
     {
@@ -6,10 +17,11 @@
         private readonly ShoppingCart shoppingCart;
         private readonly List<Product> products;
         private readonly Category category;
+        private readonly IMapper mapper;
 
         public CategoryServiceTest()
         {
-            TestStartup.GetMapper();
+            //this.mapper = TestStartup.GetMapper();
             this.db = TestStartup.GetDataBase();
             this.shoppingCart = TestStartup.GetShoppingCart();
             this.products = TestStartup.GetProducts();
@@ -20,7 +32,7 @@
         public async Task ByIdAsync_ShouldReturn_CorrectCategoryWithId()
         {
             // Arrange
-            var categoryService = new CategoryService(db, shoppingCart);
+            var categoryService = new CategoryService(db, shoppingCart, mapper);
 
             await this.db.AddAsync(category);
             await this.db.SaveChangesAsync();
@@ -42,7 +54,7 @@
         public async Task AllProductsInCategoryAsync_ShouldReturnAllProductFromCategory_OrderedByTitle()
         {
             // Arrange
-            var categoryService = new CategoryService(db, shoppingCart);
+            var categoryService = new CategoryService(db, shoppingCart, mapper);
             await this.db.Products.AddRangeAsync(products);
             await this.db.SaveChangesAsync();
 

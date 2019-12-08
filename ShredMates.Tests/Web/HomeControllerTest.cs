@@ -1,4 +1,15 @@
-﻿namespace ShredMates.Tests.Web
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+using ShredMates.Services.Interfaces;
+using ShredMates.Services.Models;
+using ShredMates.Web.Controllers;
+using ShredMates.Web.Models.HomeViewModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace ShredMates.Tests.Web
 {
     public class HomeControllerTest
     {
@@ -38,12 +49,12 @@
                 .Returns(true);
 
             // Act
-            //var result = await mockHomeController.Index(); // returns null, stops at session set string
+            var result = await mockHomeController.Index(); // returns null, stops at session set string
 
             //Assert
-            //Assert.Null(result);
-            // var viewResult = Assert.IsType<ViewResult>(result);
-            // var model = Assert.IsType<HomeViewModel>(viewResult.Model);
+            Assert.Null(result);
+            var viewResult = Assert.IsType<ViewResult>(result);
+            //var model = Assert.IsType<HomeViewModel>(viewResult.Model);
         }
 
         [Fact]

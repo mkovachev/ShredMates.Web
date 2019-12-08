@@ -22,7 +22,7 @@ namespace ShredMates.Tests.Web
 
             // Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsType<CategoryViewModel>(viewResult.Model);
+            Assert.IsType<CategoryViewModel>(viewResult.Model);
         }
     }
 }

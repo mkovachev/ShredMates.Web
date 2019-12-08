@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Models;
@@ -10,21 +9,12 @@ namespace ShredMates.Tests
 {
     public class TestStartup
     {
-        private static bool testInitialized = false;
-
-        public static void GetMapper()
-        {
-            if (!testInitialized)
-            {
-                //Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
-                testInitialized = true;
-            }
-        }
+        private static readonly bool testInitialized = false;
 
         public static ShredMatesDbContext GetDataBase()
         {
             var dbOptions = new DbContextOptionsBuilder<ShredMatesDbContext>()
-                               .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                               .UseInMemoryDatabase("TestDb")
                                .Options;
             var db = new ShredMatesDbContext(dbOptions);
 

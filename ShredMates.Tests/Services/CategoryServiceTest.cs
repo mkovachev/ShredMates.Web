@@ -19,13 +19,13 @@ namespace ShredMates.Tests.Services
         private readonly Category category;
         private readonly IMapper mapper;
 
-        public CategoryServiceTest()
+        public CategoryServiceTest(IMapper mapper)
         {
-            //this.mapper = TestStartup.GetMapper();
             this.db = TestStartup.GetDataBase();
             this.shoppingCart = TestStartup.GetShoppingCart();
             this.products = TestStartup.GetProducts();
             this.category = TestStartup.GetCategory();
+            this.mapper = mapper;
         }
 
         [Fact]

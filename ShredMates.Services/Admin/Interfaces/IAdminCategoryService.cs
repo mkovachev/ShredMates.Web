@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ShredMates.Services.Admin.Interfaces
 {
-    public interface IAdminCategoryService: ITransientService
+    public interface IAdminCategoryService : ITransientService
     {
         Task<AdminCategoryServiceModel> FindByIdAsync(int id);
 

@@ -1,7 +1,5 @@
 ﻿using ShredMates.Data;
 using ShredMates.Data.Models;
-using ShredMates.Services.Models;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -10,16 +8,11 @@ namespace ShredMates.Tests.Services
     public class OrderServiceTest
     {
         private readonly ShredMatesDbContext db;
-        private readonly ShoppingCart shoppingCart;
-        private readonly List<Product> products;
         private readonly Order order;
 
         public OrderServiceTest()
         {
-            //TestStartup.GetMapper();
             this.db = TestStartup.GetDataBase();
-            this.shoppingCart = TestStartup.GetShoppingCart();
-            this.products = TestStartup.GetProducts();
             this.order = TestStartup.GetOrder();
         }
 

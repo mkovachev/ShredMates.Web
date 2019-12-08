@@ -13,19 +13,16 @@ namespace ShredMates.Tests.Services
 {
     public class ProductServiceTest
     {
-        private readonly ShredMatesDbContext db;
-        private readonly ShoppingCart shoppingCart;
-        private readonly List<Product> products;
-        private readonly Order order;
         private readonly IMapper mapper;
+        private readonly ShredMatesDbContext db;
+        private readonly List<Product> products;
 
-        public ProductServiceTest()
+        public ProductServiceTest(IMapper mapper)
         {
-            TestStartup.GetMapper();
             this.db = TestStartup.GetDataBase();
-            this.shoppingCart = TestStartup.GetShoppingCart();
             this.products = TestStartup.GetProducts();
-            this.order = TestStartup.GetOrder();
+            this.mapper = mapper;
+
         }
 
         [Fact]
@@ -38,7 +35,7 @@ namespace ShredMates.Tests.Services
 
             // Act
             var result = await productService.AllAsync();
-            var item = result.ToList()[0];
+            var list = result.ToList()[0];
 
             // Assert
             Assert.NotNull(result);

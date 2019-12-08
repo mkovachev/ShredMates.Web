@@ -2,6 +2,7 @@
 using Moq;
 using ShredMates.Services.Interfaces;
 using ShredMates.Web.Controllers;
+using ShredMates.Web.Models;
 using System.Threading.Tasks;
 using Xunit;
 

@@ -17,7 +17,7 @@ namespace ShredMates.Tests.Web
 
         public HomeControllerTest()
         {
-            this.shoppingCart = TestStartup.GetShoppingCart();
+            this.shoppingCart = TestStartup.CreateShoppingCart();
         }
 
         [Fact]
@@ -30,9 +30,9 @@ namespace ShredMates.Tests.Web
 
             mockHomeViewModel.Products = new List<ProductListingServiceModel>()
             {
-                new ProductListingServiceModel { Id = 1, Title = "A", Price = 100},
-                new ProductListingServiceModel { Id = 2, Title = "B", Price = 200},
-                new ProductListingServiceModel { Id = 3, Title = "C", Price = 300}
+                new ProductListingServiceModel { Id = 1, Title = "A", Price = 1},
+                new ProductListingServiceModel { Id = 2, Title = "B", Price = 1},
+                new ProductListingServiceModel { Id = 3, Title = "C", Price = 1}
             };
 
             // get mocked session
@@ -71,7 +71,7 @@ namespace ShredMates.Tests.Web
 
             //Assert
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsType<ProductListingViewModel>(viewResult.Model);
+            Assert.IsType<ProductListingViewModel>(viewResult.Model);
         }
     }
 }

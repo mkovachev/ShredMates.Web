@@ -1,5 +1,6 @@
 ﻿using ShredMates.Data;
 using ShredMates.Data.Models;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -9,41 +10,29 @@ namespace ShredMates.Tests.Services
     {
         private readonly ShredMatesDbContext db;
         private readonly Order order;
+        private readonly OrderDetail orderDetail;
 
         public OrderServiceTest()
         {
-            this.db = TestStartup.GetDataBase();
-            this.order = TestStartup.GetOrder();
+            this.db = TestStartup.CreateDatabase();
+            this.order = this.db.Orders.FirstOrDefault();
+            this.orderDetail = this.db.OrderDetails.FirstOrDefault();
         }
 
         [Fact]
         public async Task CreateOrderAsync_ShouldSave_Order()
         {
             // Act
-            var orders = await this.db.Orders.AddAsync(order);
-            await db.SaveChangesAsync();
-
-            var savedEntry = await this.db.Orders.FindAsync(order.OrderId);
+            var savedOrder = await this.db.Orders.FindAsync(order.Id);
 
             // Assert
-            Assert.NotNull(orders);
-            Assert.NotNull(savedEntry);
+            Assert.NotNull(savedOrder);
         }
 
         [Fact]
         public async Task CreateOrderAsync_ShouldSave_OrderDetails()
         {
-            // Act    
-            var orderDetail = new OrderDetail
-            {
-                Amount = 1,
-                ProductId = 1,
-                OrderId = 1,
-                Price = 100
-            };
-
-            var orderDetails = await this.db.OrderDetails.AddAsync(orderDetail);
-            await this.db.SaveChangesAsync();
+            var orderDetails = await this.db.OrderDetails.FindAsync(orderDetail.Id);
 
             // Assert
             Assert.NotNull(orderDetails);

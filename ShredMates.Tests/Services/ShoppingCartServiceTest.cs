@@ -5,7 +5,6 @@ using ShredMates.Services.Implementations;
 using ShredMates.Services.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ShredMates.Tests.Services
@@ -15,32 +14,29 @@ namespace ShredMates.Tests.Services
         private readonly ShredMatesDbContext db;
         private readonly ShoppingCart shoppingCart;
         private readonly List<Product> products;
-        private readonly Order order;
 
         public ShoppingCartServiceTest()
         {
-            //TestStartup.GetMapper();
-            this.db = TestStartup.GetDataBase();
-            this.shoppingCart = TestStartup.GetShoppingCart();
-            this.products = TestStartup.GetProducts();
-            this.order = TestStartup.GetOrder();
+            this.db = TestStartup.CreateDatabase();
+            this.shoppingCart = TestStartup.CreateShoppingCart();
+            this.products = this.db.Products.ToList();
         }
 
         [Fact]
-        public async Task AllProductssAsync_ShouldReturn_AllProductsInCart()
+        public void AllProducts_ShouldReturn_AllProductsInCart()
         {
             // Arrrange
-            var shoppingCartService = new ShoppingCartService(db, this.shoppingCart);
+            var shoppingCartService = new ShoppingCartService(db, shoppingCart);
 
             var item = new ShoppingCartItem()
             {
                 Id = "1",
-                Product = products[0],
+                Product = products.First(),
                 Amount = 1,
                 ShoppingCartId = "1"
             };
+
             this.shoppingCart.ShoppingCartItems.Add(item);
-            await this.db.SaveChangesAsync();
 
             // Act
             var items = shoppingCartService.AllProducts();
@@ -48,33 +44,33 @@ namespace ShredMates.Tests.Services
             // Assert
             items
                 .Should()
-                .Match(r => r.ElementAt(0).Product.Title == "A")
+                .Match(r => r.ElementAt(0).Product.Title == "TestProduct1")
                 .And
                 .HaveCount(1);
         }
 
         [Fact]
-        public void AddToCartAsync_ShoulAdd_ProductToCart()
+        public void AddToCart_ShoulAdd_ProductToCart()
         {
             // Arrrange
             var shoppingCartService = new ShoppingCartService(db, this.shoppingCart);
 
-            var product = new Product { Id = 73, Price = 1000, Title = "Play" };
+            var product = new Product { Id = 1, Price = 1, Title = "TestProduct" };
 
             // Act
             shoppingCartService.AddToCart(product, 1);
 
             var result = this.shoppingCart
-                .ShoppingCartItems
-                .FirstOrDefault(p => p.Product.Title == "Play");
+                                .ShoppingCartItems
+                                .FirstOrDefault(p => p.Product.Title == "TestProduct");
 
             // Arrange
             result.Should().NotBeNull();
             result
                 .Should()
-                .Match<ShoppingCartItem>(p => p.Product.Id == 73
-                                    && p.Product.Title == "Play"
-                                    && p.Product.Price == 1000);
+                .Match<ShoppingCartItem>(p => p.Product.Id == 1
+                                                && p.Product.Title == "TestProduct"
+                                                && p.Product.Price == 1);
         }
     }
 }

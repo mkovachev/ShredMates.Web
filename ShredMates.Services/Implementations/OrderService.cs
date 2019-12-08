@@ -32,7 +32,7 @@ namespace ShredMates.Services.Implementations
                 {
                     Amount = product.Amount,
                     ProductId = product.Product.Id,
-                    OrderId = order.OrderId,
+                    OrderId = order.Id,
                     Price = product.Product.Price
                 };
 

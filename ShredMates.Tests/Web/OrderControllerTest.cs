@@ -1,7 +1,10 @@
 ﻿using Moq;
 using ShredMates.Data;
 using ShredMates.Data.Models;
+using ShredMates.Services.Implementations;
 using ShredMates.Services.Interfaces;
+using ShredMates.Services.Models;
+using System;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -10,40 +13,33 @@ namespace ShredMates.Tests.Web
     public class OrderControllerTest
     {
         private readonly ShredMatesDbContext db;
+        private readonly ShoppingCart shoppingCart;
 
         public OrderControllerTest()
         {
-            this.db = TestStartup.GetDataBase();
+            this.db = TestStartup.CreateDatabase();
+            this.shoppingCart = TestStartup.CreateShoppingCart();
         }
 
         [Fact]
         public async Task Checkout_ShouldCreate_Order()
         {
             // Arrange
-            var orderService = new Mock<IOrderService>().Object;
+            var orderService = new OrderService(db, shoppingCart);
 
-            var product = new Product { Id = 1, Title = "A", Price = 100 };
-
-            var orderDetail = new OrderDetail
+            var order = new Order
             {
-                Amount = 1,
-                ProductId = product.Id,
-                OrderId = 1,
-                Price = product.Price
+                Id = 2,
+                OrderPlaced = DateTime.MinValue
             };
-
-            await this.db.OrderDetails.AddAsync(orderDetail);
-            await this.db.SaveChangesAsync();
-
-            var order = new Mock<Order>().Object;
-
-            await this.db.Orders.AddAsync(order);
 
             // Act
             await orderService.CreateOrderAsync(order);
 
+            var savedOrder = await this.db.Orders.FindAsync(order.Id);
+
             // Assert
-            // how to check void method TODO
+            Assert.NotNull(savedOrder);
         }
     }
 }

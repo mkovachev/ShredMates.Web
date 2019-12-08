@@ -5,7 +5,6 @@ using ShredMates.Data.Models;
 using ShredMates.Services.Implementations;
 using ShredMates.Services.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -15,14 +14,11 @@ namespace ShredMates.Tests.Services
     {
         private readonly IMapper mapper;
         private readonly ShredMatesDbContext db;
-        private readonly List<Product> products;
 
-        public ProductServiceTest(IMapper mapper)
+        public ProductServiceTest()
         {
-            this.db = TestStartup.GetDataBase();
-            this.products = TestStartup.GetProducts();
-            this.mapper = mapper;
-
+            this.db = TestStartup.CreateDatabase();
+            this.mapper = TestStartup.CreateMapper();
         }
 
         [Fact]
@@ -30,12 +26,9 @@ namespace ShredMates.Tests.Services
         {
             // Arrange      
             var productService = new ProductService(db, mapper);
-            await this.db.Products.AddRangeAsync(products);
-            await this.db.SaveChangesAsync();
 
             // Act
             var result = await productService.AllAsync();
-            var list = result.ToList()[0];
 
             // Assert
             Assert.NotNull(result);
@@ -48,8 +41,6 @@ namespace ShredMates.Tests.Services
         {
             // Arrange
             var productService = new ProductService(db, mapper);
-            await this.db.Products.AddRangeAsync(products);
-            await this.db.SaveChangesAsync();
 
             // Act
             var result = await productService.ByIdAsync(1);
@@ -58,7 +49,7 @@ namespace ShredMates.Tests.Services
             Assert.NotNull(result);
             result.Should()
                 .Match<Product>(p => p.Id == 1
-                                    && p.Title == "A");
+                                    && p.Title == "TestProduct1");
         }
     }
 }

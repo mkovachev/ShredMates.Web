@@ -4,7 +4,6 @@ using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Implementations;
 using ShredMates.Services.Models;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -15,17 +14,15 @@ namespace ShredMates.Tests.Services
     {
         private readonly ShredMatesDbContext db;
         private readonly ShoppingCart shoppingCart;
-        private readonly List<Product> products;
         private readonly Category category;
         private readonly IMapper mapper;
 
-        public CategoryServiceTest(IMapper mapper)
+        public CategoryServiceTest()
         {
-            this.db = TestStartup.GetDataBase();
-            this.shoppingCart = TestStartup.GetShoppingCart();
-            this.products = TestStartup.GetProducts();
-            this.category = TestStartup.GetCategory();
-            this.mapper = mapper;
+            this.db = TestStartup.CreateDatabase();
+            this.shoppingCart = TestStartup.CreateShoppingCart();
+            this.category = this.db.Categories.FirstOrDefault();
+            this.mapper = TestStartup.CreateMapper();
         }
 
         [Fact]
@@ -33,9 +30,6 @@ namespace ShredMates.Tests.Services
         {
             // Arrange
             var categoryService = new CategoryService(db, shoppingCart, mapper);
-
-            await this.db.AddAsync(category);
-            await this.db.SaveChangesAsync();
 
             // Act
             var result = await categoryService.ByIdAsync(category.Id);
@@ -55,8 +49,6 @@ namespace ShredMates.Tests.Services
         {
             // Arrange
             var categoryService = new CategoryService(db, shoppingCart, mapper);
-            await this.db.Products.AddRangeAsync(products);
-            await this.db.SaveChangesAsync();
 
             // Act
             var productsInCategory = await categoryService.AllProductsInCategoryAsync(category.Id);
@@ -69,9 +61,9 @@ namespace ShredMates.Tests.Services
 
             result
                 .Should()
-                .Match(r => r.ElementAt(0).Title == "A"
-                         && r.ElementAt(1).Title == "B"
-                         && r.ElementAt(2).Title == "C")
+                .Match(r => r.ElementAt(0).Title == "TestProduct1"
+                         && r.ElementAt(1).Title == "TestProduct2"
+                         && r.ElementAt(2).Title == "TestProduct3")
                 .And
                 .HaveCount(3);
         }

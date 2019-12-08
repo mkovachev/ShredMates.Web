@@ -8,7 +8,7 @@ namespace ShredMates.Data.Models
     public class Order
     {
         [BindNever]
-        public int OrderId { get; set; }
+        public int Id { get; set; }
 
         public List<OrderDetail> OrderLines { get; set; }
 

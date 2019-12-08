@@ -16,6 +16,7 @@ namespace ShredMates.Tests
         {
             var config = new MapperConfiguration(cfg =>
             {
+                cfg.AddMaps("ShredMates.Data");
                 cfg.AddMaps("ShredMates.Services");
                 cfg.AddMaps("ShredMates.Web");
                 cfg.CreateMap<Product, ProductListingServiceModel>();
@@ -25,7 +26,6 @@ namespace ShredMates.Tests
 
             return mapper;
         }
-
         public static Category CreateCategory()
             => new Category
             {

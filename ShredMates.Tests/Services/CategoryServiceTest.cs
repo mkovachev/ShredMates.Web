@@ -26,7 +26,7 @@ namespace ShredMates.Tests.Services
         }
 
         [Fact]
-        public async Task ByIdAsync_ShouldReturn_CorrectCategoryWithId()
+        public async Task ByIdAsync_ShouldReturn_CorrectCategory()
         {
             // Arrange
             var categoryService = new CategoryService(db, shoppingCart, mapper);
@@ -45,7 +45,7 @@ namespace ShredMates.Tests.Services
         }
 
         [Fact]
-        public async Task AllProductsInCategoryAsync_ShouldReturnAllProductFromCategory_OrderedByTitle()
+        public async Task AllProductsInCategoryAsync_ShouldReturn_AllProductFromCategory_OrderedByTitle()
         {
             // Arrange
             var categoryService = new CategoryService(db, shoppingCart, mapper);

@@ -25,7 +25,7 @@ namespace ShredMates.Tests.Web
         {
             // Arrange
             var mockProductService = new Mock<IProductService>().Object;
-            var mockHomeController = new Mock<HomeController>(mockProductService, shoppingCart).Object;
+            var homeController = new HomeController(mockProductService, shoppingCart);
             var mockHomeViewModel = new Mock<ProductListingViewModel>().Object;
 
             mockHomeViewModel.Products = new List<ProductListingServiceModel>()
@@ -37,24 +37,24 @@ namespace ShredMates.Tests.Web
 
             // get mocked session
             var mockContext = new Mock<HttpContext>().Object;
-            var sessionMock = new Mock<ISession>();
+            var mockSession = new Mock<ISession>();
 
-            var key = "test";
+            var key = "session";
             var value = new byte[0];
 
-            sessionMock.Setup(s => s.Set(key, It.IsAny<byte[]>()))
+            mockSession.Setup(s => s.Set(key, It.IsAny<byte[]>()))
                             .Callback<string, byte[]>((k, v) => value = v);
 
-            sessionMock.Setup(s => s.TryGetValue(key, out value))
+            mockSession.Setup(s => s.TryGetValue(key, out value))
                 .Returns(true);
 
             // Act
-            var result = await mockHomeController.Index(); // returns null, stops at session set string
+            var result = await homeController.Index(); // TODO return null for sessionId
 
             //Assert
             Assert.Null(result);
             var viewResult = Assert.IsType<ViewResult>(result);
-            //var model = Assert.IsType<HomeViewModel>(viewResult.Model);
+            var model = Assert.IsType<ProductListingViewModel>(viewResult.Model);
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace ShredMates.Tests.Web
         {
             // Arrange
             var mockProductService = new Mock<IProductService>().Object;
-            var shoppingCart = new Mock<ShoppingCart>().Object;
+            //var shoppingCart = new Mock<ShoppingCart>().Object;
             var homeController = new HomeController(mockProductService, shoppingCart);
             var mockHomeViewModel = new Mock<ProductListingViewModel>().Object;
 

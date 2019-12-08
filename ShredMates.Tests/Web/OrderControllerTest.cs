@@ -1,8 +1,6 @@
-﻿using Moq;
-using ShredMates.Data;
+﻿using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Implementations;
-using ShredMates.Services.Interfaces;
 using ShredMates.Services.Models;
 using System;
 using System.Threading.Tasks;

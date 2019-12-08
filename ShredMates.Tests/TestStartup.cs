@@ -1,14 +1,16 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using ShredMates.Data;
 using ShredMates.Data.Models;
 using ShredMates.Services.Models;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace ShredMates.Tests
 {
-    public class TestStartup
+    public static class TestStartup
     {
         public static Mapper CreateMapper()
         {
@@ -60,15 +62,14 @@ namespace ShredMates.Tests
                                .Options;
             var db = new ShredMatesDbContext(dbOptions);
 
-                db.Categories.Add(CreateCategory());
-                db.Products.AddRange(CreateProducts());
-                db.Orders.Add(CreateOrder());
-                db.OrderDetails.Add(CreateOrderDetails());
-                db.SaveChanges();
+            db.Categories.Add(CreateCategory());
+            db.Products.AddRange(CreateProducts());
+            db.Orders.Add(CreateOrder());
+            db.OrderDetails.Add(CreateOrderDetails());
+            db.SaveChanges();
 
             return db;
         }
-
         public static ShoppingCart CreateShoppingCart()
         {
             var shoppingCart = new ShoppingCart()
@@ -80,6 +81,26 @@ namespace ShredMates.Tests
             return shoppingCart;
         }
 
+        public static void SetString(this ISession session, string key, string value)
+        {
+            session.Set(key, Encoding.UTF8.GetBytes(value));
+        }
+
+        public static string GetString(this ISession session, string key)
+        {
+            var data = session.Get(key);
+            if (data == null)
+            {
+                return null;
+            }
+            return Encoding.UTF8.GetString(data);
+        }
+
+        public static byte[] Get(this ISession session, string key)
+        {
+            session.TryGetValue(key, out byte[] value);
+            return value;
+        }
 
     }
 }

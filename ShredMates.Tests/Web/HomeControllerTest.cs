@@ -62,7 +62,6 @@ namespace ShredMates.Tests.Web
         {
             // Arrange
             var mockProductService = new Mock<IProductService>().Object;
-            //var shoppingCart = new Mock<ShoppingCart>().Object;
             var homeController = new HomeController(mockProductService, shoppingCart);
             var mockHomeViewModel = new Mock<ProductListingViewModel>().Object;
 
